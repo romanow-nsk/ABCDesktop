@@ -5,6 +5,9 @@
  */
 package romanow.abc.desktop;
 
+import romanow.abc.core.UniException;
+import romanow.abc.core.constants.ValuesBase;
+
 /**
  *
  * @author romanow
@@ -17,8 +20,18 @@ public class MainBase extends javax.swing.JFrame {
     public MainBase() {
         initComponents();
         setBounds(200,200,180,110);
-    }
-
+        }
+    public static void runGUIClass(final int appType){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ValuesBase.env().applicationObject(appType);
+                    } catch (UniException ee){
+                        System.out.println("Ошибка запуска класса GUI: "+ee.toString());
+                        }
+                }
+            });
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +51,7 @@ public class MainBase extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/battery.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().iconFilePath()))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         getContentPane().add(jButton1);
@@ -66,13 +79,13 @@ public class MainBase extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ClientXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientXActionPerformed
-        Client.main(null);
+        runGUIClass(ValuesBase.ClassNameClient);
+        //Client.main(null);
         dispose();
-        
     }//GEN-LAST:event_ClientXActionPerformed
 
     private void ServerXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerXActionPerformed
-        Cabinet.main(null);
+        runGUIClass(ValuesBase.ClassNameCabinet);
         dispose();
     }//GEN-LAST:event_ServerXActionPerformed
 

@@ -239,7 +239,6 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 return service.getConstAll(debugToken);
             }
         }.call(this);
-        constList.resreshMap();
         homeTypes = constList.getValuesList("HomeType");
         officeTypes = constList.getValuesList("OfficeType");
         streetTypes = constList.getValuesList("StreetType");
