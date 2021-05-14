@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import romanow.abc.core.API.RestAPICommon;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.ServerState;
+import romanow.abc.core.UniException;
 import romanow.abc.core.Utils;
 import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.Entity;
@@ -34,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import romanow.abc.dataserver.DBExample;
+import romanow.abc.dataserver.DataServer;
 import romanow.abc.dataserver.I_DBTarget;
 import romanow.abc.dataserver.I_ServerState;
 
@@ -251,7 +253,12 @@ public class Cabinet extends MainBaseFrame{
             Panels.add(pp.name);
             }
         currentPanel.setVisible(true);
-        }
+        try {
+            dataServer = (DataServer) ValuesBase.env().applicationObject(ValuesBase.ClassNameDataServer);
+            } catch (UniException e) {
+                System.out.println("Ошибка создания класса сервера "+e.toString());
+                }
+    }
     //------------------------------------------------------------------------------------------------------------------
     Callback<Artifact> artifactCallback = new ArtifactCallBack();
     @SuppressWarnings("unchecked")

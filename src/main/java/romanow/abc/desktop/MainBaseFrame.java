@@ -49,7 +49,7 @@ import static romanow.abc.core.constants.ValuesBase.*;
  */
 public class MainBaseFrame extends JFrame implements I_Important {
     protected WorkSettingsBase workSettings=new WorkSettingsBase();
-    protected DataServer dataServer = new DataServer();
+    protected DataServer dataServer;
     protected ConstList constList;
     protected ArrayList<ConstValue> homeTypes;
     protected ArrayList<ConstValue> officeTypes;
