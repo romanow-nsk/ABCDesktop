@@ -25,6 +25,7 @@ public class MainBase extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    ValuesBase.init();
                     ValuesBase.env().applicationObject(appType);
                     } catch (UniException ee){
                         System.out.println("Ошибка запуска класса GUI: "+ee.toString());
