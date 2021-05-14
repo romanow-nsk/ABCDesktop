@@ -200,7 +200,7 @@ public class Cabinet extends MainBaseFrame{
         if (!tryToStart()) return;
         initComponents();
         ValuesBase.init();
-        setTitle("Сервер данных СНЭ");
+        setTitle("Сервер данных: "+ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
         panelList = createPanelList();
         currentPanel = panelList[0];
         onStart();
