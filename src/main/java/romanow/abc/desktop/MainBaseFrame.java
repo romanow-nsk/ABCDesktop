@@ -41,6 +41,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static romanow.abc.core.Utils.httpError;
 import static romanow.abc.core.constants.ValuesBase.*;
 
 /**
@@ -48,15 +49,15 @@ import static romanow.abc.core.constants.ValuesBase.*;
  * @author romanow
  */
 public class MainBaseFrame extends JFrame implements I_Important {
-    protected WorkSettingsBase workSettings=new WorkSettingsBase();
-    protected  ArrayList<ConstValue> constList;
+    protected WorkSettingsBase workSettings=null;
+    protected ArrayList<ConstValue> constList;
     protected ArrayList<ConstValue> homeTypes;
     protected ArrayList<ConstValue> officeTypes;
     protected ArrayList<ConstValue> cityTypes;
     protected ArrayList<ConstValue> streetTypes;
     protected ArrayList<ConstValue> userTypes;
     private User loginUser=new User();
-    private boolean localUser=false;
+    protected boolean localUser=false;
     protected String debugToken="";
     protected boolean refreshMode=false;
     protected Gson gson = new Gson();
@@ -79,7 +80,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
         try {
             Response<ArrayList<DBRequest>> res = service.getEntityList(debugToken, name, mode,level).execute();
             if (!res.isSuccessful()){
-                System.out.println("Ошибка " + Utils.httpError(res));
+                System.out.println("Ошибка " + httpError(res));
                 }
             else{
                 for (DBRequest rr : res.body()){
@@ -210,6 +211,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     public void setMesContext(MESContext mesContext) {
         this.mesContext = mesContext; }
     //-----------------------------------------------------------------------------------------------
+    public void onLoginSuccess(){}
     public Pair<RestAPIBase,String> startOneClient(String ip, String port) throws UniException {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
@@ -367,7 +369,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                         }
                     }
                 else{
-                    String mes = Utils.httpError(response);
+                    String mes = httpError(response);
                     if (back!=null)
                         back.onError(mes);
                     else
@@ -422,7 +424,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                     }
                 }
                 else{
-                    String mes = Utils.httpError(response);
+                    String mes = httpError(response);
                     if (back!=null)
                         back.onError(mes);
                     else
@@ -520,6 +522,20 @@ public class MainBaseFrame extends JFrame implements I_Important {
         return localUser; }
     public void setLocalUser(boolean localUser) {
         this.localUser = localUser; }
+    public boolean getWorkSettings(){
+        try {
+            Response<DBRequest> wsr = service.workSettings(debugToken).execute();
+            if (!wsr.isSuccessful()){
+                popup("Ошибка чтения настроек  " + httpError(wsr));
+                return false;
+                }
+            workSettings = (WorkSettingsBase) wsr.body().get(new Gson());
+            } catch (Exception e) {
+                popup("Ошибка чтения настроек  " + e.toString());
+                return false;
+                }
+            return true;
+            }
     //------------------------------ Всякий код -------------------------------------------------------------------
     public void sendEvent(int code, long par2){}
     public void sendEventPanel(int code, int par1, long par2, String par3){}

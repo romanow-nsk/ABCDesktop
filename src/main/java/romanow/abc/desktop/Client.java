@@ -44,7 +44,7 @@ public class Client extends MainBaseFrame {
     private boolean secondForm=false;
     //----------------------------------------------------------------
     public final ArrayList<PanelDescriptor> panelDescList=new ArrayList<>();
-        {
+    public void initPanels(){
         //---------- <0 - readOnly Mode
         panelDescList.add(new PanelDescriptor("Пользователи", UserPanelBase.class,new int[]
                 {UserSuperAdminType, UserAdminType}));
@@ -75,10 +75,15 @@ public class Client extends MainBaseFrame {
         }
 
     public Client() {
-        secondForm=false;
+        this(true);
+        }
+    public Client(boolean setLog) {
+        super(setLog);
         ValuesBase.init();
+        secondForm=false;
         initComponents();
         setMES(this);
+        initPanels();
         login();
         }
 
@@ -95,7 +100,7 @@ public class Client extends MainBaseFrame {
         }
     public void startUser(){
         try {
-            setTitle("Mongo-сервер данных: "+loginUser().getHeader());
+            setTitle(ValuesBase.env().applicationName(AppNameTitle)+": "+loginUser().getHeader());
             debugToken = loginUser().getSessionToken();
             setMES(logView.mes(),null,MESLOC);
             ShowLog.setSelected(true);

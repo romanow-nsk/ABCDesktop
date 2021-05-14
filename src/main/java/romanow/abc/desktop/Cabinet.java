@@ -199,7 +199,6 @@ public class Cabinet extends MainBaseFrame{
         super();
         if (!tryToStart()) return;
         initComponents();
-        ValuesBase.init();
         setTitle("Сервер данных: "+ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
         panelList = createPanelList();
         currentPanel = panelList[0];
@@ -691,6 +690,7 @@ public class Cabinet extends MainBaseFrame{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                ValuesBase.init();
                 new Cabinet().setVisible(true);
             }
         });

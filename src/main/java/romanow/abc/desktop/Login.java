@@ -177,6 +177,8 @@ public class Login extends JFrame {
         main.service=null;
         }
 
+
+
     private void LButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LButtonActionPerformed
         if (!ClientON.isSelected()){
             main.sendPopupMessage(this,LButton,"Произведите соединение с сервером");
@@ -189,6 +191,8 @@ public class Login extends JFrame {
                 return;
                 }
             main.loginUser(res.body());
+            main.debugToken = main.loginUser().getSessionToken();   // Токен новой сессии
+            main.onLoginSuccess();
             back.onPush();
             dispose();
             }catch (IOException ee){

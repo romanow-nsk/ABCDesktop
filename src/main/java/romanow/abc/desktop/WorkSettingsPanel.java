@@ -608,17 +608,8 @@ public class WorkSettingsPanel extends BasePanel{
     @Override
     public void refresh() {
         try {
-            Response<DBRequest> wsr = main.service.workSettings(main.debugToken).execute();
-            if (!wsr.isSuccessful()){
-                popup("Ошибка чтения настроек  " + httpError(wsr));
+            if (!main.getWorkSettings())
                 return;
-                }
-            try {
-                main.workSettings = (WorkSettingsBase) wsr.body().get(new Gson());
-                } catch (UniException e) {
-                    popup("Ошибка чтения настроек  " + e.toString());
-                    return;
-                    }
             WorkSettingsBase ws = main.workSettings;
             ServerFileDirectory.setText(ws.getDataServerFileDir());
             ServerFileDirectoryDefault.setSelected(ws.isDataServerFileDirDefault());
@@ -652,7 +643,7 @@ public class WorkSettingsPanel extends BasePanel{
             MailSendTo.setText(ws.getMailToSend());
             MailPort.setText(""+ws.getMailPort());
             MailNotification.setSelected(ws.isMailNotifycation());
-        } catch (IOException e) { popup(e.toString()); }
+            } catch (Exception e) { popup(e.toString()); }
     }
 
     @Override
