@@ -51,7 +51,7 @@ public class MainBase extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().iconFilePath()))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath)))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         getContentPane().add(jButton1);

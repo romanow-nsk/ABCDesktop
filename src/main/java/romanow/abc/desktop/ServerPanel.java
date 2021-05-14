@@ -754,12 +754,12 @@ public class ServerPanel extends BasePanel{
     }//GEN-LAST:event_ClearTable1ActionPerformed
 
     private void uploadMKByAPI(){
-        FileNameExt fname = main.getInputFileName("Выгрузить МК", ValuesBase.env().apkName(),null);
+        FileNameExt fname = main.getInputFileName("Выгрузить МК", ValuesBase.env().applicationName(ValuesBase.AppNameAPK),null);
         final MultipartBody.Part body2 = RestAPICommon.createMultipartBody(fname);
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.uploadByName(main.debugToken,ValuesBase.env().apkName(),body2,false);
+                return main.service.uploadByName(main.debugToken,ValuesBase.env().applicationName(ValuesBase.AppNameAPK),body2,false);
             }
             @Override
             public void onSucess(JEmpty oo) {
@@ -788,8 +788,8 @@ public class ServerPanel extends BasePanel{
         }
 
     private void uploadMKByFTP(){
-        FileNameExt fname = main.getInputFileName("Выгрузить МК",ValuesBase.env().apkName(),null);
-        new ClientFileWriter(fname.fullName(), ValuesBase.env().apkName(), client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
+        FileNameExt fname = main.getInputFileName("Выгрузить МК",ValuesBase.env().applicationName(ValuesBase.AppNameAPK),null);
+        new ClientFileWriter(fname.fullName(), ValuesBase.env().applicationName(ValuesBase.AppNameAPK), client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
             @Override
             public void runInGUI(Runnable run) {
                 java.awt.EventQueue.invokeLater(run);
@@ -804,30 +804,30 @@ public class ServerPanel extends BasePanel{
             }
             @Override
             public void onFinish(boolean result) {
-                System.out.println("Файл " +ValuesBase.env().apkName()+ " выгружен");
+                System.out.println("Файл " +ValuesBase.env().applicationName(ValuesBase.AppNameAPK)+ " выгружен");
                 }
             });
         }
 
     private void uploadServerByAPI(){
-        FileNameExt fname = main.getInputFileName("Выгрузить сервер",ValuesBase.env().serverName(),null);
+        FileNameExt fname = main.getInputFileName("Выгрузить сервер",ValuesBase.env().applicationName(ValuesBase.AppNameServerJar),null);
         final MultipartBody.Part body2 = RestAPICommon.createMultipartBody(fname);
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.uploadByName(main.debugToken,ValuesBase.env().serverName(),body2,false);
+                return main.service.uploadByName(main.debugToken,ValuesBase.env().applicationName(ValuesBase.AppNameServerJar),body2,false);
             }
             @Override
             public void onSucess(JEmpty oo) {
-                System.out.println("Файл " +ValuesBase.env().serverName()+ " выгружен");
+                System.out.println("Файл " +ValuesBase.env().applicationName(ValuesBase.AppNameServerJar)+ " выгружен");
                 deploy();
                 }
             };
         }
 
     private void uploadServerByFTP(){
-        FileNameExt fname = main.getInputFileName("Выгрузить сервер",ValuesBase.env().serverName(),null);
-        new ClientFileWriter(fname.fullName(), ValuesBase.env().serverName(), client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
+        FileNameExt fname = main.getInputFileName("Выгрузить сервер",ValuesBase.env().applicationName(ValuesBase.AppNameServerJar),null);
+        new ClientFileWriter(fname.fullName(), ValuesBase.env().applicationName(ValuesBase.AppNameServerJar), client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
             @Override
             public void runInGUI(Runnable run) {
                 java.awt.EventQueue.invokeLater(run);
@@ -842,7 +842,7 @@ public class ServerPanel extends BasePanel{
                 }
             @Override
             public void onFinish(boolean result) {
-                System.out.println("Файл " +ValuesBase.env().serverName()+ " выгружен");
+                System.out.println("Файл " +ValuesBase.env().applicationName(ValuesBase.AppNameServerJar)+ " выгружен");
                 deploy();
                 }
             });
