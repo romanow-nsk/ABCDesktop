@@ -56,7 +56,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     protected ArrayList<ConstValue> cityTypes;
     protected ArrayList<ConstValue> streetTypes;
     protected ArrayList<ConstValue> userTypes;
-    private User loginUser=new User();
+    protected User loginUser=new User();
     protected boolean localUser=false;
     protected String debugToken="";
     protected boolean refreshMode=false;
