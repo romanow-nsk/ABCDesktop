@@ -6,6 +6,7 @@
 package romanow.abc.desktop;
 
 import romanow.abc.core.Utils;
+import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.users.User;
 import retrofit2.Response;
 
@@ -115,7 +116,7 @@ public class Login extends JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 150, 85, 14);
 
-        jLabel3.setText("Сервер данных");
+        jLabel3.setText("Сервер");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 65, 100, 14);
 
@@ -124,11 +125,11 @@ public class Login extends JFrame {
         jLabel4.setBounds(20, 120, 110, 14);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Клиент сервера данных СНЭ");
+        jLabel5.setText(ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
         getContentPane().add(jLabel5);
         jLabel5.setBounds(130, 20, 230, 20);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/battery.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath)))); // NOI18N// NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         getContentPane().add(jButton1);

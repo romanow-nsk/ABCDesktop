@@ -49,8 +49,7 @@ import static romanow.abc.core.constants.ValuesBase.*;
  */
 public class MainBaseFrame extends JFrame implements I_Important {
     protected WorkSettingsBase workSettings=new WorkSettingsBase();
-    protected DataServer dataServer;
-    protected ConstList constList;
+    protected  ArrayList<ConstValue> constList;
     protected ArrayList<ConstValue> homeTypes;
     protected ArrayList<ConstValue> officeTypes;
     protected ArrayList<ConstValue> cityTypes;
@@ -103,7 +102,6 @@ public class MainBaseFrame extends JFrame implements I_Important {
                     mesContext.MESShort.setText(zz);
                 if (mesContext.logFrame!=null)
                     sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz2);
-                dataServer.addToLog(zz);
                 }
             });
         System.setOut(new PrintStream(log));
@@ -233,17 +231,24 @@ public class MainBaseFrame extends JFrame implements I_Important {
         return new Pair<>(service,ss.getValue());
         }
     public void loadConstants() throws UniException{
-        constList = new APICall2<ConstList>(){
+        constList = new APICall2<ArrayList<ConstValue>>(){
             @Override
-            public Call<ConstList> apiFun() {
+            public Call<ArrayList<ConstValue>> apiFun() {
                 return service.getConstAll(debugToken);
             }
         }.call(this);
-        homeTypes = constList.getValuesList("HomeType");
-        officeTypes = constList.getValuesList("OfficeType");
-        streetTypes = constList.getValuesList("StreetType");
-        cityTypes = constList.getValuesList("TownType");
-        userTypes = constList.getValuesList("User");
+        homeTypes = filter(constList,"HomeType");
+        officeTypes = filter(constList,"OfficeType");
+        streetTypes = filter(constList,"StreetType");
+        cityTypes = filter(constList,"TownType");
+        userTypes = filter(constList,"User");
+        }
+    ArrayList<ConstValue> filter(ArrayList<ConstValue> src,String filter){
+        ArrayList<ConstValue> out = new ArrayList<>();
+        for(ConstValue cc : src)
+            if (cc.groupName().equals(filter))
+                out.add(cc);
+        return out;
         }
 
     public boolean startClient(String ip, String port){

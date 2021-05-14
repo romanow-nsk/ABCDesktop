@@ -62,6 +62,7 @@ public class Cabinet extends MainBaseFrame{
     private EntityList<BugMessage> bugList = new EntityList<>();
     private EntityList<NTMessage> notifList = new EntityList<>();
     private EntityList<User> userAList = new EntityList<>();
+    private DataServer dataServer;
     //-------------------------------------------------------------------------
     public I_DBTarget createDBExample(){ return new DBExample(); }
     public void onServerState(ServerState serverState){}
