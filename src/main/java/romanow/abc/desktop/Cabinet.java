@@ -255,6 +255,7 @@ public class Cabinet extends MainBaseFrame{
         currentPanel.setVisible(true);
         try {
             dataServer = (DataServer) ValuesBase.env().applicationObject(ValuesBase.ClassNameDataServer);
+            setExternalFIFO(dataServer.getConsoleLog());
             } catch (UniException e) {
                 System.out.println("Ошибка создания класса сервера "+e.toString());
                 }

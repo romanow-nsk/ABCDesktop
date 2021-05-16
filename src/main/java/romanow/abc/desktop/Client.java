@@ -56,7 +56,7 @@ public class Client extends MainBaseFrame {
         //        {UserSuperAdminType, UserAdminType}));
         panelDescList.add(new PanelDescriptor("Артефакты",ArtifactPanel.class,new int[]
                 {UserSuperAdminType, UserAdminType}));
-        panelDescList.add(new PanelDescriptor("Настройки",WorkSettingsPanel.class,new int[]
+        panelDescList.add(new PanelDescriptor("Настройки сервера",WorkSettingsPanel.class,new int[]
                 {UserSuperAdminType}));
         }
 

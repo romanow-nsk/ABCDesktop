@@ -28,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import romanow.abc.core.utils.StringFIFO;
 import romanow.abc.dataserver.DataServer;
 
 
@@ -62,14 +63,12 @@ public class MainBaseFrame extends JFrame implements I_Important {
     protected boolean refreshMode=false;
     protected Gson gson = new Gson();
     //---------------------------------------------------------------------------
+    private StringFIFO externalFIFO=null;
     protected boolean serverOn=false;
     protected RestAPIBase service=null;                                   // Тип интерфейса
     protected String gblEncoding="";
     protected boolean utf8;
     private MESContext mesContext = null;
-    //private TextArea MES=null;
-    //private JTextField MESShort=null;
-    //private JFrame logFrame=null;
     StringBuffer str = new StringBuffer();
     private int lineCount=0;
     //------------------------------------------------------------------------------------------------------------------
@@ -92,8 +91,12 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         return out;
         }
+
+    public void setExternalFIFO(StringFIFO externalFIFO) {
+        log.setStringFIFO(externalFIFO);
+        }
     public void restoreContext(){
-        log = new LogStream(utf8, new I_String() {
+        log = new LogStream(utf8, null, new I_String() {
             @Override
             public void onEvent(String zz) {
                 String zz2 = zz.length() > 70 ? zz.substring(0,70)+"..." : zz;
