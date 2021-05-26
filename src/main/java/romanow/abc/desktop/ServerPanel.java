@@ -219,6 +219,7 @@ public class ServerPanel extends BasePanel{
         jLabel15 = new javax.swing.JLabel();
         MB = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        FTPDBImport = new javax.swing.JCheckBox();
 
         jButton1.setText("jButton1");
 
@@ -243,7 +244,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Import);
-        Import.setBounds(20, 430, 120, 23);
+        Import.setBounds(20, 460, 120, 23);
 
         ServerLog.setText("Лог сервера");
         ServerLog.addActionListener(new java.awt.event.ActionListener() {
@@ -426,7 +427,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Execute);
-        Execute.setBounds(20, 490, 120, 23);
+        Execute.setBounds(20, 520, 120, 23);
 
         CommandLine.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -434,9 +435,9 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(CommandLine);
-        CommandLine.setBounds(160, 490, 460, 25);
+        CommandLine.setBounds(160, 520, 460, 25);
         add(TestNumber);
-        TestNumber.setBounds(160, 520, 290, 20);
+        TestNumber.setBounds(330, 490, 290, 20);
 
         OperationButton.setText("Операция");
         OperationButton.addActionListener(new java.awt.event.ActionListener() {
@@ -454,7 +455,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(TestCall);
-        TestCall.setBounds(460, 520, 60, 23);
+        TestCall.setBounds(630, 490, 60, 23);
         add(Operation);
         Operation.setBounds(220, 370, 260, 20);
 
@@ -542,7 +543,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(RemoveRecord);
-        RemoveRecord.setBounds(660, 465, 30, 30);
+        RemoveRecord.setBounds(660, 455, 30, 30);
 
         EditRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/no_problem.png"))); // NOI18N
         EditRecord.setBorderPainted(false);
@@ -553,7 +554,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(EditRecord);
-        EditRecord.setBounds(620, 460, 40, 40);
+        EditRecord.setBounds(620, 450, 40, 40);
 
         ServerIPPort.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ServerIPPort.setText("...");
@@ -609,7 +610,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ImportArtifact);
-        ImportArtifact.setBounds(20, 460, 120, 23);
+        ImportArtifact.setBounds(20, 490, 120, 23);
 
         XLSX.setText("xlsx");
         add(XLSX);
@@ -630,6 +631,10 @@ public class ServerPanel extends BasePanel{
         jLabel2.setText("пароль операции ");
         add(jLabel2);
         jLabel2.setBounds(150, 230, 110, 14);
+
+        FTPDBImport.setText("через TCP");
+        add(FTPDBImport);
+        FTPDBImport.setBounds(160, 490, 90, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -696,9 +701,56 @@ public class ServerPanel extends BasePanel{
                 }
             };
         }
-    
     private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
-        FileNameExt fname = main.getInputFileName("Импорт БД","mongo*.xls*",null);
+        FileNameExt fname = main.getInputFileName("Импорт БД","mongo*.xls",null);
+        if (FTPDBImport.isSelected())
+            importDBFTP(fname);
+        else
+            importDBHttp(fname);
+            }
+    private void importDBFTP(FileNameExt fname){
+        File ff = new File(fname.fullName());
+        new APICall<Artifact>(main){
+            @Override
+            public Call<Artifact> apiFun() {
+                return main.service.createArtifact(main.debugToken,"DB-import",fname.fileName(),ff.length());
+                }
+            @Override
+            public void onSucess(final Artifact oo) {
+                String path = oo.createArtifactServerPath();
+                new ClientFileWriter(fname.fullName(), path, client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
+                    @Override
+                    public void runInGUI(Runnable run) {
+                        java.awt.EventQueue.invokeLater(run); }
+                    @Override
+                    public void onError(String mes) {
+                        System.out.println(mes); }
+                    @Override
+                    public void onMessage(String mes) {
+                        System.out.println(mes); }
+                    @Override
+                    public void onFinish(boolean result) {
+                        System.out.println("Файл " +oo.getOriginalName() + " выгружен");
+                        new APICall<JString>(main){
+                            @Override
+                            public Call<JString> apiFun() {
+                                return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
+                                }
+                            @Override
+                            public void onSucess(JString ss) {
+                                setMonitorState(false);
+                                System.out.print(ss);
+                                System.out.println("Рестарт сервера после импорта");
+                                restartServer();
+                            }
+                        };
+                    }
+                });
+            }
+        };
+    }
+
+    private void importDBHttp(FileNameExt fname){
         final MultipartBody.Part body = RestAPICommon.createMultipartBody(fname);
         new APICall<Artifact>(main){
             @Override
@@ -1392,6 +1444,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton Export;
     private javax.swing.JButton ExportAtrifacts;
     private javax.swing.JCheckBox FTP;
+    private javax.swing.JCheckBox FTPDBImport;
     private java.awt.Choice FolderList;
     private javax.swing.JButton Import;
     private javax.swing.JButton ImportArtifact;
