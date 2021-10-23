@@ -229,10 +229,10 @@ public class Client extends MainBaseFrame {
         sendEventPanel(code,0,par2,"");
         }
     @Override
-    public void sendEventPanel(int code, int par1, long par2, String par3){
+    public void sendEventPanel(int code, int par1, long par2, String par3,Object oo){
         if (refreshMode) return;
         for(I_PanelEvent xx : panels)
-            xx.eventPanel(code, par1,par2,par3);
+            xx.eventPanel(code, par1,par2,par3,oo);
         }
     @Override
     public void panelToFront(BasePanel pp){

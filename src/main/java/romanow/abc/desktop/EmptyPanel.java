@@ -34,10 +34,10 @@ public class EmptyPanel extends BasePanel{
     public void refresh() {}
 
     @Override
-    public void eventPanel(int code, int par1, long par2, String par3) {
+    public void eventPanel(int code, int par1, long par2, String par3,Object oo) {
         if (code==EventRefreshSettings){
             refresh();
-            main.sendEventPanel(EventRefreshSettingsDone,0,0,"");
+            main.sendEventPanel(EventRefreshSettingsDone,0,0,"",oo);
             }
     }
 

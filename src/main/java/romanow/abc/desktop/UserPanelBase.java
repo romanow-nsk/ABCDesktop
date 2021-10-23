@@ -370,17 +370,15 @@ public class UserPanelBase extends BasePanel{
     public void refresh() {
         //userPanel.getAllEvent();
         //userPanel.getById();
-    }
+        }
 
     @Override
-    public void eventPanel(int code, int par1, long par2, String par3) {
-
-    }
+    public void eventPanel(int code, int par1, long par2, String par3,Object oo) {
+        }
 
     @Override
     public void shutDown() {
-
-    }
+        }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

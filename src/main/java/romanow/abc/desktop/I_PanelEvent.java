@@ -11,7 +11,7 @@ package romanow.abc.desktop;
  */
 public interface I_PanelEvent {
     public void refresh();
-    public void  eventPanel(int code, int par1, long par2, String par3);
+    public void  eventPanel(int code, int par1, long par2, String par3,Object oo);
     public void shutDown();
     public boolean isMainMode();
     public boolean isESSMode();

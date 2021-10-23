@@ -541,7 +541,10 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
     //------------------------------ Всякий код -------------------------------------------------------------------
     public void sendEvent(int code, long par2){}
-    public void sendEventPanel(int code, int par1, long par2, String par3){}
+    public void sendEventPanel(int code, int par1, long par2, String par3, Object oo){}
+    public void sendEventPanel(int code, int par1, long par2, String par3){
+        sendEventPanel(code,par1,par2,par3,null);
+        }
     public void panelToFront(BasePanel pp){}
     public void popup(String ss){}
     public void refresh(){}
