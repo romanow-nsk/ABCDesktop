@@ -181,7 +181,7 @@ public class WorkSettingsPanel extends BasePanel{
         add(jLabel5);
         jLabel5.setBounds(220, 100, 90, 14);
 
-        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/refresh.png"))); // NOI18N
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshActionPerformed(evt);
