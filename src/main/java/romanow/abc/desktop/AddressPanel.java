@@ -5,6 +5,7 @@
  */
 package romanow.abc.desktop;
 
+import retrofit2.Call;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.UniException;
 import romanow.abc.core.Utils;
@@ -18,7 +19,6 @@ import romanow.abc.core.entity.baseentityes.JLong;
 import romanow.abc.core.utils.Address;
 import romanow.abc.core.utils.GPSPoint;
 import romanow.abc.core.utils.Street;
-import retrofit2.Call;
 
 import java.awt.*;
 import java.util.ArrayList;
