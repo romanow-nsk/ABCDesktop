@@ -37,8 +37,8 @@ public class Login extends JFrame {
         Port.add("4571");
         Port.add("5001");
         setBounds(200,200,370,270);
-        Login.setText("9130000000");
-        Password.setText("pi31415926");
+        Login.setText("913*******");
+        Password.setText("");
         main.setMES(this);
         setVisible(true);
     }
