@@ -71,6 +71,7 @@ public class UserPanelBase extends BasePanel{
                 Login.setText(uu.getLogin());
                 Type.setText(main.userTypes.get(uu.getTypeId()).title());
                 ViewPhoto.setVisible(uu.getPhoto().getOid()!=0);
+                CardICC.setText(uu.getSimCardICC());
                 }
             @Override
             public void updateRecord() {
@@ -83,6 +84,7 @@ public class UserPanelBase extends BasePanel{
                 uu.setLoginPhone(PHONEMK.getText());
                 uu.setMail(new Mail(MAIL.getText()));
                 uu.setLogin(Login.getText());
+                uu.setSimCardICC(CardICC.getText());
                 }
         };
         add(userPanel);
@@ -113,6 +115,7 @@ public class UserPanelBase extends BasePanel{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         Type = new javax.swing.JTextField();
         MAIL = new javax.swing.JTextField();
@@ -135,6 +138,10 @@ public class UserPanelBase extends BasePanel{
         jLabel10 = new javax.swing.JLabel();
         ViewPhoto = new javax.swing.JButton();
         UpploadPhoto = new javax.swing.JButton();
+        CardICC = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+
+        jTextField1.setText("jTextField1");
 
         setEnabled(false);
         setLayout(null);
@@ -153,9 +160,9 @@ public class UserPanelBase extends BasePanel{
         add(MAIL);
         MAIL.setBounds(300, 110, 110, 25);
 
-        jLabel1.setText("E-mail");
+        jLabel1.setText("CardICC");
         add(jLabel1);
-        jLabel1.setBounds(220, 120, 70, 14);
+        jLabel1.setBounds(310, 155, 60, 14);
 
         N1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -263,7 +270,7 @@ public class UserPanelBase extends BasePanel{
             }
         });
         add(ViewPhoto);
-        ViewPhoto.setBounds(270, 145, 30, 30);
+        ViewPhoto.setBounds(260, 145, 30, 30);
 
         UpploadPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/upload.png"))); // NOI18N
         UpploadPhoto.setBorderPainted(false);
@@ -275,6 +282,18 @@ public class UserPanelBase extends BasePanel{
         });
         add(UpploadPhoto);
         UpploadPhoto.setBounds(220, 140, 40, 40);
+
+        CardICC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CardICCKeyPressed(evt);
+            }
+        });
+        add(CardICC);
+        CardICC.setBounds(369, 150, 250, 25);
+
+        jLabel7.setText("E-mail");
+        add(jLabel7);
+        jLabel7.setBounds(220, 120, 70, 14);
     }// </editor-fold>//GEN-END:initComponents
 
     private void N1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_N1KeyPressed
@@ -366,6 +385,12 @@ public class UserPanelBase extends BasePanel{
         });
     }//GEN-LAST:event_UpploadPhotoActionPerformed
 
+    private void CardICCKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CardICCKeyPressed
+        if(evt.getKeyCode()!=10) return;
+        ((User)userPanel.current).setSimCardICC(CardICC.getText());
+        userPanel.updateAction(evt);
+    }//GEN-LAST:event_CardICCKeyPressed
+
     @Override
     public void refresh() {
         //userPanel.getAllEvent();
@@ -382,6 +407,7 @@ public class UserPanelBase extends BasePanel{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CardICC;
     private javax.swing.JTextField Login;
     private javax.swing.JTextField MAIL;
     private javax.swing.JTextField N1;
@@ -401,8 +427,10 @@ public class UserPanelBase extends BasePanel{
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
