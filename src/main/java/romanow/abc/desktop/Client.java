@@ -79,7 +79,6 @@ public class Client extends MainBaseFrame {
         }
     public Client(boolean setLog) {
         super(setLog);
-        ValuesBase.init();
         secondForm=false;
         initComponents();
         setMES(this);

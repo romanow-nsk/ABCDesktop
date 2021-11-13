@@ -15,7 +15,8 @@ public abstract class APICall<T> {
                 if (!res.isSuccessful()){
                     if (res.code()== ValuesBase.HTTPAuthorization){
                         System.out.println("Сеанс закрыт " + Utils.httpError(res));
-                        base.logOff();
+                        if (base!=null)
+                            base.logOff();
                         return;
                         }
                     System.out.println("Ошибка " + res.message()+" ("+res.code()+") "+res.errorBody().string());
