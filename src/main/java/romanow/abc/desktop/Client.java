@@ -44,6 +44,12 @@ public class Client extends MainBaseFrame {
     private boolean secondForm=false;
     //----------------------------------------------------------------
     public final ArrayList<PanelDescriptor> panelDescList=new ArrayList<>();
+    public void setLoginName(String name){
+        loginForm.setLoginName(name);
+        }
+    public void setPassword(String name){
+        loginForm.setPassword(name);
+    }
     public void initPanels(){
         //---------- <0 - readOnly Mode
         panelDescList.add(new PanelDescriptor("Пользователи", UserPanelBase.class,new int[]

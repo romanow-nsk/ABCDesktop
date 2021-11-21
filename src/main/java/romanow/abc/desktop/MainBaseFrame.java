@@ -444,7 +444,55 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         });
     }
-
+    //------------------------------------------------------------------------------------------------------------------
+    public void loadFileAsString(Artifact art,final I_DownLoadString back){
+        Call<ResponseBody> call2 = service.downLoad(debugToken,art.getOid());
+        call2.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    ResponseBody body = response.body();
+                    long fileSize = body.contentLength();
+                    InputStream in = body.byteStream();
+                    try {
+                        InputStreamReader reader = new InputStreamReader(in,"UTF8");
+                        StringBuffer buffer = new StringBuffer();
+                        int cc;
+                        while ((cc=reader.read())!=-1){
+                            buffer.append((char) cc);
+                            }
+                        reader.close();
+                        if (back!=null)
+                            back.onSuccess(buffer.toString());
+                        else
+                            System.out.println("Текст загружен\n"+buffer.toString());
+                    } catch (IOException ee) {
+                        String mes = Utils.createFatalMessage(ee);
+                        if (back!=null)
+                            back.onError(mes);
+                        else
+                            System.out.println(mes);
+                    }
+                }
+                else{
+                    String mes = httpError(response);
+                    if (back!=null)
+                        back.onError(mes);
+                    else
+                        System.out.println(mes);
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                String mes = Utils.createFatalMessage(t);
+                if (back!=null)
+                    back.onError(mes);
+                else
+                    System.out.println(mes);
+            }
+        });
+    }
+    //------------------------------------------------------------------------------------------------------------------
     public void viewCalendarPeriod(I_Period fun){
         new CalendarView("Начало периода",new I_CalendarTime() {
             @Override

@@ -41,8 +41,14 @@ public class Login extends JFrame {
         Password.setText("");
         main.setMES(this);
         setVisible(true);
-    }
+        }
 
+     public void setLoginName(String name){
+        Login.setText(name);
+        }
+    public void setPassword(String name){
+        Password.setText(name);
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
