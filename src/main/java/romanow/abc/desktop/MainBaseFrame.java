@@ -6,8 +6,10 @@
 package romanow.abc.desktop;
 
 import com.google.gson.Gson;
+import okhttp3.MultipartBody;
 import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPIBase;
+import romanow.abc.core.API.RestAPICommon;
 import romanow.abc.core.constants.ConstList;
 import romanow.abc.core.constants.ConstValue;
 import romanow.abc.core.constants.ValuesBase;
@@ -16,6 +18,7 @@ import romanow.abc.core.entity.EntityList;
 import romanow.abc.core.entity.artifacts.Artifact;
 import romanow.abc.core.entity.base.WorkSettingsBase;
 import romanow.abc.core.entity.baseentityes.JEmpty;
+import romanow.abc.core.entity.baseentityes.JLong;
 import romanow.abc.core.entity.baseentityes.JString;
 import romanow.abc.core.entity.users.User;
 import romanow.abc.core.utils.FileNameExt;
@@ -587,6 +590,33 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 }
             return true;
             }
+
+    public void updateArtifactFromString(Artifact art, String text,final I_OK ok) {//GEN-FIRST:event_SaveActionPerformed
+        try {
+            MultipartBody.Part body2 = MultipartBody.Part.createFormData("file",text);
+            Call<Artifact> call3 = service.update(debugToken,art.getOid(),body2);
+            call3.enqueue(new Callback<Artifact>() {
+                @Override
+                public void onResponse(Call<Artifact> call, Response<Artifact> response) {
+                    if (!response.isSuccessful()){
+                        System.out.println("Ошибка выгрузки файла  "+ Utils.httpError(response));
+                    }
+                    else{
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                ok.onOK(response.body());
+                                }
+                            });
+                        }
+                    }
+                @Override
+                public void onFailure(Call<Artifact> call, Throwable ee) {
+                    System.out.println("Ошибка сервера: "+ ee.toString());
+                    }
+                });
+            } catch (Exception e) { System.out.println("Ошибка сервера: "+e.toString()); }
+
+        }//GEN-LAST:event_SaveActionPerformed
     //------------------------------ Всякий код -------------------------------------------------------------------
     public void sendEvent(int code, long par2){}
     public void sendEventPanel(int code, int par1, long par2, String par3, Object oo){}

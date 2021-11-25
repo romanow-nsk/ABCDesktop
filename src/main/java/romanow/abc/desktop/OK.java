@@ -20,14 +20,14 @@ public class OK extends ABCBaseView {
         this(x,y,title,null);
         }
     public OK(int x,int y,String title, I_Button ok0) {
-        super(350,70);
+        super(400,70);
         setUndecorated(true);
         initComponents();
         ok = ok0;
-        OK.setFont(new Font("Arial Cyr", Font.PLAIN, 14));
-        UtilsDesktop.setButtonText(OK,title,35);
+        OK.setFont(new Font("Arial Cyr", Font.PLAIN, 13));
+        UtilsDesktop.setButtonText(OK,title,45);
         //setBounds(x+20,y+20,330,120);
-        OK.setBounds(10, 5, 270, 60);
+        OK.setBounds(10, 5, 330, 60);
         positionOn(x+20,y+20);
         delayIt();
         //setVisible(true);
@@ -45,7 +45,7 @@ public class OK extends ABCBaseView {
         OK = new javax.swing.JButton();
         Canсel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         OK.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +54,7 @@ public class OK extends ABCBaseView {
             }
         });
         getContentPane().add(OK);
-        OK.setBounds(10, 0, 270, 50);
+        OK.setBounds(10, 5, 330, 50);
 
         Canсel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
         Canсel.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +63,7 @@ public class OK extends ABCBaseView {
             }
         });
         getContentPane().add(Canсel);
-        Canсel.setBounds(290, 10, 50, 50);
+        Canсel.setBounds(340, 5, 50, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
