@@ -35,7 +35,7 @@ public class Client extends MainBaseFrame {
     public final static int MesW=600;
     public final static int ShortView=PanelW+30;
     public final static int ViewHight = PanelH+100;
-    public final static int X0 = 100;
+    public final static int X0 = 50;
     public final static int Y0 = 50;
     private LogView logView = new LogView();
     private Login loginForm=null;
