@@ -495,7 +495,32 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         });
     }
-    //------------------------------------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------------------------
+    public Pair<String,String> loadFileAsStringSync(Artifact art){
+        Call<ResponseBody> call2 = service.downLoad(debugToken,art.getOid());
+        try {
+            Response<ResponseBody> bbody = call2.execute();
+            if (!bbody.isSuccessful()) {
+                String mes = httpError(bbody);
+                return new Pair<>(mes, null);
+               }
+            ResponseBody body = bbody.body();
+            long fileSize = body.contentLength();
+            InputStream in = body.byteStream();
+            InputStreamReader reader = new InputStreamReader(in,"UTF8");
+            StringBuffer buffer = new StringBuffer();
+            int cc;
+            while ((cc=reader.read())!=-1){
+                buffer.append((char) cc);
+                }
+            reader.close();
+            return new Pair<>(null,buffer.toString());
+            } catch (IOException ee) {
+                String mes = Utils.createFatalMessage(ee);
+                return new Pair<>(mes,null);
+                }
+            }
+        //------------------------------------------------------------------------------------------------------------------
     public void viewCalendarPeriod(I_Period fun){
         new CalendarView("Начало периода",new I_CalendarTime() {
             @Override
