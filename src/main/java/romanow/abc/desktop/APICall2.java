@@ -13,6 +13,7 @@ public abstract class APICall2<T> {
     public APICall2(){}
     public T call(MainBaseFrame base)throws UniException {
         String mes="";
+        String mes1="";
         Response<T> res;
         long tt;
         try {
@@ -30,11 +31,12 @@ public abstract class APICall2<T> {
                     throw UniException.io(mes);
                     }
                 try {
-                    mes = "Ошибка " + res.message() + " (" + res.code() + ")$" + res.errorBody().string();
+                    mes1 = "Ошибка " + res.message() + " (" + res.code() + ")";
+                    mes = mes1+"$" + res.errorBody().string();
                     } catch (IOException ex){ mes += "$Ошибка: "+ex.toString(); }
                 System.out.println(mes);
-                new Message(300,300,mes,ValuesBase.PopupMessageDelay);
-                throw UniException.io(mes);
+                new Message(300,300,mes1,ValuesBase.PopupMessageDelay);
+                throw UniException.io(mes1);
                 }
             //System.out.println("time="+(System.currentTimeMillis()-tt)+" мс");
             return res.body();
