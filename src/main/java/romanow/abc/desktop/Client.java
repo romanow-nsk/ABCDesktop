@@ -38,6 +38,7 @@ public class Client extends MainBaseFrame {
     public final static int X0 = 50;
     public final static int Y0 = 50;
     private LogView logView = new LogView();
+    private LogPanel logPanel;
     private Login loginForm=null;
     private I_OK disposeBack = null;
     private ArrayList<I_PanelEvent> panels = new ArrayList();
@@ -51,6 +52,8 @@ public class Client extends MainBaseFrame {
         loginForm.setPassword(name);
     }
     public void initPanels(){
+        panelDescList.add(new PanelDescriptor("Трассировка", LogPanel.class,new int[]
+                {UserSuperAdminType, UserAdminType}));
         //---------- <0 - readOnly Mode
         panelDescList.add(new PanelDescriptor("Пользователи", UserPanelBase.class,new int[]
                 {UserSuperAdminType, UserAdminType}));
@@ -107,11 +110,9 @@ public class Client extends MainBaseFrame {
         try {
             setTitle(ValuesBase.env().applicationName(AppNameTitle)+": "+loginUser().getHeader());
             debugToken = loginUser().getSessionToken();
-            setMES(logView.mes(),null,MESLOC);
-            ShowLog.setSelected(true);
             setBounds(X0, Y0, ShortView, ViewHight);
             PanelList.setBounds(10,10,PanelW,PanelH);
-            ShowLog.setSelected(true);
+            ShowLog.setSelected(false);
             PanelList.removeAll();
             panels.clear();
             DBRequest ws = new APICall2<DBRequest>(){
@@ -133,6 +134,8 @@ public class Client extends MainBaseFrame {
                     }
                 if (bb){
                     BasePanel panel = (BasePanel) pp.view.newInstance();
+                    if (panel instanceof LogPanel)
+                        logPanel = (LogPanel)panel;
                     if (mainMode && panel.isMainMode() || !mainMode && panel.isESSMode()){
                         panel.editMode = editMode;
                         panel.initPanel(this);
@@ -141,7 +144,7 @@ public class Client extends MainBaseFrame {
                         }
                     }
                 }
-
+            setMES(logPanel.mes(),null,MESLOC);
             BasePanel pn;
             refresh();
             } catch(Exception ee){
