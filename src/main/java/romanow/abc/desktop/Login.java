@@ -36,10 +36,10 @@ public class Login extends JFrame {
         Port.add("4569");
         Port.add("4571");
         Port.add("5001");
-        setBounds(200,200,370,270);
+        setBounds(200,200,370,400);
         Login.setText("913*******");
         Password.setText("");
-        main.setMES(this);
+        main.setMES(LOG);
         setVisible(true);
         }
 
@@ -72,6 +72,7 @@ public class Login extends JFrame {
         LButton = new javax.swing.JButton();
         NewIP = new javax.swing.JTextField();
         AddIP = new javax.swing.JButton();
+        LOG = new java.awt.TextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -122,7 +123,7 @@ public class Login extends JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 150, 85, 14);
 
-        jLabel3.setText("Сервер");
+        jLabel3.setText("Сервер данных");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 65, 100, 14);
 
@@ -131,11 +132,11 @@ public class Login extends JFrame {
         jLabel4.setBounds(20, 120, 110, 14);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText(ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
+        jLabel5.setText("Клиент сервера данных СНЭ");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(130, 20, 230, 20);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath)))); // NOI18N// NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/battery.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         getContentPane().add(jButton1);
@@ -164,6 +165,8 @@ public class Login extends JFrame {
         });
         getContentPane().add(AddIP);
         AddIP.setBounds(260, 180, 40, 30);
+        getContentPane().add(LOG);
+        LOG.setBounds(20, 220, 320, 110);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -231,6 +234,7 @@ public class Login extends JFrame {
     private java.awt.Choice ClientIP;
     private javax.swing.JCheckBox ClientON;
     private javax.swing.JButton LButton;
+    private java.awt.TextArea LOG;
     private javax.swing.JTextField Login;
     private javax.swing.JTextField NewIP;
     private javax.swing.JPasswordField Password;

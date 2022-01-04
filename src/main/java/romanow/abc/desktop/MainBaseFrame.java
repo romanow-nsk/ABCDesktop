@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 import okhttp3.MultipartBody;
 import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPIBase;
-import romanow.abc.core.API.RestAPICommon;
-import romanow.abc.core.constants.ConstList;
 import romanow.abc.core.constants.ConstValue;
 import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.Entity;
@@ -18,7 +16,6 @@ import romanow.abc.core.entity.EntityList;
 import romanow.abc.core.entity.artifacts.Artifact;
 import romanow.abc.core.entity.base.WorkSettingsBase;
 import romanow.abc.core.entity.baseentityes.JEmpty;
-import romanow.abc.core.entity.baseentityes.JLong;
 import romanow.abc.core.entity.baseentityes.JString;
 import romanow.abc.core.entity.users.User;
 import romanow.abc.core.utils.FileNameExt;
@@ -32,8 +29,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import romanow.abc.core.utils.StringFIFO;
-import romanow.abc.dataserver.DataServer;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +41,6 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import static romanow.abc.core.Utils.httpError;
-import static romanow.abc.core.constants.ValuesBase.*;
 
 /**
  *
@@ -108,7 +102,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 if (mesContext.MESShort!=null)
                     mesContext.MESShort.setText(zz);
                 if (mesContext.logFrame!=null)
-                    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz2);
+                    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz);
                 }
             });
         System.setOut(new PrintStream(log));
@@ -188,19 +182,32 @@ public class MainBaseFrame extends JFrame implements I_Important {
     public void sendPopupMessage(JFrame parent, Container ct, String mes){
         sendPopupMessage(parent,ct.getBounds().x+60,ct.getBounds().y+60,mes);
         }
-    public void sendPopupMessage(JFrame parent, int x0, int y0, String mes){
+    private ArrayList<String> messages = new ArrayList<>();
+    private synchronized void onePopup(final JFrame parent, final int x0, final int y0){
         final JPopupMenu menu = new JPopupMenu();
-        menu.add(mes);
+        menu.add(messages.get(0));
+        //menu.setPopupSize(400,50);
         menu.show(parent,x0,y0);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(3000);
-                    } catch (InterruptedException e) {}
+                } catch (InterruptedException e) {}
                 menu.setVisible(false);
+                synchronized (MainBaseFrame.this){
+                    messages.remove(0);
+                    if (messages.size()!=0)
+                        onePopup(parent,x0,y0);
+                    }
                 }
             }).start();
+        }
+    synchronized public void sendPopupMessage(JFrame parent, int x0, int y0, String mes){
+        messages.add(mes);
+        if (messages.size()>1)
+            return;
+        onePopup(parent,x0,y0);
         }
     public void setMES(TextArea mes0){
         setMES(mes0,null,null);
