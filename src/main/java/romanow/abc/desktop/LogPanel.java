@@ -48,7 +48,7 @@ public class LogPanel extends BasePanel {
 
     @Override
     public void eventPanel(int code, int par1, long par2, String par3, Object oo) {
-
+        if (code==EventLogToFront);
     }
 
     @Override
