@@ -27,6 +27,8 @@ public class Login extends JFrame {
         main=main0;
         back = back0;
         initComponents();
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath)))); // NOI18N
+        jLabel5.setText(ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
         ClientIP.add("localhost");
         ClientIP.add("217.71.138.9");
         ClientIP.add("217.71.138.8");
