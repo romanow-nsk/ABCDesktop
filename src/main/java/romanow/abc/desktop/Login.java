@@ -12,6 +12,7 @@ import retrofit2.Response;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -203,6 +204,21 @@ public class Login extends JFrame {
                 }
             main.loginUser(res.body());
             main.debugToken = main.loginUser().getSessionToken();   // Токен новой сессии
+            Response<ArrayList<String>>  serverEnv = main.service.getSetverEnvironment(main.debugToken).execute();
+            if (!res.isSuccessful() || serverEnv.body()==null){
+                main.onLoginSuccess();
+                back.onPush();
+                dispose();
+                System.out.println("!!!!!! Сервер без проверки типа БД");
+                return;
+                }
+            main.serverEnvironment = serverEnv.body();
+            String ownSubjectArea = ValuesBase.env().applicationName(ValuesBase.AppNameSubjectArea);
+            String serverSubjectArea = main.serverEnvironment.get(ValuesBase.AppNameSubjectArea);
+            if (!serverSubjectArea.equals(ownSubjectArea)){
+                main.sendPopupMessage(this,LButton,"Другой тип сервера: "+ serverSubjectArea);
+                return;
+                }
             main.onLoginSuccess();
             back.onPush();
             dispose();

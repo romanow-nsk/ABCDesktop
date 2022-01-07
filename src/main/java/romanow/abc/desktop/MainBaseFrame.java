@@ -59,6 +59,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     protected String debugToken="";
     protected boolean refreshMode=false;
     protected Gson gson = new Gson();
+    protected ArrayList<String> serverEnvironment;
     //---------------------------------------------------------------------------
     private StringFIFO externalFIFO=null;
     protected boolean serverOn=false;
