@@ -109,7 +109,7 @@ public class Cabinet extends MainBaseFrame{
         public CabinetEntityPanel(int x0, int y0, EntityList data0, String name0) {
             data = data0;
             className = name0;
-            name = ValuesBase.EntityFactory.getEntityNameBySimpleClass(className);
+            name = ValuesBase.EntityFactory().getEntityNameBySimpleClass(className);
             panel = new JPanel();
             panel.setLayout(null);
             panel.setBounds(x0,y0,410,50);
@@ -242,7 +242,7 @@ public class Cabinet extends MainBaseFrame{
         ServerPort.add("4569");
         ServerPort.add("4571");
         ServerPort.add("55022");
-        Object olist[] = ValuesBase.EntityFactory.nameList().toArray();
+        Object olist[] = ValuesBase.EntityFactory().nameList().toArray();
         for(int i=0;i<olist.length;i++){
             EntityClasses.add((String)olist[i]);
             }

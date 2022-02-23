@@ -26,7 +26,7 @@ public class ArtifactPanel extends BasePanel{
         ParentType.removeAll();
         ParentType.add("");
         for (String ss : ValuesBase.ArtifactParentList){
-            String name = ValuesBase.EntityFactory.getEntityNameBySimpleClass(ss);
+            String name = ValuesBase.EntityFactory().getEntityNameBySimpleClass(ss);
             if (name!=null)
             ParentType.add(ss);
             }
@@ -410,7 +410,7 @@ public class ArtifactPanel extends BasePanel{
         if (ss.length()==0)
             ParentEntity.setText("");
         else
-            ParentEntity.setText(ValuesBase.EntityFactory.getEntityNameBySimpleClass(ss));
+            ParentEntity.setText(ValuesBase.EntityFactory().getEntityNameBySimpleClass(ss));
         ParentOid.setText(""+selected.getParentOid());
         NoFile.setSelected(selected.isFileLost());
         if (selected.type()==ValuesBase.ArtifactAudioType){

@@ -56,7 +56,7 @@ public abstract class EntityPanel extends EntityBasePanel {
         Update.setVisible(fullMode);
         data = data0 !=null ? data0 : new EntityList();
         entityName = name0;
-        entityTitleName = ValuesBase.EntityFactory.getEntityNameBySimpleClass(entityName);
+        entityTitleName = ValuesBase.EntityFactory().getEntityNameBySimpleClass(entityName);
         main = base0;
         setBounds(x0,y0,600,35);
         Title.setText(entityTitleName);

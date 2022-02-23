@@ -66,7 +66,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
         entityName = name0;
         main = base0;
         setBounds(x0,y0,600,35);
-        entityTitleName = ValuesBase.EntityFactory.getEntityNameBySimpleClass(entityName);
+        entityTitleName = ValuesBase.EntityFactory().getEntityNameBySimpleClass(entityName);
         Title.setText(entityTitleName);
         setUpdateState(false);
         setVisible(true);
@@ -326,7 +326,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
         @Override
         public void onPush() {
             try {
-                Class cc  = ValuesBase.EntityFactory.getClassForSimpleName(entityName);
+                Class cc  = ValuesBase.EntityFactory().getClassForSimpleName(entityName);
                 if (cc==null){
                     System.out.println("Недопустимый класс  " + entityName);
                     return;

@@ -58,7 +58,7 @@ public class ServerPanel extends BasePanel{
         initComponents();
         BlockSize.setText("10000");
         EntityNames.removeAll();
-        classes = ValuesBase.EntityFactory.classList();
+        classes = ValuesBase.EntityFactory().classList();
         for(TableItem ss : classes){
             EntityNames.add(ss.name+" ("+ss.clazz.getSimpleName()+")");
             }

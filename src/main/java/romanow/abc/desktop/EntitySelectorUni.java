@@ -27,7 +27,7 @@ public class EntitySelectorUni<T extends Entity> extends javax.swing.JFrame {
     I_OK ok;
     public EntitySelectorUni(int x0, int y0,String name, int level,Client main, I_OK ok0) {
         initComponents();
-        setTitle(ValuesBase.EntityFactory.getEntityNameBySimpleClass(name));
+        setTitle(ValuesBase.EntityFactory().getEntityNameBySimpleClass(name));
         ok = ok0;
         token = main.debugToken;
         setBounds(x0,y0,470,150);

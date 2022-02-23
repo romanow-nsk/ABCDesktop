@@ -55,7 +55,7 @@ public abstract class EntityPopupPanel extends EntityBasePanel {
         Delete.setVisible(fullMode);
         Update.setVisible(fullMode);
         entityName = name0;
-        entityTitleName = ValuesBase.EntityFactory.getEntityNameBySimpleClass(entityName);
+        entityTitleName = ValuesBase.EntityFactory().getEntityNameBySimpleClass(entityName);
         main = base0;
         setBounds(x0,y0,600,35);
         Title.setText(name0);
