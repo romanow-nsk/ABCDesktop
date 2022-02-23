@@ -431,11 +431,12 @@ public class Cabinet extends MainBaseFrame{
         jLabel7.setBounds(10, 420, 60, 14);
         getContentPane().add(MongoDB);
         MongoDB.setBounds(160, 110, 110, 20);
-        ESSLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath)))); // NOI18N
+
+        ESSLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/battery.png"))); // NOI18N
         ESSLabel.setBorderPainted(false);
         ESSLabel.setContentAreaFilled(false);
         getContentPane().add(ESSLabel);
-        ESSLabel.setBounds(10, 120, 60, 40);
+        ESSLabel.setBounds(10, 110, 60, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
