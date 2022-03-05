@@ -25,18 +25,18 @@ public abstract class APICall2<T> {
             if (!res.isSuccessful()){
                 if (res.code()== ValuesBase.HTTPAuthorization){
                     mes =  "Сеанс закрыт " + Utils.httpError(res);
-                    System.out.println(mes);
-                    new Message(300,300,mes,ValuesBase.PopupMessageDelay);
+                    System.out.println(mes.replace("$","\n"));
+                    //new Message(300,300,mes,ValuesBase.PopupMessageDelay);
                     base.logOff();
                     throw UniException.io(mes);
                     }
                 try {
-                    mes1 = "Ошибка " + res.message() + " (" + res.code() + ")";
-                    mes = mes1+"$" + res.errorBody().string();
+                    //mes1 = "Ошибка " + res.message() + " (" + res.code() + ")";
+                    mes = res.errorBody().string();
                     } catch (IOException ex){ mes += "$Ошибка: "+ex.toString(); }
-                System.out.println(mes);
-                new Message(300,300,mes1,ValuesBase.PopupMessageDelay);
-                throw UniException.io(mes1);
+                System.out.println(mes.replace("$","\n"));
+                //new Message(300,300,mes,ValuesBase.PopupMessageDelay);
+                throw UniException.io(mes);
                 }
             //System.out.println("time="+(System.currentTimeMillis()-tt)+" мс");
             return res.body();
