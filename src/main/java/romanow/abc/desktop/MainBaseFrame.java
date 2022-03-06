@@ -353,7 +353,23 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         });
         }
-
+    public void loadFileGroup(final String dir, final ArrayList<Artifact> artifacts, final int idx){
+        if (idx>=artifacts.size())
+            return;
+        final Artifact art = artifacts.get(idx);
+        loadFile(art, dir + "/" + art.getOriginalName(), new I_DownLoad() {
+            @Override
+            public void onSuccess() {
+                System.out.println("Загружен файл "+art.getOriginalName());
+                loadFileGroup(dir,artifacts,idx+1);
+                }
+            @Override
+            public void onError(String mes) {
+                System.out.println("Ошибка загрузки "+art.getOriginalName()+"\n"+mes);
+                loadFileGroup(dir,artifacts,idx+1);
+                }
+            });
+        }
     public void loadFile(Artifact art, String fspec, final I_DownLoad back){
         Call<ResponseBody> call2 = service.downLoad(debugToken,art.getOid());
         call2.enqueue(new Callback<ResponseBody>() {
