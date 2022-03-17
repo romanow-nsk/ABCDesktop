@@ -6,6 +6,7 @@
 package romanow.abc.desktop;
 
 import com.google.gson.Gson;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import okhttp3.MultipartBody;
 import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPIBase;
@@ -60,6 +61,12 @@ public class MainBaseFrame extends JFrame implements I_Important {
     protected boolean refreshMode=false;
     protected Gson gson = new Gson();
     protected ArrayList<String> serverEnvironment;
+    public ArrayList<ConstValue> getConstList() {
+        return constList;}
+    public String getDebugToken() {
+        return debugToken;}
+    public RestAPIBase getService() {
+        return service;}
     //---------------------------------------------------------------------------
     private StringFIFO externalFIFO=null;
     protected boolean serverOn=false;
