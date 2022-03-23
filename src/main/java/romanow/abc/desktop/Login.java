@@ -33,7 +33,7 @@ public class Login extends JFrame {
         ClientIP.add("localhost");
         ClientIP.add("217.71.138.9");
         ClientIP.add("217.71.138.8");
-        ClientIP.add("217.71.138.31");
+        ClientIP.add("217.71.138.13");
         ClientIP.add("192.168.0.102");      // Для отладки - доступ через роутер = удаленный user
         Port.add("4567");
         Port.add("4569");
@@ -205,7 +205,7 @@ public class Login extends JFrame {
             main.loginUser(res.body());
             main.debugToken = main.loginUser().getSessionToken();   // Токен новой сессии
             Response<ArrayList<String>>  serverEnv = main.service.getSetverEnvironment(main.debugToken).execute();
-            if (!res.isSuccessful() || serverEnv.body()==null){
+            if (!serverEnv.isSuccessful() || serverEnv.body()==null){
                 main.onLoginSuccess();
                 back.onPush();
                 dispose();
