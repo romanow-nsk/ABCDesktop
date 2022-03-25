@@ -21,6 +21,7 @@ import java.io.IOException;
 public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public final static int EventPLMOn=1;                //
     public final static int EventPLMOff=2;               //
+    public final static int EventPLMOffForce=3;          //
     public final static int EventRefreshSettings=4;      // Обновить настройки
     public final static int EventRefreshSettingsDone=5;  // Настройки обновлены
     public final static int EventLogToFront=6;           // Панель лога на передний план
@@ -52,6 +53,9 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
         }
     public void popup(String ss){
         System.out.println(ss);
+        int a=0;
+        if (ss.length()==0)
+            a=1;
         new Message(300,300,ss, ValuesBase.PopupMessageDelay);
         }
     /**

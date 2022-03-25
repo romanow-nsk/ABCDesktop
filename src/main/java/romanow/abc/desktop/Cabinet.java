@@ -475,15 +475,19 @@ public class Cabinet extends MainBaseFrame{
         };
 
     private void DataServerOnItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DataServerOnItemStateChanged
-        if (onBusy) return;
-        if (DataServerOn.isSelected()){
-            dataServer.startServer(Integer.parseInt(ServerPort.getSelectedItem()), MongoDB.getSelectedIndex(), serverBack,true);
-            onDataServerOnOff();
-            }
-        else{
-            dataServer.shutdown();
-            }
-        serverOn = DataServerOn.isSelected();
+        try {
+            if (onBusy) return;
+            if (DataServerOn.isSelected()){
+                dataServer.startServer(Integer.parseInt(ServerPort.getSelectedItem()), MongoDB.getSelectedIndex(), serverBack,true);
+                onDataServerOnOff();
+                }
+            else{
+                dataServer.shutdown();
+                }
+            serverOn = DataServerOn.isSelected();
+            }catch(Exception ee){
+                Utils.printFatalMessage(ee);
+                }
     }//GEN-LAST:event_DataServerOnItemStateChanged
     //--------------------- Загрузка файла - общая часть
     private boolean putResponse(Response res8){
