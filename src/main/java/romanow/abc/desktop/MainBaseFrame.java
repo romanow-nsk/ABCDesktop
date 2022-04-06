@@ -110,7 +110,9 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 if (mesContext.MESShort!=null)
                     mesContext.MESShort.setText(zz);
                 if (mesContext.logFrame!=null)
-                    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz);
+                    mesContext.logFrame.getLogArea().append(zz+"\n");
+                //if (mesContext.MES==null && mesContext.MESShort==null && mesContext.logFrame==null)
+                //    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz);
                 }
             });
         System.setOut(new PrintStream(log));
@@ -220,11 +222,11 @@ public class MainBaseFrame extends JFrame implements I_Important {
     public void setMES(TextArea mes0){
         setMES(mes0,null,null);
         }
-    public void setMES(JFrame ff){
+    public void setMES(I_LogArea ff){
         setMES(null,ff,null);
     }
     public void setMES(JTextField ff){ setMES(null,null,ff); }
-    public void setMES(TextArea mes0,JFrame  frame,JTextField ff){
+    public void setMES(TextArea mes0,I_LogArea  frame,JTextField ff){
         mesContext = new MESContext(mes0,frame,ff);
         }
     public MESContext getMesContext() {

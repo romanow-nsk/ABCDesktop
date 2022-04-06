@@ -11,6 +11,7 @@ import romanow.abc.core.entity.users.User;
 import retrofit2.Response;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  *
  * @author romanow
  */
-public class Login extends JFrame {
+public class Login extends JFrame implements I_LogArea{
     private MainBaseFrame main;
     private I_Button back;
     /**
@@ -263,5 +264,10 @@ public class Login extends JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+
+    @Override
+    public TextArea getLogArea() {
+        return LOG;
+    }
     // End of variables declaration//GEN-END:variables
 }

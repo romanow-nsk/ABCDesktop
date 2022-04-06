@@ -11,7 +11,7 @@ import java.awt.*;
  *
  * @author romanow
  */
-public class LogView extends javax.swing.JFrame {
+public class LogView extends javax.swing.JFrame implements I_LogArea{
 
     /**
      * Creates new form LogView
@@ -90,5 +90,10 @@ public class LogView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.TextArea MES;
+
+    @Override
+    public TextArea getLogArea() {
+        return MES;
+    }
     // End of variables declaration//GEN-END:variables
 }

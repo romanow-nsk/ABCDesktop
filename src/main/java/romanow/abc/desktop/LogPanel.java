@@ -11,7 +11,7 @@ import java.awt.*;
  *
  * @author romanow
  */
-public class LogPanel extends BasePanel {
+public class LogPanel extends BasePanel implements I_LogArea {
 
     /**
      * Creates new form TestPanel
@@ -57,6 +57,11 @@ public class LogPanel extends BasePanel {
     @Override
     public void shutDown() {
 
+    }
+
+    @Override
+    public TextArea getLogArea() {
+        return MES;
     }
     // End of variables declaration//GEN-END:variables
 }

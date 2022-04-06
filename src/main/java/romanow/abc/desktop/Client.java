@@ -18,6 +18,7 @@ import romanow.abc.core.entity.users.User;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 import static romanow.abc.core.constants.ValuesBase.*;
@@ -26,7 +27,7 @@ import static romanow.abc.core.constants.ValuesBase.*;
  *
  * @author romanow
  */
-public class Client extends MainBaseFrame {
+public class Client extends MainBaseFrame   {
     public final static int PanelOffsetY=60;
     public final static int RatioW=4;
     public final static int RatioH=3;
@@ -90,7 +91,7 @@ public class Client extends MainBaseFrame {
         super(setLog);
         secondForm=false;
         initComponents();
-        setMES(this);
+        setMES(loginForm);
         initPanels();
         login();
         }
@@ -144,7 +145,7 @@ public class Client extends MainBaseFrame {
                         }
                     }
                 }
-            setMES(logPanel.mes(),null,MESLOC);
+            setMES(logPanel.mes(),logView,MESLOC);
             BasePanel pn;
             refresh();
             } catch(Exception ee){
@@ -214,7 +215,7 @@ public class Client extends MainBaseFrame {
                 System.out.println("Ошибка сервера: "+ Utils.httpError(res));
                 }
             loginForm.disConnect();
-            setMES(this);
+            setMES(loginForm);
             login();
             }catch (Exception ee){
                 System.out.println("Ошибка сервера: "+ee.toString());
@@ -294,5 +295,6 @@ public class Client extends MainBaseFrame {
     private javax.swing.JTextField MESLOC;
     private javax.swing.JTabbedPane PanelList;
     private javax.swing.JCheckBox ShowLog;
+
     // End of variables declaration//GEN-END:variables
 }
