@@ -103,7 +103,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     public void restoreContext(){
         log = new LogStream(utf8, null, new I_String() {
             @Override
-            public void onEvent(String zz) {
+            public synchronized void onEvent(String zz) {
                 String zz2 = zz.length() > 70 ? zz.substring(0,70)+"..." : zz;
                 if (mesContext.MES!=null)
                     mesContext.MES.append(zz+"\n");
