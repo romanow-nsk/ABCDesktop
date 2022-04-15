@@ -149,10 +149,10 @@ public class ServerPanel extends BasePanel{
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
-        Import = new javax.swing.JButton();
+        ImportGZ = new javax.swing.JButton();
         ServerLog = new javax.swing.JButton();
         Reload = new javax.swing.JButton();
-        Export = new javax.swing.JButton();
+        ExportGZ = new javax.swing.JButton();
         TargetDB = new javax.swing.JButton();
         UploadServer = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -202,7 +202,6 @@ public class ServerPanel extends BasePanel{
         CashCount = new javax.swing.JTextField();
         Monitor = new javax.swing.JCheckBox();
         ExportAtrifacts = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
         Record = new java.awt.Choice();
         RemoveRecord = new javax.swing.JButton();
         EditRecord = new javax.swing.JButton();
@@ -220,6 +219,8 @@ public class ServerPanel extends BasePanel{
         MB = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         FTPDBImport = new javax.swing.JCheckBox();
+        ExportXLS = new javax.swing.JButton();
+        ImportXLS = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -237,14 +238,14 @@ public class ServerPanel extends BasePanel{
         });
         setLayout(null);
 
-        Import.setText("Импорт БД");
-        Import.addActionListener(new java.awt.event.ActionListener() {
+        ImportGZ.setText("Импорт (gzip)");
+        ImportGZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImportActionPerformed(evt);
+                ImportGZActionPerformed(evt);
             }
         });
-        add(Import);
-        Import.setBounds(20, 460, 120, 23);
+        add(ImportGZ);
+        ImportGZ.setBounds(20, 490, 120, 22);
 
         ServerLog.setText("Лог сервера");
         ServerLog.addActionListener(new java.awt.event.ActionListener() {
@@ -253,7 +254,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ServerLog);
-        ServerLog.setBounds(20, 110, 120, 23);
+        ServerLog.setBounds(20, 110, 120, 22);
 
         Reload.setText("Рестарт");
         Reload.addActionListener(new java.awt.event.ActionListener() {
@@ -262,16 +263,16 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Reload);
-        Reload.setBounds(20, 310, 120, 23);
+        Reload.setBounds(20, 310, 120, 22);
 
-        Export.setText("Экспорт БД ");
-        Export.addActionListener(new java.awt.event.ActionListener() {
+        ExportGZ.setText("Экспорт (gzip)");
+        ExportGZ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExportActionPerformed(evt);
+                ExportGZActionPerformed(evt);
             }
         });
-        add(Export);
-        Export.setBounds(20, 140, 120, 23);
+        add(ExportGZ);
+        ExportGZ.setBounds(20, 170, 120, 22);
 
         TargetDB.setText("Тестовая БД");
         TargetDB.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +281,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(TargetDB);
-        TargetDB.setBounds(20, 400, 120, 23);
+        TargetDB.setBounds(20, 400, 120, 22);
 
         UploadServer.setText("Обновить сервер");
         UploadServer.addActionListener(new java.awt.event.ActionListener() {
@@ -289,11 +290,11 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(UploadServer);
-        UploadServer.setBounds(20, 260, 120, 23);
+        UploadServer.setBounds(20, 260, 140, 22);
 
         jLabel1.setText("Память (Мб)");
         add(jLabel1);
-        jLabel1.setBounds(60, 290, 80, 14);
+        jLabel1.setBounds(90, 290, 80, 16);
 
         LogSize.setText("50");
         add(LogSize);
@@ -306,7 +307,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Shutdown);
-        Shutdown.setBounds(20, 340, 120, 23);
+        Shutdown.setBounds(20, 340, 120, 22);
 
         ClearTable1.setText("Очистить");
         ClearTable1.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +316,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ClearTable1);
-        ClearTable1.setBounds(500, 400, 120, 23);
+        ClearTable1.setBounds(500, 400, 120, 22);
 
         ClearDB.setText("Очистка БД");
         ClearDB.addActionListener(new java.awt.event.ActionListener() {
@@ -324,7 +325,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ClearDB);
-        ClearDB.setBounds(20, 370, 120, 23);
+        ClearDB.setBounds(20, 370, 120, 22);
         add(EntityNames);
         EntityNames.setBounds(220, 400, 260, 30);
 
@@ -334,7 +335,7 @@ public class ServerPanel extends BasePanel{
 
         jLabel3.setText("Записей в блоке");
         add(jLabel3);
-        jLabel3.setBounds(20, 170, 120, 14);
+        jLabel3.setBounds(150, 170, 120, 16);
         add(jSeparator1);
         jSeparator1.setBounds(10, 247, 230, 0);
 
@@ -345,19 +346,19 @@ public class ServerPanel extends BasePanel{
 
         jLabel5.setText("PID");
         add(jLabel5);
-        jLabel5.setBounds(270, 205, 60, 14);
+        jLabel5.setBounds(270, 205, 60, 16);
 
         jLabel6.setText("Мин.");
         add(jLabel6);
-        jLabel6.setBounds(270, 75, 70, 14);
+        jLabel6.setBounds(270, 75, 70, 16);
 
         jLabel7.setText("Макс.");
         add(jLabel7);
-        jLabel7.setBounds(270, 105, 70, 14);
+        jLabel7.setBounds(270, 105, 70, 16);
 
         jLabel8.setText("Среднее");
         add(jLabel8);
-        jLabel8.setBounds(270, 135, 70, 14);
+        jLabel8.setBounds(270, 135, 70, 16);
 
         TCount.setEnabled(false);
         add(TCount);
@@ -375,7 +376,7 @@ public class ServerPanel extends BasePanel{
         add(TMid);
         TMid.setBounds(330, 130, 70, 25);
         add(jSeparator2);
-        jSeparator2.setBounds(270, 190, 140, 2);
+        jSeparator2.setBounds(270, 190, 140, 3);
 
         PID.setEnabled(false);
         add(PID);
@@ -383,19 +384,19 @@ public class ServerPanel extends BasePanel{
 
         jLabel9.setText("Кол-во");
         add(jLabel9);
-        jLabel9.setBounds(270, 165, 60, 14);
+        jLabel9.setBounds(270, 165, 60, 16);
 
         jLabel10.setText("Таблица");
         add(jLabel10);
-        jLabel10.setBounds(160, 405, 60, 14);
+        jLabel10.setBounds(160, 405, 60, 16);
         add(Level);
-        Level.setBounds(220, 435, 60, 20);
+        Level.setBounds(280, 440, 60, 20);
         add(Mode);
-        Mode.setBounds(300, 435, 130, 20);
+        Mode.setBounds(360, 440, 130, 20);
 
         jLabel11.setText("Уровень");
         add(jLabel11);
-        jLabel11.setBounds(160, 435, 60, 14);
+        jLabel11.setBounds(220, 440, 60, 16);
 
         RefreshEntityList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/refresh.png"))); // NOI18N
         RefreshEntityList.setBorderPainted(false);
@@ -406,11 +407,11 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(RefreshEntityList);
-        RefreshEntityList.setBounds(440, 430, 40, 30);
+        RefreshEntityList.setBounds(500, 430, 40, 30);
 
         jLabel12.setText("Запросов");
         add(jLabel12);
-        jLabel12.setBounds(270, 295, 60, 14);
+        jLabel12.setBounds(270, 295, 60, 16);
 
         ReleaseNum.setEnabled(false);
         add(ReleaseNum);
@@ -418,7 +419,7 @@ public class ServerPanel extends BasePanel{
 
         FTP.setText("через TCP");
         add(FTP);
-        FTP.setBounds(150, 260, 90, 23);
+        FTP.setBounds(170, 260, 90, 20);
 
         Execute.setText("Ком.строка");
         Execute.addActionListener(new java.awt.event.ActionListener() {
@@ -427,7 +428,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Execute);
-        Execute.setBounds(20, 520, 120, 23);
+        Execute.setBounds(20, 520, 120, 22);
 
         CommandLine.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -446,7 +447,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(OperationButton);
-        OperationButton.setBounds(500, 370, 120, 23);
+        OperationButton.setBounds(500, 370, 120, 22);
 
         TestCall.setText("Тест");
         TestCall.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +456,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(TestCall);
-        TestCall.setBounds(630, 490, 60, 23);
+        TestCall.setBounds(630, 490, 60, 22);
         add(Operation);
         Operation.setBounds(220, 370, 260, 20);
 
@@ -465,12 +466,12 @@ public class ServerPanel extends BasePanel{
 
         jLabel13.setText("Сборка");
         add(jLabel13);
-        jLabel13.setBounds(270, 235, 60, 14);
+        jLabel13.setBounds(270, 235, 60, 16);
 
         ServerLocked.setText("Блокировка");
         ServerLocked.setEnabled(false);
         add(ServerLocked);
-        ServerLocked.setBounds(150, 340, 90, 23);
+        ServerLocked.setBounds(150, 340, 90, 20);
 
         RequestCount.setEnabled(false);
         add(RequestCount);
@@ -478,7 +479,7 @@ public class ServerPanel extends BasePanel{
 
         jLabel14.setText("Сессий");
         add(jLabel14);
-        jLabel14.setBounds(270, 265, 60, 14);
+        jLabel14.setBounds(270, 265, 60, 16);
 
         LockServer.setText("<-");
         LockServer.addActionListener(new java.awt.event.ActionListener() {
@@ -487,7 +488,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(LockServer);
-        LockServer.setBounds(270, 340, 50, 23);
+        LockServer.setBounds(270, 340, 50, 22);
 
         CashMode.setText("Кэширование сервера");
         CashMode.addItemListener(new java.awt.event.ItemListener() {
@@ -496,7 +497,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(CashMode);
-        CashMode.setBounds(410, 70, 160, 23);
+        CashMode.setBounds(410, 70, 160, 20);
 
         TotalCount.setEditable(false);
         TotalCount.setEnabled(false);
@@ -505,7 +506,7 @@ public class ServerPanel extends BasePanel{
 
         CashPercent.setText("% кэширования");
         add(CashPercent);
-        CashPercent.setBounds(480, 110, 90, 14);
+        CashPercent.setBounds(480, 110, 90, 16);
 
         CashCount.setEditable(false);
         CashCount.setEnabled(false);
@@ -519,7 +520,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Monitor);
-        Monitor.setBounds(20, 40, 190, 23);
+        Monitor.setBounds(20, 40, 190, 20);
 
         ExportAtrifacts.setText("Экспорт файлов");
         ExportAtrifacts.addActionListener(new java.awt.event.ActionListener() {
@@ -528,9 +529,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ExportAtrifacts);
-        ExportAtrifacts.setBounds(20, 190, 120, 23);
-        add(jSeparator3);
-        jSeparator3.setBounds(10, 220, 240, 10);
+        ExportAtrifacts.setBounds(20, 200, 120, 22);
         add(Record);
         Record.setBounds(160, 465, 460, 20);
 
@@ -568,7 +567,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(LogFileReopen);
-        LogFileReopen.setBounds(410, 230, 120, 23);
+        LogFileReopen.setBounds(410, 230, 120, 22);
 
         LogFolder.setText("Список логов");
         LogFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -577,7 +576,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(LogFolder);
-        LogFolder.setBounds(410, 260, 120, 23);
+        LogFolder.setBounds(410, 260, 120, 22);
 
         ArtifactFolder.setText("Список файлов");
         ArtifactFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -586,7 +585,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ArtifactFolder);
-        ArtifactFolder.setBounds(410, 290, 120, 23);
+        ArtifactFolder.setBounds(410, 290, 120, 22);
         add(ArtifactTypes);
         ArtifactTypes.setBounds(540, 290, 110, 20);
         add(FolderList);
@@ -610,31 +609,54 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ImportArtifact);
-        ImportArtifact.setBounds(20, 490, 120, 23);
+        ImportArtifact.setBounds(20, 430, 120, 22);
 
         XLSX.setText("xlsx");
         add(XLSX);
-        XLSX.setBounds(150, 140, 45, 23);
+        XLSX.setBounds(150, 140, 43, 20);
 
         BlockSize.setText("0");
+        BlockSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BlockSizeActionPerformed(evt);
+            }
+        });
         add(BlockSize);
-        BlockSize.setBounds(150, 170, 60, 25);
+        BlockSize.setBounds(200, 140, 60, 25);
 
         jLabel15.setText("строк");
         add(jLabel15);
-        jLabel15.setBounds(200, 110, 50, 14);
+        jLabel15.setBounds(200, 110, 50, 16);
 
         MB.setText("0");
         add(MB);
-        MB.setBounds(150, 290, 60, 25);
+        MB.setBounds(170, 290, 60, 25);
 
         jLabel2.setText("пароль операции ");
         add(jLabel2);
-        jLabel2.setBounds(150, 230, 110, 14);
+        jLabel2.setBounds(150, 230, 110, 16);
 
         FTPDBImport.setText("через TCP");
         add(FTPDBImport);
-        FTPDBImport.setBounds(160, 490, 90, 23);
+        FTPDBImport.setBounds(160, 490, 90, 20);
+
+        ExportXLS.setText("Экспорт (xls)");
+        ExportXLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportXLSActionPerformed(evt);
+            }
+        });
+        add(ExportXLS);
+        ExportXLS.setBounds(20, 140, 120, 22);
+
+        ImportXLS.setText("Импорт (xls)");
+        ImportXLS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportXLSActionPerformed(evt);
+            }
+        });
+        add(ImportXLS);
+        ImportXLS.setBounds(20, 460, 120, 22);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -664,18 +686,18 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_ReloadActionPerformed
 
-    private void ExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportActionPerformed
+    private void ExportGZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportGZActionPerformed
         new APICall<Artifact>(main){
             @Override
             public Call<Artifact> apiFun() {
-                return main.service.exportDBxlsx(main.debugToken,XLSX.isSelected(),Integer.parseInt(BlockSize.getText()));
+                return main.service.dump(main.debugToken);
                 }
             @Override
             public void onSucess(Artifact oo) {
                 main.loadFileAndDelete(oo);
                 }
             };
-    }//GEN-LAST:event_ExportActionPerformed
+    }//GEN-LAST:event_ExportGZActionPerformed
 
     private void restartServer(){
         new APICall<JEmpty>(main){
@@ -701,14 +723,14 @@ public class ServerPanel extends BasePanel{
                 }
             };
         }
-    private void ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportActionPerformed
-        FileNameExt fname = main.getInputFileName("Импорт БД","mongo*.xls",null);
+    private void ImportGZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportGZActionPerformed
+        FileNameExt fname = main.getInputFileName("Импорт БД","mongo*.gz",null);
         if (FTPDBImport.isSelected())
-            importDBFTP(fname);
+            importDBFTP(fname,true);
         else
-            importDBHttp(fname);
+            importDBHttp(fname,true);
             }
-    private void importDBFTP(FileNameExt fname){
+    private void importDBFTP(FileNameExt fname, final boolean gzip){
         File ff = new File(fname.fullName());
         new APICall<Artifact>(main){
             @Override
@@ -734,7 +756,10 @@ public class ServerPanel extends BasePanel{
                         new APICall<JString>(main){
                             @Override
                             public Call<JString> apiFun() {
-                                return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
+                                if (gzip)
+                                    return main.service.restore(main.debugToken,Password.getText(),oo.getOid());
+                                else
+                                    return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
                                 }
                             @Override
                             public void onSucess(JString ss) {
@@ -750,7 +775,7 @@ public class ServerPanel extends BasePanel{
         };
     }
 
-    private void importDBHttp(FileNameExt fname){
+    private void importDBHttp(FileNameExt fname, final boolean gzip){
         final MultipartBody.Part body = RestAPICommon.createMultipartBody(fname);
         new APICall<Artifact>(main){
             @Override
@@ -762,7 +787,10 @@ public class ServerPanel extends BasePanel{
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
+                        if (gzip)
+                            return main.service.restore(main.debugToken,Password.getText(),oo.getOid());
+                        else
+                            return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
                         }
                     @Override
                     public void onSucess(JString oo) {
@@ -774,7 +802,7 @@ public class ServerPanel extends BasePanel{
                     };
                 }
             };
-    }//GEN-LAST:event_ImportActionPerformed
+    }//GEN-LAST:event_ImportGZActionPerformed
 
     private void ShutdownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ShutdownActionPerformed
         new OK(200, 200, "Завершение работы сервера", new I_Button() {
@@ -1373,6 +1401,31 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_ImportArtifactActionPerformed
 
+    private void BlockSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlockSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BlockSizeActionPerformed
+
+    private void ExportXLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportXLSActionPerformed
+        new APICall<Artifact>(main){
+            @Override
+            public Call<Artifact> apiFun() {
+                return main.service.exportDBxlsx(main.debugToken,XLSX.isSelected(),Integer.parseInt(BlockSize.getText()));
+            }
+            @Override
+            public void onSucess(Artifact oo) {
+                main.loadFileAndDelete(oo);
+            }
+        };
+    }//GEN-LAST:event_ExportXLSActionPerformed
+
+    private void ImportXLSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportXLSActionPerformed
+        FileNameExt fname = main.getInputFileName("Импорт БД","mongo*.xls*",null);
+        if (FTPDBImport.isSelected())
+            importDBFTP(fname,false);
+        else
+            importDBHttp(fname,false);
+    }//GEN-LAST:event_ImportXLSActionPerformed
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1441,13 +1494,15 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton EditRecord;
     private java.awt.Choice EntityNames;
     private javax.swing.JButton Execute;
-    private javax.swing.JButton Export;
     private javax.swing.JButton ExportAtrifacts;
+    private javax.swing.JButton ExportGZ;
+    private javax.swing.JButton ExportXLS;
     private javax.swing.JCheckBox FTP;
     private javax.swing.JCheckBox FTPDBImport;
     private java.awt.Choice FolderList;
-    private javax.swing.JButton Import;
     private javax.swing.JButton ImportArtifact;
+    private javax.swing.JButton ImportGZ;
+    private javax.swing.JButton ImportXLS;
     private java.awt.Choice Level;
     private javax.swing.JButton LockServer;
     private javax.swing.JButton LogFileReopen;
@@ -1501,6 +1556,5 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
 }
