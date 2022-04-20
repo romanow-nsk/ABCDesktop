@@ -47,7 +47,7 @@ public class Login extends JFrame implements I_LogArea{
         setVisible(true);
         }
 
-     public void setLoginName(String name){
+    public void setLoginName(String name){
         Login.setText(name);
         }
     public void setPassword(String name){

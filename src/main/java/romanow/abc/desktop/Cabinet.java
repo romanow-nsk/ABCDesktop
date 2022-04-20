@@ -228,7 +228,7 @@ public class Cabinet extends MainBaseFrame{
         Port.add("4567");
         Port.add("4569");
         Port.add("4571");
-        Port.add("55022");
+        Port.add("5001");
         JDBCFactory factory = new JDBCFactory();
         for (String ss : factory.getNameList())
             MongoDB.add(ss);
