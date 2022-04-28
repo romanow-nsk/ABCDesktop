@@ -56,7 +56,6 @@ public class ServerPanel extends BasePanel{
     private String folderName="";
     public ServerPanel() {
         initComponents();
-        BlockSize.setText("10000");
         EntityNames.removeAll();
         classes = ValuesBase.EntityFactory().classList();
         for(TableItem ss : classes){
