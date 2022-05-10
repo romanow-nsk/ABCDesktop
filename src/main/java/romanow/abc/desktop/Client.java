@@ -7,10 +7,14 @@ package romanow.abc.desktop;
 
 import com.google.gson.Gson;
 import com.mongodb.DB;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import romanow.abc.core.API.RestAPIBase;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.UniException;
 import romanow.abc.core.Utils;
+import romanow.abc.core.constants.Values;
 import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.base.WorkSettingsBase;
 import romanow.abc.core.entity.baseentityes.JEmpty;
@@ -20,6 +24,7 @@ import retrofit2.Response;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import static romanow.abc.core.constants.ValuesBase.*;
 
@@ -127,11 +132,17 @@ public class Client extends MainBaseFrame   {
             for(PanelDescriptor pp : panelDescList){
                 boolean bb=false;
                 boolean editMode = true;
-                for(int vv : pp.userTypes)
-                    if (Math.abs(vv)==loginUser().getTypeId()){
-                        bb=true;
-                        editMode = vv > 0;
-                        break;
+                if (loginUser.getTypeId()== UserSuperAdminType){
+                    bb=true;
+                    editMode=true;
+                    }
+                else{
+                    for(int vv : pp.userTypes)
+                        if (Math.abs(vv)==loginUser().getTypeId()){
+                            bb=true;
+                            editMode = vv > 0;
+                            break;
+                            }
                     }
                 if (bb){
                     BasePanel panel = (BasePanel) pp.view.newInstance();
@@ -159,6 +170,19 @@ public class Client extends MainBaseFrame   {
         for(I_PanelEvent xx : panels)
             xx.refresh();
         refreshMode=false;
+        }
+
+    public Object startSecondClient(String ip, String port, Class apiClass) throws UniException {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .readTimeout(Values.HTTPTimeOut, TimeUnit.SECONDS)
+                .connectTimeout(Values.HTTPTimeOut, TimeUnit.SECONDS)
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://"+ip+":"+port)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+        return retrofit.create(apiClass);
         }
 
     /**

@@ -253,6 +253,7 @@ public class Cabinet extends MainBaseFrame{
             Panels.add(pp.name);
             }
         currentPanel.setVisible(true);
+        ESSLabel.setIcon(new ImageIcon(getClass().getResource(ValuesBase.env().applicationName(ValuesBase.AppNameIconPath))));
         try {
             dataServer = (DataServer) ValuesBase.env().applicationObject(ValuesBase.ClassNameDataServer);
             setExternalFIFO(dataServer.getConsoleLog());
