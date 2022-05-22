@@ -14,7 +14,6 @@ import romanow.abc.core.API.RestAPIBase;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.UniException;
 import romanow.abc.core.Utils;
-import romanow.abc.core.constants.Values;
 import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.base.WorkSettingsBase;
 import romanow.abc.core.entity.baseentityes.JEmpty;
@@ -174,8 +173,8 @@ public class Client extends MainBaseFrame   {
 
     public Object startSecondClient(String ip, String port, Class apiClass) throws UniException {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(Values.HTTPTimeOut, TimeUnit.SECONDS)
-                .connectTimeout(Values.HTTPTimeOut, TimeUnit.SECONDS)
+                .readTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
+                .connectTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://"+ip+":"+port)
