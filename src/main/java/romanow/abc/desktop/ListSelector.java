@@ -47,7 +47,21 @@ public class ListSelector extends javax.swing.JFrame {
             public void onSelect(int idx0) {
                 idx = idx0;
             }
-        });
+            });
+        add(box);
+        }
+    public ListSelector(int x0, int y0, String title, String list[], I_ListSelected ok0) {
+        initComponents();
+        setTitle(title);
+        setVisible(true);
+        setBounds(x0,y0,260,120);
+        back = ok0;
+        box = new ListBox(new Rectangle(10, 10, 220, 25), list, new I_ListSelected() {
+            @Override
+            public void onSelect(int idx0) {
+                idx = idx0;
+            }
+            });
         add(box);
     }
     /**

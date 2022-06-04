@@ -11,6 +11,12 @@ import java.util.ArrayList;
 
 public class ListBox extends Choice {
     I_ListSelected ok;
+    public ListBox(Rectangle rr,String xx[], I_ListSelected back0){
+        this(rr,back0);
+        removeAll();
+        for(String zz : xx)
+            add(zz);
+    }
     public ListBox(Rectangle rr,ArrayList xx, I_ListSelected back0){
         this(rr,back0);
         removeAll();
