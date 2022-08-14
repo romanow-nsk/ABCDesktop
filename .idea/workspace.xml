@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="069dc6e6-b649-4c4d-bc0f-750e3f6aa32f" name="Default Changelist" comment="Сборки ABC-фреймворка">
-      <change beforePath="$PROJECT_DIR$/../ABCCore/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ABCCore/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ABCCore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ABCCore/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ABCDataServer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ABCDataServer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ABCDataServer/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ABCDataServer/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/romanow/abc/desktop/MainBaseFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/romanow/abc/desktop/MainBaseFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +20,7 @@
     <option name="done" value="true" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../ABCDataServer" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../ABCCore" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -38,7 +40,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ABCDataServer" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

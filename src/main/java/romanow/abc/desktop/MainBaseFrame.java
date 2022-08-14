@@ -6,7 +6,6 @@
 package romanow.abc.desktop;
 
 import com.google.gson.Gson;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import okhttp3.MultipartBody;
 import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPIBase;
