@@ -5,6 +5,7 @@
  */
 package romanow.abc.desktop;
 
+import romanow.abc.core.constants.ConstValue;
 import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.Entity;
 import romanow.abc.core.entity.EntityList;
@@ -18,6 +19,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,7 +30,8 @@ public class UserPanelBase extends BasePanel{
     private ActionListener chain;
     private EntityList<Entity> types = new EntityList<>();
     private EntityList<User> userAList = new EntityList<>();
-    private int selectedType;
+    private ArrayList<ConstValue> userTypes;
+    private int selectedType=-1;
     /**
      * Creates new form MainPanel
      */
@@ -86,6 +89,28 @@ public class UserPanelBase extends BasePanel{
                 uu.setLogin(Login.getText());
                 uu.setSimCardICC(CardICC.getText());
                 }
+            @Override
+            public void clearView(){
+                N1.setText("");
+                N2.setText("");
+                N3.setText("");
+                POST.setText("");
+                PHONE.setText("");
+                MAIL.setText("");
+                PHONEMK.setText("");
+                PASS.setText("");
+                Login.setText("");
+                Type.setText("");
+                ViewPhoto.setVisible(false);
+                CardICC.setText("");
+                }
+            @Override
+            public boolean isRecordSelected(Entity ent){
+                int idx = UserTypeSelector.getSelectedIndex();
+                if (idx==0)
+                    return true;
+                return userTypes.get(idx-1).value()==((User)ent).getTypeId();
+                }
         };
         add(userPanel);
         JButton addButton = userPanel.Add();
@@ -103,7 +128,13 @@ public class UserPanelBase extends BasePanel{
                 });
             }
         });
-
+        userTypes = ValuesBase.constMap().getGroupList("User");
+        UserTypeSelector.removeAll();
+        UserTypeSelector.add("...");
+        for(ConstValue cc : userTypes)
+            UserTypeSelector.add(cc.title());
+        userPanel.getAllEvent();
+        userPanel.getById();
     }
 
     /**
@@ -140,6 +171,7 @@ public class UserPanelBase extends BasePanel{
         UpploadPhoto = new javax.swing.JButton();
         CardICC = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        UserTypeSelector = new java.awt.Choice();
 
         jTextField1.setText("jTextField1");
 
@@ -162,7 +194,7 @@ public class UserPanelBase extends BasePanel{
 
         jLabel1.setText("CardICC");
         add(jLabel1);
-        jLabel1.setBounds(310, 155, 60, 14);
+        jLabel1.setBounds(310, 155, 60, 16);
 
         N1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -206,23 +238,23 @@ public class UserPanelBase extends BasePanel{
 
         jLabel2.setText("Фамилия");
         add(jLabel2);
-        jLabel2.setBounds(10, 60, 70, 14);
+        jLabel2.setBounds(10, 60, 70, 16);
 
         jLabel3.setText("Имя");
         add(jLabel3);
-        jLabel3.setBounds(10, 90, 70, 14);
+        jLabel3.setBounds(10, 90, 70, 16);
 
         jLabel4.setText("Отчество");
         add(jLabel4);
-        jLabel4.setBounds(10, 120, 70, 14);
+        jLabel4.setBounds(10, 120, 70, 16);
 
         jLabel5.setText("Должность");
         add(jLabel5);
-        jLabel5.setBounds(220, 60, 70, 14);
+        jLabel5.setBounds(220, 60, 70, 16);
 
         jLabel6.setText("Телефон");
         add(jLabel6);
-        jLabel6.setBounds(220, 90, 70, 14);
+        jLabel6.setBounds(220, 90, 70, 16);
 
         Login.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -242,11 +274,11 @@ public class UserPanelBase extends BasePanel{
 
         jLabel8.setText("Логин");
         add(jLabel8);
-        jLabel8.setBounds(430, 60, 70, 14);
+        jLabel8.setBounds(430, 60, 70, 16);
 
         jLabel9.setText("Телефон МК");
         add(jLabel9);
-        jLabel9.setBounds(430, 90, 70, 14);
+        jLabel9.setBounds(430, 90, 70, 16);
 
         PASS.setText("jPasswordField1");
         PASS.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -255,11 +287,11 @@ public class UserPanelBase extends BasePanel{
             }
         });
         add(PASS);
-        PASS.setBounds(510, 110, 111, 25);
+        PASS.setBounds(510, 110, 90, 25);
 
         jLabel10.setText("Пароль");
         add(jLabel10);
-        jLabel10.setBounds(430, 120, 70, 14);
+        jLabel10.setBounds(430, 120, 70, 16);
 
         ViewPhoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/camera.png"))); // NOI18N
         ViewPhoto.setBorderPainted(false);
@@ -293,7 +325,15 @@ public class UserPanelBase extends BasePanel{
 
         jLabel7.setText("E-mail");
         add(jLabel7);
-        jLabel7.setBounds(220, 120, 70, 14);
+        jLabel7.setBounds(220, 120, 70, 16);
+
+        UserTypeSelector.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                UserTypeSelectorItemStateChanged(evt);
+            }
+        });
+        add(UserTypeSelector);
+        UserTypeSelector.setBounds(580, 20, 130, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void N1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_N1KeyPressed
@@ -391,6 +431,11 @@ public class UserPanelBase extends BasePanel{
         userPanel.updateAction(evt);
     }//GEN-LAST:event_CardICCKeyPressed
 
+    private void UserTypeSelectorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_UserTypeSelectorItemStateChanged
+        userPanel.getAllEvent();
+        userPanel.getById();
+    }//GEN-LAST:event_UserTypeSelectorItemStateChanged
+
     @Override
     public void refresh() {
         //userPanel.getAllEvent();
@@ -419,6 +464,7 @@ public class UserPanelBase extends BasePanel{
     private javax.swing.JTextField POST;
     private javax.swing.JTextField Type;
     private javax.swing.JButton UpploadPhoto;
+    private java.awt.Choice UserTypeSelector;
     private javax.swing.JButton ViewPhoto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

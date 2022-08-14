@@ -87,6 +87,7 @@ public abstract class EntityPanel extends EntityBasePanel {
     public EntityList<Entity> getLazy(){
         return new EntityList<>();
         }
+    public void clearView(){}
     //-------------------------------- Читать всех ----------------------------------------
     public void getAllEvent(){
         current=null;
@@ -118,8 +119,8 @@ public abstract class EntityPanel extends EntityBasePanel {
             data.sort(new I_Compare() {
                 @Override
                 public int compare(Entity one, Entity two) {
-                    return 0;
-                }
+                    return one.getTitle().compareTo(two.getTitle());
+                    }
             },false);
         for(Entity xx : data){
             listBox.add(xx.getTitle());
@@ -129,6 +130,7 @@ public abstract class EntityPanel extends EntityBasePanel {
         }
     //-------------------------------- Читать по id ----------------------------------------
     public void getById(){
+        clearView();
         if (listBox.getItemCount()==0) return;
         Response res7 = null;
         try {
