@@ -30,6 +30,11 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public final static int EventRuntimeEdited=9;        // Изменен элемент в runtime
     public final static int EventRuntimeSelected=10;      // Выбран элемент в runtime
     protected MainBaseFrame main;
+    public boolean isEditMode() {
+        return editMode;}
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+        }
     protected boolean editMode=true;
     public boolean isMainMode(){ return true; }
     public boolean isESSMode(){ return true; }

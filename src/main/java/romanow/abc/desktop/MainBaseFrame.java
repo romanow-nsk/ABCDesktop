@@ -57,6 +57,8 @@ public class MainBaseFrame extends JFrame implements I_Important {
     protected ArrayList<ConstValue> userTypes;
     protected User loginUser=new User();
     protected boolean localUser=false;
+    public void setDebugToken(String debugToken) {
+        this.debugToken = debugToken;}
     protected String debugToken="";
     protected boolean refreshMode=false;
     protected Gson gson = new Gson();
