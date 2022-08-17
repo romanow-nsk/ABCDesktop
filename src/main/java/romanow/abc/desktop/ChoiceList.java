@@ -30,24 +30,31 @@ public class ChoiceList<T extends Entity>  {
         idx=-1;
         }
     public void clear(){
-        idx=-1;
         list.clear();
         choice.removeAll();
+        }
+    public void savePos(boolean withPos){
+        if (withPos)
+            savePos();
         }
     public void add(T elem){
         choice.add(elem.getTitle());
         list.add(elem);
-    }
+        }
+    public void add(T elem, String prefix){
+        choice.add(prefix+" "+elem.getTitle());
+        list.add(elem);
+        }
     public void remove(int idx0){
         list.remove(idx0);
         choice.remove(idx0);
-    }
+        }
     public void withPos(boolean force){
         if (force)
             restorePos();
         else
             select(0);
-    }
+        }
     public void select(int idx0){
         if (choice.getItemCount()==0){
             idx=-1;
@@ -57,9 +64,9 @@ public class ChoiceList<T extends Entity>  {
             idx = choice.getItemCount()-1;
         else{
             idx=idx0;
-        }
+            }
         choice.select(idx);
-    }
+        }
     public void toNewElement(){
         idx = choice.getItemCount()==0 ? 0 : choice.getItemCount();
     }
@@ -68,6 +75,6 @@ public class ChoiceList<T extends Entity>  {
     }
     public T get(){
         return choice.getItemCount()==0 ? null : list.get(choice.getSelectedIndex());
-    }
+        }
 }
 
