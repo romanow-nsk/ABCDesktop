@@ -3,15 +3,14 @@ package romanow.abc.desktop;
 import lombok.Getter;
 import lombok.Setter;
 import romanow.abc.core.entity.Entity;
+import romanow.abc.core.entity.EntityRefList;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-public class ChoiceList<T extends Entity>  {
-    @Getter
-    private ArrayList<T> list = new ArrayList<>();
-    @Getter @Setter private Choice choice;
-    @Getter private int idx=-1;
+public class ChoiceList<T extends Entity>  {                // Исходники
+    @Getter private EntityRefList<T> list = new EntityRefList<>();
+    @Getter private Choice choice;
+    @Getter private int idx=-1;                             // Сохраненная позиция (-1 - нет такой)
     public ChoiceList(Choice choice0) {
         choice = choice0;
         }
@@ -20,28 +19,43 @@ public class ChoiceList<T extends Entity>  {
         }
     public void savePos(){
         idx = choice.getItemCount()==0 ? -1 : choice.getSelectedIndex();
-    }
-    public void restorePos(){
-        if (idx==-1 && choice.getItemCount()!=0)
-            idx=0;
-        select(idx);
-    }
-    public void clearPos(){
-        idx=-1;
+        }
+    public T get(){
+        return choice.getItemCount()==0 ? null : list.get(choice.getSelectedIndex());
         }
     public void clear(){
         list.clear();
         choice.removeAll();
         }
-    public void savePos(boolean withPos){
-        if (withPos)
-            savePos();
+    public void createMap(){
+        list.createMap();
+        }
+    public void refresh(){
+        choice.removeAll();
+        for(Entity entity : list)
+            choice.add(entity.getTitle());
+        }
+    public void sortByTitle(){
+        list.sortByTitle();
+        refresh();
+        }
+    public void restorePos(){
+        if (idx==-1 || choice.getItemCount()==0){
+            idx=-1;
+            if (choice.getItemCount()!=0)
+                choice.select(0);
+            return;
+            }
+        select(idx);
+        }
+    public void clearPos(){
+        idx=-1;
         }
     public void add(T elem){
         choice.add(elem.getTitle());
         list.add(elem);
         }
-    public void add(T elem, String prefix){
+    public void add(T elem, String prefix){             // При сортировке префикс теряется
         choice.add(prefix+" "+elem.getTitle());
         list.add(elem);
         }
@@ -49,23 +63,14 @@ public class ChoiceList<T extends Entity>  {
         list.remove(idx0);
         choice.remove(idx0);
         }
-    public void withPos(boolean force){
-        if (force)
-            restorePos();
-        else
-            select(0);
-        }
     public void select(int idx0){
+        idx=-1;
         if (choice.getItemCount()==0){
-            idx=-1;
             return;
-        }
-        if (idx0>=choice.getItemCount())
-            idx = choice.getItemCount()-1;
-        else{
-            idx=idx0;
             }
-        choice.select(idx);
+        if (idx0>=choice.getItemCount())
+            idx0 = choice.getItemCount()-1;
+        choice.select(idx0);
         }
     public void toNewElement(){
         idx = choice.getItemCount()==0 ? 0 : choice.getItemCount();
@@ -73,8 +78,5 @@ public class ChoiceList<T extends Entity>  {
     public void toPrevElement(){
         idx = idx==-1 ? -1 : idx-1;
     }
-    public T get(){
-        return choice.getItemCount()==0 ? null : list.get(choice.getSelectedIndex());
-        }
 }
 
