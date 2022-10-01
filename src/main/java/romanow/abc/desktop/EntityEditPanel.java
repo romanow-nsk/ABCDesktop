@@ -50,7 +50,7 @@ public class EntityEditPanel extends javax.swing.JFrame {
                 int x0 = 20 + 320*(i/20);
                 int y0 = 20 + (i%20)*30;
                 TextField tt = new TextField();
-                tt.setText(ff.name+": "+ DAO.dbTitle[ff.type]);
+                tt.setText(ff.name+": "+ ValuesBase.getOne().getConstMap().getGroupMapByValue("DAOType").get(ff.type).title());
                 tt.setEnabled(false);
                 tt.setBounds(x0,y0,150,25);
                 getContentPane().add(tt);
