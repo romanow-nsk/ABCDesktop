@@ -5,11 +5,8 @@
  */
 package romanow.abc.desktop;
 
+import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPICommon;
-import romanow.abc.core.DBRequest;
-import romanow.abc.core.ServerState;
-import romanow.abc.core.UniException;
-import romanow.abc.core.Utils;
 import romanow.abc.core.constants.ConstValue;
 import romanow.abc.core.constants.TableItem;
 import romanow.abc.core.constants.ValuesBase;
@@ -96,6 +93,12 @@ public class ServerPanel extends BasePanel{
     };
     public void initPanel(MainBaseFrame main0){
         super.initPanel(main0);
+        CopyPort.add("4567");
+        CopyPort.add("4569");
+        CopyPort.add("4571");
+        CopyPort.add("4573");
+        CopyPort.add("4575");
+        CopyPort.add("5001");
         client = main0;
         operList = main.filter(main.constList,"DBOperation");
         Operation.removeAll();
@@ -220,6 +223,8 @@ public class ServerPanel extends BasePanel{
         FTPDBImport = new javax.swing.JCheckBox();
         ExportXLS = new javax.swing.JButton();
         ImportXLS = new javax.swing.JButton();
+        CopyPort = new java.awt.Choice();
+        Copy = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -656,6 +661,17 @@ public class ServerPanel extends BasePanel{
         });
         add(ImportXLS);
         ImportXLS.setBounds(20, 460, 120, 22);
+        add(CopyPort);
+        CopyPort.setBounds(540, 200, 110, 20);
+
+        Copy.setText("Копировать БД");
+        Copy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyActionPerformed(evt);
+            }
+        });
+        add(Copy);
+        Copy.setBounds(410, 200, 120, 22);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1425,6 +1441,26 @@ public class ServerPanel extends BasePanel{
             importDBHttp(fname,false);
     }//GEN-LAST:event_ImportXLSActionPerformed
 
+    private void CopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyActionPerformed
+        int port = Integer.parseInt(CopyPort.getSelectedItem());
+        new OK(200, 200, "Копировать БД "+main.getServerPort()+" -> "+port, new I_Button() {
+            @Override
+            public void onPush() {
+                new APICall<ErrorList>(main) {
+                    @Override
+                    public Call<ErrorList> apiFun() {
+                        return main.service.cloneDB(main.debugToken, Password.getText(),port);
+                      }
+                    @Override
+                    public void onSucess(ErrorList oo) {
+                        System.out.println(oo);
+                    }
+
+                };
+            }
+        });
+    }//GEN-LAST:event_CopyActionPerformed
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1489,6 +1525,8 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton ClearDB;
     private javax.swing.JButton ClearTable1;
     private javax.swing.JTextField CommandLine;
+    private javax.swing.JButton Copy;
+    private java.awt.Choice CopyPort;
     private javax.swing.JButton DownLoadFile;
     private javax.swing.JButton EditRecord;
     private java.awt.Choice EntityNames;
