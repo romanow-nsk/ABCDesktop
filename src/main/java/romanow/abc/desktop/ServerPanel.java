@@ -93,12 +93,12 @@ public class ServerPanel extends BasePanel{
     };
     public void initPanel(MainBaseFrame main0){
         super.initPanel(main0);
-        CopyPort.add("4567");
-        CopyPort.add("4569");
-        CopyPort.add("4571");
-        CopyPort.add("4573");
-        CopyPort.add("4575");
-        CopyPort.add("5001");
+        DBPort.add("4567");
+        DBPort.add("4569");
+        DBPort.add("4571");
+        DBPort.add("4573");
+        DBPort.add("4575");
+        DBPort.add("5001");
         client = main0;
         operList = main.filter(main.constList,"DBOperation");
         Operation.removeAll();
@@ -223,8 +223,9 @@ public class ServerPanel extends BasePanel{
         FTPDBImport = new javax.swing.JCheckBox();
         ExportXLS = new javax.swing.JButton();
         ImportXLS = new javax.swing.JButton();
-        CopyPort = new java.awt.Choice();
-        Copy = new javax.swing.JButton();
+        DBPort = new java.awt.Choice();
+        DBImport = new javax.swing.JButton();
+        DBExport = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -571,7 +572,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(LogFileReopen);
-        LogFileReopen.setBounds(410, 230, 120, 22);
+        LogFileReopen.setBounds(540, 260, 110, 22);
 
         LogFolder.setText("Список логов");
         LogFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -661,17 +662,26 @@ public class ServerPanel extends BasePanel{
         });
         add(ImportXLS);
         ImportXLS.setBounds(20, 460, 120, 22);
-        add(CopyPort);
-        CopyPort.setBounds(540, 200, 110, 20);
+        add(DBPort);
+        DBPort.setBounds(540, 200, 110, 20);
 
-        Copy.setText("Копировать БД");
-        Copy.addActionListener(new java.awt.event.ActionListener() {
+        DBImport.setText("Импорт  БД");
+        DBImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CopyActionPerformed(evt);
+                DBImportActionPerformed(evt);
             }
         });
-        add(Copy);
-        Copy.setBounds(410, 200, 120, 22);
+        add(DBImport);
+        DBImport.setBounds(410, 200, 120, 22);
+
+        DBExport.setText("Экспорт БД");
+        DBExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DBExportActionPerformed(evt);
+            }
+        });
+        add(DBExport);
+        DBExport.setBounds(410, 230, 120, 22);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1441,15 +1451,44 @@ public class ServerPanel extends BasePanel{
             importDBHttp(fname,false);
     }//GEN-LAST:event_ImportXLSActionPerformed
 
-    private void CopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyActionPerformed
-        int port = Integer.parseInt(CopyPort.getSelectedItem());
-        new OK(200, 200, "Копировать БД "+main.getServerPort()+" -> "+port, new I_Button() {
+    private void DBImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DBImportActionPerformed
+        int port = Integer.parseInt(DBPort.getSelectedItem());
+        new OK(200, 200, "Импорт БД в "+main.getServerPort()+" из "+port, new I_Button() {
             @Override
             public void onPush() {
                 new APICall<ErrorList>(main) {
                     @Override
                     public Call<ErrorList> apiFun() {
-                        return main.service.cloneDB(main.debugToken, Password.getText(),port);
+                        return main.service.copyDBFrom(main.debugToken, Password.getText(),port);
+                    }
+                    @Override
+                    public void onSucess(ErrorList oo) {
+                        System.out.println(oo);
+                        if (!oo.valid())
+                            return;
+                        main.delayInGUI(3,new Runnable(){
+                            @Override
+                            public void run() {
+                                client.logOff();
+                            }
+                        });
+                    }
+
+                };
+            }
+        });
+
+    }//GEN-LAST:event_DBImportActionPerformed
+
+    private void DBExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DBExportActionPerformed
+        int port = Integer.parseInt(DBPort.getSelectedItem());
+        new OK(200, 200, "Экспорт БД из "+main.getServerPort()+" в "+port, new I_Button() {
+            @Override
+            public void onPush() {
+                new APICall<ErrorList>(main) {
+                    @Override
+                    public Call<ErrorList> apiFun() {
+                        return main.service.copyDBTo(main.debugToken, Password.getText(),port);
                       }
                     @Override
                     public void onSucess(ErrorList oo) {
@@ -1459,7 +1498,7 @@ public class ServerPanel extends BasePanel{
                 };
             }
         });
-    }//GEN-LAST:event_CopyActionPerformed
+    }//GEN-LAST:event_DBExportActionPerformed
 
     private void showState(){
         onBusy=true;
@@ -1525,8 +1564,9 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton ClearDB;
     private javax.swing.JButton ClearTable1;
     private javax.swing.JTextField CommandLine;
-    private javax.swing.JButton Copy;
-    private java.awt.Choice CopyPort;
+    private javax.swing.JButton DBExport;
+    private javax.swing.JButton DBImport;
+    private java.awt.Choice DBPort;
     private javax.swing.JButton DownLoadFile;
     private javax.swing.JButton EditRecord;
     private java.awt.Choice EntityNames;
