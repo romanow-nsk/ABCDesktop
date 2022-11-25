@@ -204,6 +204,7 @@ public class Login extends JFrame implements I_LogArea{
                 return;
                 }
             main.loginUser(res.body());
+            main.loginUser.getAccount().setPassword(new String(Password.getPassword()));
             main.debugToken = main.loginUser().getSessionToken();   // Токен новой сессии
             Response<ArrayList<String>>  serverEnv = main.service.getSetverEnvironment(main.debugToken).execute();
             if (!serverEnv.isSuccessful() || serverEnv.body()==null){
