@@ -1063,15 +1063,17 @@ public class ServerPanel extends BasePanel{
         new OK(200, 200, "Операция над БД: "+Operation.getSelectedItem(), new I_Button() {
             @Override
             public void onPush() {
-                new APICall<JString>(main){
+                new APICall<ErrorList>(main){
                     @Override
-                    public Call<JString> apiFun() {
+                    public Call<ErrorList> apiFun() {
                         int value = operList.get(Operation.getSelectedIndex()).value();
                         return main.service.prepareDB(main.debugToken,value,Password.getText());
                         }
                     @Override
-                    public void onSucess(JString oo) {
-                        System.out.println(oo.getValue());
+                    public void onSucess(ErrorList oo) {
+                        System.out.println(oo.toString());
+                        if (!oo.valid())
+                            return;
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -1101,17 +1103,21 @@ public class ServerPanel extends BasePanel{
 
 
     private void longPolling(final int count){
-        new APICall<JString>(main){
+        new APICall<ErrorList>(main){
             @Override
-            public Call<JString> apiFun() {
+            public Call<ErrorList> apiFun() {
                 return main.service.longPolling(main.debugToken,Password.getText());
-            }
+                }
             @Override
-            public void onSucess(JString oo) {
-                if (oo.getValue().length()!=0 || count<=0)
-                    System.out.println("Отложенный ответ:\n"+oo);
+            public void onSucess(ErrorList oo) {
+                if (count<=0 && oo.isEmpty()){
+                    System.out.println("Операция не завершилась, продолжается в фоне");
+                    return;
+                    }
+                if (!oo.isEmpty())
+                    System.out.println(oo);
                 else{
-                    System.out.println("...");
+                    System.out.println("Операция продолжается, ждите");
                     longPolling(count-1);
                     }
             }
