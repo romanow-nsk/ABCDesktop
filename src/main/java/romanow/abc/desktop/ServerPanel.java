@@ -17,6 +17,7 @@ import romanow.abc.core.entity.base.BugMessage;
 import romanow.abc.core.entity.base.StringList;
 import romanow.abc.core.entity.baseentityes.JBoolean;
 import romanow.abc.core.entity.baseentityes.JEmpty;
+import romanow.abc.core.entity.baseentityes.JLong;
 import romanow.abc.core.entity.baseentityes.JString;
 import romanow.abc.core.ftp.AsyncTaskBack;
 import romanow.abc.core.ftp.ClientFileWriter;
@@ -183,7 +184,7 @@ public class ServerPanel extends BasePanel{
         Level = new java.awt.Choice();
         Mode = new java.awt.Choice();
         jLabel11 = new javax.swing.JLabel();
-        RefreshEntityList = new javax.swing.JButton();
+        RecordsRefresh = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         ReleaseNum = new javax.swing.JTextField();
         FTP = new javax.swing.JCheckBox();
@@ -206,8 +207,8 @@ public class ServerPanel extends BasePanel{
         Monitor = new javax.swing.JCheckBox();
         ExportAtrifacts = new javax.swing.JButton();
         Record = new java.awt.Choice();
-        RemoveRecord = new javax.swing.JButton();
-        EditRecord = new javax.swing.JButton();
+        RecordRemove = new javax.swing.JButton();
+        RecordEdit = new javax.swing.JButton();
         ServerIPPort = new javax.swing.JLabel();
         LogFileReopen = new javax.swing.JButton();
         LogFolder = new javax.swing.JButton();
@@ -227,6 +228,7 @@ public class ServerPanel extends BasePanel{
         DBPort = new java.awt.Choice();
         DBImport = new javax.swing.JButton();
         DBExport = new javax.swing.JButton();
+        RecordAdd = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -404,16 +406,16 @@ public class ServerPanel extends BasePanel{
         add(jLabel11);
         jLabel11.setBounds(220, 440, 60, 16);
 
-        RefreshEntityList.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/refresh.png"))); // NOI18N
-        RefreshEntityList.setBorderPainted(false);
-        RefreshEntityList.setContentAreaFilled(false);
-        RefreshEntityList.addActionListener(new java.awt.event.ActionListener() {
+        RecordsRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/refresh.png"))); // NOI18N
+        RecordsRefresh.setBorderPainted(false);
+        RecordsRefresh.setContentAreaFilled(false);
+        RecordsRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RefreshEntityListActionPerformed(evt);
+                RecordsRefreshActionPerformed(evt);
             }
         });
-        add(RefreshEntityList);
-        RefreshEntityList.setBounds(500, 430, 40, 30);
+        add(RecordsRefresh);
+        RecordsRefresh.setBounds(500, 430, 40, 30);
 
         jLabel12.setText("Запросов");
         add(jLabel12);
@@ -539,27 +541,27 @@ public class ServerPanel extends BasePanel{
         add(Record);
         Record.setBounds(160, 465, 460, 20);
 
-        RemoveRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
-        RemoveRecord.setBorderPainted(false);
-        RemoveRecord.setContentAreaFilled(false);
-        RemoveRecord.addActionListener(new java.awt.event.ActionListener() {
+        RecordRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
+        RecordRemove.setBorderPainted(false);
+        RecordRemove.setContentAreaFilled(false);
+        RecordRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RemoveRecordActionPerformed(evt);
+                RecordRemoveActionPerformed(evt);
             }
         });
-        add(RemoveRecord);
-        RemoveRecord.setBounds(660, 455, 30, 30);
+        add(RecordRemove);
+        RecordRemove.setBounds(660, 455, 30, 30);
 
-        EditRecord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/no_problem.png"))); // NOI18N
-        EditRecord.setBorderPainted(false);
-        EditRecord.setContentAreaFilled(false);
-        EditRecord.addActionListener(new java.awt.event.ActionListener() {
+        RecordEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/no_problem.png"))); // NOI18N
+        RecordEdit.setBorderPainted(false);
+        RecordEdit.setContentAreaFilled(false);
+        RecordEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditRecordActionPerformed(evt);
+                RecordEditActionPerformed(evt);
             }
         });
-        add(EditRecord);
-        EditRecord.setBounds(620, 450, 40, 40);
+        add(RecordEdit);
+        RecordEdit.setBounds(620, 450, 40, 40);
 
         ServerIPPort.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ServerIPPort.setText("...");
@@ -683,6 +685,17 @@ public class ServerPanel extends BasePanel{
         });
         add(DBExport);
         DBExport.setBounds(410, 230, 120, 22);
+
+        RecordAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/add.png"))); // NOI18N
+        RecordAdd.setBorderPainted(false);
+        RecordAdd.setContentAreaFilled(false);
+        RecordAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordAddActionPerformed(evt);
+            }
+        });
+        add(RecordAdd);
+        RecordAdd.setBounds(550, 430, 30, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -982,9 +995,9 @@ public class ServerPanel extends BasePanel{
             }
         }
     
-    private void RefreshEntityListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshEntityListActionPerformed
+    private void RecordsRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordsRefreshActionPerformed
         refreshEntityList();
-    }//GEN-LAST:event_RefreshEntityListActionPerformed
+    }//GEN-LAST:event_RecordsRefreshActionPerformed
 
     private void ClearDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDBActionPerformed
         new OK(200, 200, "Очистить БД", new I_Button() {
@@ -1315,7 +1328,7 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_ExportAtrifactsActionPerformed
 
-    private void RemoveRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveRecordActionPerformed
+    private void RecordRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordRemoveActionPerformed
         if (records.size()==0)
             return;
         final Entity entity = records.get(Record.getSelectedIndex());
@@ -1334,14 +1347,14 @@ public class ServerPanel extends BasePanel{
                 };
             }
         });
-    }//GEN-LAST:event_RemoveRecordActionPerformed
+    }//GEN-LAST:event_RecordRemoveActionPerformed
 
-    private void EditRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditRecordActionPerformed
+    private void RecordEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordEditActionPerformed
         if (records.size()==0)
             return;
         final Entity entity = records.get(Record.getSelectedIndex());
         new EntityEditPanel(main,entity);
-    }//GEN-LAST:event_EditRecordActionPerformed
+    }//GEN-LAST:event_RecordEditActionPerformed
 
     private void LogFileReopenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogFileReopenActionPerformed
         new OK(200, 200, "Создать новый log-файл", new I_Button() {
@@ -1501,6 +1514,34 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_DBExportActionPerformed
 
+    private void RecordAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordAddActionPerformed
+        Class cls = classes.get(EntityNames.getSelectedIndex()).clazz;
+        Entity entity=null;
+        try {
+            entity = (Entity) cls.newInstance();
+            } catch (Exception ee) {
+                System.out.println("Ошибка создания объекта: "+cls.getSimpleName()+"\n"+ee.toString());
+                return;
+                }
+        final Entity entity2=entity;
+        new OK(200, 200, "Добавить объект "+cls.getSimpleName(), new I_Button() {
+            @Override
+            public void onPush() {
+                new APICall<JLong>(main) {
+                    @Override
+                    public Call<JLong> apiFun() {
+                        return main.service.addEntity(main.debugToken,new DBRequest(entity2,main.gson),0);
+                        }
+                    @Override
+                    public void onSucess(JLong oo) {
+                        System.out.println("Доюавлен объект oid= "+oo.getValue());
+                        refreshEntityList();
+                        }
+                    };
+                }
+            });
+    }//GEN-LAST:event_RecordAddActionPerformed
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1569,7 +1610,6 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton DBImport;
     private java.awt.Choice DBPort;
     private javax.swing.JButton DownLoadFile;
-    private javax.swing.JButton EditRecord;
     private java.awt.Choice EntityNames;
     private javax.swing.JButton Execute;
     private javax.swing.JButton ExportAtrifacts;
@@ -1594,10 +1634,12 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JTextField PID;
     private javax.swing.JPasswordField Password;
     private java.awt.Choice Record;
-    private javax.swing.JButton RefreshEntityList;
+    private javax.swing.JButton RecordAdd;
+    private javax.swing.JButton RecordEdit;
+    private javax.swing.JButton RecordRemove;
+    private javax.swing.JButton RecordsRefresh;
     private javax.swing.JTextField ReleaseNum;
     private javax.swing.JButton Reload;
-    private javax.swing.JButton RemoveRecord;
     private javax.swing.JTextField RequestCount;
     private javax.swing.JTextField SeccionCount;
     private javax.swing.JLabel ServerIPPort;
