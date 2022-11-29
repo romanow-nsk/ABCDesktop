@@ -6,6 +6,7 @@
 package romanow.abc.desktop;
 
 import com.google.gson.Gson;
+import org.apache.poi.ss.formula.functions.T;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.UniException;
 import romanow.abc.core.entity.base.WorkSettingsBase;
@@ -59,12 +60,15 @@ public class WorkSettingsPanel extends BasePanel{
         jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
         Refresh = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        TraceLevel = new java.awt.Choice();
+        jLabel34 = new javax.swing.JLabel();
 
         setLayout(null);
 
         jLabel15.setText("Каталог артефактов");
         add(jLabel15);
-        jLabel15.setBounds(20, 40, 130, 14);
+        jLabel15.setBounds(20, 40, 130, 16);
 
         ServerFileDirectory.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -82,7 +86,7 @@ public class WorkSettingsPanel extends BasePanel{
             }
         });
         add(ServerFileDirectoryDefault);
-        ServerFileDirectoryDefault.setBounds(20, 70, 110, 23);
+        ServerFileDirectoryDefault.setBounds(20, 70, 110, 20);
 
         ConvertArtifact.setText("Конвертировать форматы");
         ConvertArtifact.addItemListener(new java.awt.event.ItemListener() {
@@ -91,7 +95,7 @@ public class WorkSettingsPanel extends BasePanel{
             }
         });
         add(ConvertArtifact);
-        ConvertArtifact.setBounds(140, 70, 200, 23);
+        ConvertArtifact.setBounds(140, 70, 200, 20);
 
         MailSendTo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -103,23 +107,23 @@ public class WorkSettingsPanel extends BasePanel{
 
         jLabel12.setText("Порт");
         add(jLabel12);
-        jLabel12.setBounds(30, 160, 60, 14);
+        jLabel12.setBounds(30, 160, 60, 16);
 
         jLabel28.setText("Ящик");
         add(jLabel28);
-        jLabel28.setBounds(30, 190, 40, 14);
+        jLabel28.setBounds(30, 190, 40, 16);
 
         jLabel29.setText("Сервер ");
         add(jLabel29);
-        jLabel29.setBounds(30, 130, 70, 14);
+        jLabel29.setBounds(30, 130, 70, 16);
 
         jLabel30.setText("Пароль");
         add(jLabel30);
-        jLabel30.setBounds(30, 220, 50, 14);
+        jLabel30.setBounds(30, 220, 50, 16);
 
-        jLabel31.setText("Получатель");
+        jLabel31.setText("трассировки");
         add(jLabel31);
-        jLabel31.setBounds(30, 280, 90, 14);
+        jLabel31.setBounds(30, 350, 100, 16);
 
         MailHost.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -163,7 +167,7 @@ public class WorkSettingsPanel extends BasePanel{
 
         jLabel32.setText("Безопасность");
         add(jLabel32);
-        jLabel32.setBounds(30, 250, 90, 14);
+        jLabel32.setBounds(30, 250, 90, 16);
 
         MailNotification.setText("Уведомления по Mail");
         MailNotification.addItemListener(new java.awt.event.ItemListener() {
@@ -172,7 +176,7 @@ public class WorkSettingsPanel extends BasePanel{
             }
         });
         add(MailNotification);
-        MailNotification.setBounds(140, 300, 170, 23);
+        MailNotification.setBounds(140, 300, 170, 20);
         add(jSeparator3);
         jSeparator3.setBounds(20, 110, 190, 10);
 
@@ -181,7 +185,6 @@ public class WorkSettingsPanel extends BasePanel{
         add(jLabel5);
         jLabel5.setBounds(220, 100, 90, 14);
 
-        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/refresh.png"))); // NOI18N
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshActionPerformed(evt);
@@ -189,6 +192,22 @@ public class WorkSettingsPanel extends BasePanel{
         });
         add(Refresh);
         Refresh.setBounds(340, 80, 40, 40);
+
+        jLabel33.setText("Получатель");
+        add(jLabel33);
+        jLabel33.setBounds(30, 280, 90, 16);
+
+        TraceLevel.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                TraceLevelItemStateChanged(evt);
+            }
+        });
+        add(TraceLevel);
+        TraceLevel.setBounds(140, 330, 90, 20);
+
+        jLabel34.setText("Уровень ");
+        add(jLabel34);
+        jLabel34.setBounds(30, 330, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerFileDirectoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ServerFileDirectoryKeyPressed
@@ -237,6 +256,11 @@ public class WorkSettingsPanel extends BasePanel{
         refresh();
     }//GEN-LAST:event_RefreshActionPerformed
 
+    private void TraceLevelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TraceLevelItemStateChanged
+        updateSettings(null,"traceLevel",TraceLevel.getSelectedIndex());
+        refresh();
+    }//GEN-LAST:event_TraceLevelItemStateChanged
+
     private void procPressedInt(KeyEvent evt, JTextField text, String name){
         if(evt.getKeyCode()!=10) return;
         int vv=0;
@@ -275,6 +299,12 @@ public class WorkSettingsPanel extends BasePanel{
             MailSendTo.setText(ws.getMailToSend());
             MailPort.setText(""+ws.getMailPort());
             MailNotification.setSelected(ws.isMailNotifycation());
+            TraceLevel.removeAll();
+            TraceLevel.add("Нет");
+            TraceLevel.add("Мин.");
+            TraceLevel.add("Сред.");
+            TraceLevel.add("Макс.");
+            TraceLevel.select(ws.getTraceLevel());
             } catch (Exception e) { popup(e.toString()); }
     }
 
@@ -374,6 +404,7 @@ public class WorkSettingsPanel extends BasePanel{
     private javax.swing.JButton Refresh;
     private javax.swing.JTextField ServerFileDirectory;
     private javax.swing.JCheckBox ServerFileDirectoryDefault;
+    private java.awt.Choice TraceLevel;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel28;
@@ -381,6 +412,8 @@ public class WorkSettingsPanel extends BasePanel{
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
