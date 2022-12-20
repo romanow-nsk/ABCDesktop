@@ -74,7 +74,7 @@ public class MainBase extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ServerX);
-        ServerX.setBounds(80, 40, 73, 23);
+        ServerX.setBounds(80, 40, 70, 23);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
