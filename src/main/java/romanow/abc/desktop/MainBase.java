@@ -8,6 +8,9 @@ package romanow.abc.desktop;
 import romanow.abc.core.UniException;
 import romanow.abc.core.constants.ValuesBase;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author romanow
@@ -20,6 +23,8 @@ public class MainBase extends javax.swing.JFrame {
     public MainBase() {
         initComponents();
         setBounds(200,200,180,110);
+        Logger logger = Logger.getGlobal();
+        logger.setLevel(Level.WARNING);
         }
     public static void runGUIClass(final int appType){
         java.awt.EventQueue.invokeLater(new Runnable() {

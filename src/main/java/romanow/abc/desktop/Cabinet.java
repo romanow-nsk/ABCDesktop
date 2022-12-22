@@ -45,6 +45,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -198,6 +200,8 @@ public class Cabinet extends MainBaseFrame{
     public Cabinet(){
         super();
         if (!tryToStart()) return;
+        Logger logger = Logger.getGlobal();
+        logger.setLevel(java.util.logging.Level.WARNING);
         initComponents();
         setTitle("Сервер данных: "+ValuesBase.env().applicationName(ValuesBase.AppNameTitle)+" сборка:"+ValuesBase.env().releaseNumber());
         panelList = createPanelList();
