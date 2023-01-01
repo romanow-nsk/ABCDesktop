@@ -105,17 +105,18 @@ public class MainBaseFrame extends JFrame implements I_Important {
         log = new LogStream(utf8, null, new I_String() {
             @Override
             public void onEvent(final String zz) {
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        String zz2 = zz.length() > 70 ? zz.substring(0,70)+"..." : zz;
-                        if (mesContext.MES!=null)
-                            mesContext.MES.append(zz+"\n");
-                        if (mesContext.MESShort!=null)
-                            mesContext.MESShort.setText(zz);
-                        if (mesContext.logFrame!=null)
-                            mesContext.logFrame.getLogArea().append(zz+"\n");
-                        //if (mesContext.MES==null && mesContext.MESShort==null && mesContext.logFrame==null)
-                        //    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz);
+                final String zz2 = zz.length() > 70 ? zz.substring(0,70)+"..." : zz;
+                if (mesContext.logFrame!=null)
+                    mesContext.logFrame.getLogArea().append(zz+"\n");
+                if (mesContext.MES!=null || mesContext.MESShort!=null)
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            if (mesContext.MES!=null)
+                                mesContext.MES.append(zz+"\n");
+                            if (mesContext.MESShort!=null)
+                                mesContext.MESShort.setText(zz);
+                            //if (mesContext.MES==null && mesContext.MESShort==null && mesContext.logFrame==null)
+                            //    sendPopupMessage(mesContext.logFrame,20,mesContext.logFrame.getHeight()-50,zz);
                         }
                     });
                 }
