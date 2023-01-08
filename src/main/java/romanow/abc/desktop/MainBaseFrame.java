@@ -262,12 +262,19 @@ public class MainBaseFrame extends JFrame implements I_Important {
         return new Pair<>(service,ss.getValue());
         }
     public void loadConstants() throws UniException{
-        constList = new APICall2<ArrayList<ConstValue>>(){
-            @Override
-            public Call<ArrayList<ConstValue>> apiFun() {
-                return service.getConstAll(debugToken);
+        loadConstants(false);
+        }
+    public void loadConstants(boolean local) throws UniException{
+        if (local)
+            constList = ValuesBase.constMap().getConstList();
+        else{
+            constList = new APICall2<ArrayList<ConstValue>>(){
+                @Override
+                public Call<ArrayList<ConstValue>> apiFun() {
+                    return service.getConstAll(debugToken);
+                    }
+                }.call(this);
             }
-        }.call(this);
         homeTypes = filter(constList,"HomeType");
         officeTypes = filter(constList,"OfficeType");
         streetTypes = filter(constList,"StreetType");

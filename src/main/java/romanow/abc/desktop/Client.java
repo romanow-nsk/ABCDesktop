@@ -7,6 +7,8 @@ package romanow.abc.desktop;
 
 import com.google.gson.Gson;
 import com.mongodb.DB;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,6 +23,7 @@ import romanow.abc.core.entity.users.User;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -42,11 +45,12 @@ public class Client extends MainBaseFrame   {
     public final static int ViewHight = PanelH+100;
     public final static int X0 = 50;
     public final static int Y0 = 50;
+    @Getter @Setter boolean offline=false;              // АВТОНОМНЫЙ клиент
     private LogView logView = new LogView();
-    private LogPanel logPanel;
+    @Getter @Setter private LogPanel logPanel;
     private Login loginForm=null;
     private I_OK disposeBack = null;
-    private ArrayList<I_PanelEvent> panels = new ArrayList();
+    @Getter @Setter private ArrayList<I_PanelEvent> panels = new ArrayList();
     private boolean secondForm=false;
     //----------------------------------------------------------------
     public final ArrayList<PanelDescriptor> panelDescList=new ArrayList<>();
@@ -56,6 +60,9 @@ public class Client extends MainBaseFrame   {
     public void setPassword(String name){
         loginForm.setPassword(name);
     }
+    public void initComponentsPublic(){
+        initComponents();
+        }
     public void initPanels(){
         panelDescList.add(new PanelDescriptor("Трассировка", LogPanel.class,new int[]
                 {UserSuperAdminType, UserAdminType}));
@@ -88,16 +95,23 @@ public class Client extends MainBaseFrame   {
             });
         }
 
-    public Client() {
-        this(true);
+    public Client(boolean setLog0){
+        this(setLog0,false);
         }
-    public Client(boolean setLog) {
+    public Client() {
+        this(true,false);
+        }
+    public Client(boolean setLog, boolean offline0) {
         super(setLog);
+        offline = offline0;
         secondForm=false;
         initComponents();
         setMES(loginForm);
         initPanels();
-        login();
+        if (!offline)
+            login();
+        else
+            onLoginSuccess();
         }
 
     public Client(RestAPIBase service0, User user0, I_OK disposeBack0) throws UniException{
@@ -145,13 +159,19 @@ public class Client extends MainBaseFrame   {
                     }
                 if (bb){
                     BasePanel panel = (BasePanel) pp.view.newInstance();
-                    if (panel instanceof LogPanel)
+                    if (panel instanceof LogPanel){
                         logPanel = (LogPanel)panel;
+                        setMES(logPanel.mes(),logView,MESLOC);
+                        }
                     if (mainMode && panel.isMainMode() || !mainMode && panel.isESSMode()){
                         panel.editMode = editMode;
+                    try {
                         panel.initPanel(this);
                         panels.add(panel);
                         PanelList.add(pp.name, panel);
+                        } catch (Exception ee){
+                            System.out.println("Ошибка открытия панели "+pp.name+"\n"+ee.toString());
+                            }
                         }
                     }
                 }
@@ -247,7 +267,8 @@ public class Client extends MainBaseFrame   {
                 }
         }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        logOff();
+        if (!offline)
+            logOff();
         if (disposeBack!=null)
             disposeBack.onOK(null);
     }//GEN-LAST:event_formWindowClosing
@@ -313,6 +334,15 @@ public class Client extends MainBaseFrame   {
             }
         });
     }
+
+    public LogView getLogView() {
+        return logView;}
+    public JTextField getMESLOC() {
+        return MESLOC;}
+    public JTabbedPane getPanelList() {
+        return PanelList;}
+    public JCheckBox getShowLog() {
+        return ShowLog;}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField MESLOC;
