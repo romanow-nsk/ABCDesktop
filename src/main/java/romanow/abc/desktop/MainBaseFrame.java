@@ -6,6 +6,8 @@
 package romanow.abc.desktop;
 
 import com.google.gson.Gson;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.MultipartBody;
 import romanow.abc.core.*;
 import romanow.abc.core.API.RestAPIBase;
@@ -47,6 +49,7 @@ import static romanow.abc.core.Utils.httpError;
  * @author romanow
  */
 public class MainBaseFrame extends JFrame implements I_Important {
+    protected boolean offline=false;              // АВТОНОМНЫЙ клиент
     protected WorkSettingsBase workSettings=null;
     protected ArrayList<ConstValue> constList;
     protected ArrayList<ConstValue> homeTypes;

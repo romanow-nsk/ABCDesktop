@@ -45,7 +45,6 @@ public class Client extends MainBaseFrame   {
     public final static int ViewHight = PanelH+100;
     public final static int X0 = 50;
     public final static int Y0 = 50;
-    @Getter @Setter boolean offline=false;              // АВТОНОМНЫЙ клиент
     private LogView logView = new LogView();
     @Getter @Setter private LogPanel logPanel;
     private Login loginForm=null;
@@ -267,8 +266,11 @@ public class Client extends MainBaseFrame   {
                 }
         }
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (!offline)
-            logOff();
+        if (offline) {
+            dispose();
+            return;
+            }
+        logOff();
         if (disposeBack!=null)
             disposeBack.onOK(null);
     }//GEN-LAST:event_formWindowClosing
