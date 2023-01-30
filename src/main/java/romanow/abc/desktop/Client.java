@@ -58,7 +58,8 @@ public class Client extends MainBaseFrame   {
         }
     public void setPassword(String name){
         loginForm.setPassword(name);
-    }
+        }
+    public void addIP(String ss){ loginForm.addIP(ss); }
     public void initComponentsPublic(){
         initComponents();
         }

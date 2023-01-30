@@ -35,7 +35,7 @@ public class Login extends JFrame implements I_LogArea{
         ClientIP.add("217.71.138.9");
         ClientIP.add("217.71.138.8");
         ClientIP.add("217.71.138.13");
-        ClientIP.add("192.168.0.102");      // Для отладки - доступ через роутер = удаленный user
+        ClientIP.add("192.168.0.127");
         Port.add("4567");
         Port.add("4569");
         Port.add("4571");
@@ -53,6 +53,7 @@ public class Login extends JFrame implements I_LogArea{
     public void setPassword(String name){
         Password.setText(name);
         }
+    public void addIP(String ip){ ClientIP.add(ip);}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
