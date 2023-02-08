@@ -203,7 +203,7 @@ public class Cabinet extends MainBaseFrame{
         Logger logger = Logger.getGlobal();
         logger.setLevel(java.util.logging.Level.WARNING);
         initComponents();
-        setTitle("Сервер данных: "+ValuesBase.env().applicationName(ValuesBase.AppNameTitle)+" сборка:"+ValuesBase.env().releaseNumber());
+        setTitle("Сервер данных: "+ValuesBase.env().applicationName(ValuesBase.AppNameTitle));
         panelList = createPanelList();
         currentPanel = panelList[0];
         onStart();
