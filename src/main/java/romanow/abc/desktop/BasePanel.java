@@ -28,7 +28,8 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public final static int EventGUIToFront=7;           // Панель ЧМИ на передний план
     public final static int EventRuntimeEditMode=8;      // Панель ЧМИ на передний план
     public final static int EventRuntimeEdited=9;        // Изменен элемент в runtime
-    public final static int EventRuntimeSelected=10;      // Выбран элемент в runtime
+    public final static int EventRuntimeSelected=10;     // Выбран элемент в runtime
+    public final static int EventAutoConnected=11;       // Автоматический коннект
     protected MainBaseFrame main;
     public boolean isEditMode() {
         return editMode;}

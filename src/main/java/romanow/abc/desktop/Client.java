@@ -64,8 +64,7 @@ public class Client extends MainBaseFrame   {
         initComponents();
         }
     public void initPanels(){
-        panelDescList.add(new PanelDescriptor("Трассировка", LogPanel.class,new int[]
-                {UserSuperAdminType, UserAdminType}));
+        panelDescList.add(new PanelDescriptor("Трассировка", LogPanel.class,null));
         //---------- <0 - readOnly Mode
         panelDescList.add(new PanelDescriptor("Пользователи", UserPanelBase.class,new int[]
                 {UserSuperAdminType, UserAdminType}));
@@ -145,17 +144,23 @@ public class Client extends MainBaseFrame   {
             for(PanelDescriptor pp : panelDescList){
                 boolean bb=false;
                 boolean editMode = true;
-                if (loginUser.getTypeId()== UserSuperAdminType){
+                if (pp.userTypes==null){
                     bb=true;
-                    editMode=true;
+                    editMode=false;
                     }
                 else{
-                    for(int vv : pp.userTypes)
-                        if (Math.abs(vv)==loginUser().getTypeId()){
-                            bb=true;
-                            editMode = vv > 0;
-                            break;
-                            }
+                    if (loginUser.getTypeId()== UserSuperAdminType){
+                        bb=true;
+                        editMode=true;
+                        }
+                    else{
+                        for(int vv : pp.userTypes)
+                            if (Math.abs(vv)==loginUser().getTypeId()){
+                                bb=true;
+                                editMode = vv > 0;
+                                break;
+                                }
+                        }
                     }
                 if (bb){
                     BasePanel panel = (BasePanel) pp.view.newInstance();
