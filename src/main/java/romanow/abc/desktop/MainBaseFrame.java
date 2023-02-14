@@ -334,7 +334,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     }
     public void loadFile(Artifact art, FileNameExt ff, I_Success back){
         if (ff==null){
-            ff = getOutputFileName("Загрузка файла",art.getOriginalExt(),art.getOriginalName());
+            ff = getOutputFileName("Экспорт файла",art.getOriginalExt(),art.getOriginalName());
             if (ff==null) return;
             }
         loadFile(art, ff.fullName(), new I_DownLoad() {
@@ -349,13 +349,13 @@ public class MainBaseFrame extends JFrame implements I_Important {
         });
         }
     public void loadFile(Artifact art){
-        FileNameExt ff = getOutputFileName("Загрузка файла",art.getOriginalExt(),art.getOriginalName());
+        FileNameExt ff = getOutputFileName("Экспорт файла",art.getOriginalExt(),art.getOriginalName());
         if (ff==null)
             return;
         loadFile(art, ff.fullName(),null);
         }
     public void loadFileAndDelete(Artifact art){
-        final FileNameExt ff = getOutputFileName("Загрузка файла",art.getOriginalExt(),art.getOriginalName());
+        final FileNameExt ff = getOutputFileName("Экспорт файла",art.getOriginalExt(),art.getOriginalName());
         if (ff==null)
             return;
         loadFile(art, ff.fullName(), new I_DownLoad() {
@@ -385,12 +385,12 @@ public class MainBaseFrame extends JFrame implements I_Important {
         loadFile(art, dir + "/" + art.getOriginalName(), new I_DownLoad() {
             @Override
             public void onSuccess() {
-                System.out.println("Загружен файл "+art.getOriginalName());
+                System.out.println("Экспорт файла выполнен "+art.getOriginalName());
                 loadFileGroup(dir,artifacts,idx+1);
                 }
             @Override
             public void onError(String mes) {
-                System.out.println("Ошибка загрузки "+art.getOriginalName()+"\n"+mes);
+                System.out.println("Ошибка экспорта "+art.getOriginalName()+"\n"+mes);
                 loadFileGroup(dir,artifacts,idx+1);
                 }
             });
@@ -414,7 +414,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                         if (back!=null)
                             back.onSuccess();
                         else
-                            System.out.println("Файл загружен "+fspec);
+                            System.out.println("Экспорт файла выполнен "+fspec);
                         } catch (IOException ee) {
                         String mes = Utils.createFatalMessage(ee);
                             if (back!=null)
@@ -445,7 +445,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
     public void loadFile(String folder, String fname){
         int idx = fname.lastIndexOf(".");
         String ext = idx==-1 ? "" : fname.substring(idx+1);
-        FileNameExt ff = getOutputFileName("Загрузка файла",ext,fname);
+        FileNameExt ff = getOutputFileName("Экспорт файла",ext,fname);
         if (ff==null)
             return;
         loadFileByName(ff.fullName(),folder,fname,null);
@@ -469,7 +469,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                         if (back!=null)
                             back.onSuccess();
                         else
-                            System.out.println("Файл загружен "+fname);
+                            System.out.println("Экспорт файла выполнен "+fname);
                     } catch (IOException ee) {
                         String mes = Utils.createFatalMessage(ee);
                         if (back!=null)
