@@ -236,6 +236,7 @@ public class Cabinet extends MainBaseFrame{
         JDBCFactory factory = new JDBCFactory();
         for (String ss : factory.getNameList())
             MongoDB.add(ss);
+        MongoDB.select(1);
         //---------------------------------------------------------------------
         for(int i=0;i<=10;i++)
             Level.add(""+i);
