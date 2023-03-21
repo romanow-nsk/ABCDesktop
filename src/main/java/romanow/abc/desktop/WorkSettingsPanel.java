@@ -9,6 +9,9 @@ import com.google.gson.Gson;
 import org.apache.poi.ss.formula.functions.T;
 import romanow.abc.core.DBRequest;
 import romanow.abc.core.UniException;
+import romanow.abc.core.constants.ConstList;
+import romanow.abc.core.constants.ConstValue;
+import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.entity.base.WorkSettingsBase;
 import romanow.abc.core.entity.baseentityes.JEmpty;
 import retrofit2.Response;
@@ -23,12 +26,14 @@ import java.io.IOException;
  */
 public class WorkSettingsPanel extends BasePanel{
     private WorkSettingsBase ws;
+    private ConstList traceLevel;
     public WorkSettingsPanel() {
         initComponents();
         }
     public void initPanel(MainBaseFrame main0){
         super.initPanel(main0);
-        }
+        traceLevel = ValuesBase.constMap().getValuesList("TraceLevel");
+    }
 
 
     /**
@@ -300,10 +305,8 @@ public class WorkSettingsPanel extends BasePanel{
             MailPort.setText(""+ws.getMailPort());
             MailNotification.setSelected(ws.isMailNotifycation());
             TraceLevel.removeAll();
-            TraceLevel.add("Нет");
-            TraceLevel.add("Мин.");
-            TraceLevel.add("Сред.");
-            TraceLevel.add("Макс.");
+            for(ConstValue  trace : traceLevel)
+                TraceLevel.add(trace.title());
             TraceLevel.select(ws.getTraceLevel());
             } catch (Exception e) { popup(e.toString()); }
     }
