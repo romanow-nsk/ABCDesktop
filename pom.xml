@@ -41,16 +41,6 @@
         </plugins>
     </build>
     <repositories>
-        <repository>
-            <id>asterisk-java-mvn-repo</id>
-            <url>https://raw.githubusercontent.com/asterisk-java/asterisk-java/mvn-repo</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
     </repositories>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.jfree/jfreechart -->
