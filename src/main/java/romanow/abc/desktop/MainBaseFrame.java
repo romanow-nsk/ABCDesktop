@@ -185,6 +185,21 @@ public class MainBaseFrame extends JFrame implements I_Important {
         });
     }
 
+    public static void viewUpdate(final Component evt, boolean good){
+        if (evt==null){
+            System.out.println("Изменения приняты");
+            return;
+        }
+        evt.setBackground(good ? Color.green : Color.yellow);
+        delayInGUI(2, new Runnable() {
+            @Override
+            public void run() {
+                evt.setBackground(Color.white);
+            }
+        });
+    }
+
+
     public static void delayInGUI(final int sec,final Runnable code){
         new Thread(new Runnable() {
             @Override
