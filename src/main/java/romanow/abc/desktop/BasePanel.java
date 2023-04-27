@@ -31,6 +31,8 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public final static int EventRuntimeSelected=10;     // Выбран элемент в runtime
     public final static int EventAutoConnected=11;       // Автоматический коннект
     protected MainBaseFrame main;
+    private int popupCount=0;
+    private String lastPopup="";
     public boolean isEditMode() {
         return editMode;}
     public void setEditMode(boolean editMode) {
@@ -48,6 +50,8 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public void initPanel(MainBaseFrame main0){
         main = main0;
         setBounds(0,0,Client.PanelW,Client.PanelH);
+        lastPopup="";
+        popupCount=0;
         }
     public void setChoice(Choice cc, EntityList<Entity> ss){
         cc.removeAll();
@@ -59,10 +63,16 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
         }
     public void popup(String ss){
         System.out.println(ss);
-        int a=0;
-        if (ss.length()==0)
-            a=1;
-        new Message(300,300,ss, ValuesBase.PopupMessageDelay);
+        if (ss.equals(lastPopup)){
+            popupCount++;
+            }
+        else{
+            String ss2 = popupCount > 1 ? lastPopup +"("+popupCount+")$" : "";
+            ss2 += ss;
+            new Message(300,300,ss2, ValuesBase.PopupMessageDelay);
+            popupCount=1;
+            lastPopup=ss;
+            }
         }
     /**
      * This method is called from within the constructor to initialize the form.
