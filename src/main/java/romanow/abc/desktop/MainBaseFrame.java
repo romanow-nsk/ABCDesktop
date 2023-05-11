@@ -411,7 +411,10 @@ public class MainBaseFrame extends JFrame implements I_Important {
             });
         }
     public void loadFile(Artifact art, String fspec, final I_DownLoad back){
-        Call<ResponseBody> call2 = service.downLoad(debugToken,art.getOid());
+        loadFile(art.getOid(),fspec,back);
+        }
+    public void loadFile(long artOid, String fspec, final I_DownLoad back){
+        Call<ResponseBody> call2 = service.downLoad(debugToken,artOid);
         call2.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
