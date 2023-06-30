@@ -63,8 +63,11 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
         return  res.message()+" ("+res.code()+") "+res.errorBody().string();
         }
     public void popup(String ss){
+        popup(ss,false);
+        }
+    public void popup(String ss, boolean force){
         System.out.println(ss);
-        if (ss.equals(lastPopup)){
+        if (!force && ss.equals(lastPopup)){
             popupCount++;
             }
         else{
