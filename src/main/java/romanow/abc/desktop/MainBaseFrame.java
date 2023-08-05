@@ -264,6 +264,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 .readTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
                 .connectTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
                 .build();
+        System.out.println("API: пул потоков="+okHttpClient.dispatcher().getMaxRequests());
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://"+ip+":"+port)
                 .addConverterFactory(GsonConverterFactory.create())
