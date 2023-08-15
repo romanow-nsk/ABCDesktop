@@ -25,6 +25,7 @@ import romanow.abc.core.utils.FileNameExt;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Response;
+import romanow.abc.core.utils.Pair;
 import romanow.abc.dataserver.DBExample;
 
 import java.io.File;
@@ -51,6 +52,8 @@ public class ServerPanel extends BasePanel{
     private String entityClassName="";
     private ArrayList<ConstValue> operList;
     private StringList folder=new StringList();
+    private GUITimer logPollingTimer = new GUITimer();                  // Таймер опроса лога
+    private long logPollingLastNum=0;
     private String folderName="";
     public ServerPanel() {
         initComponents();
@@ -229,6 +232,7 @@ public class ServerPanel extends BasePanel{
         DBImport = new javax.swing.JButton();
         DBExport = new javax.swing.JButton();
         RecordAdd = new javax.swing.JButton();
+        LogPolling = new javax.swing.JCheckBox();
 
         jButton1.setText("jButton1");
 
@@ -696,6 +700,15 @@ public class ServerPanel extends BasePanel{
         });
         add(RecordAdd);
         RecordAdd.setBounds(550, 430, 30, 30);
+
+        LogPolling.setText("Опрос");
+        LogPolling.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                LogPollingItemStateChanged(evt);
+            }
+        });
+        add(LogPolling);
+        LogPolling.setBounds(150, 80, 90, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -813,6 +826,7 @@ public class ServerPanel extends BasePanel{
             }
         };
     }
+
 
     private void importDBHttp(FileNameExt fname, final boolean gzip){
         final MultipartBody.Part body = RestAPICommon.createMultipartBody(fname);
@@ -1548,6 +1562,39 @@ public class ServerPanel extends BasePanel{
             });
     }//GEN-LAST:event_RecordAddActionPerformed
 
+    private I_EmptyEvent onLogPolling = new I_EmptyEvent(){
+        @Override
+        public void onEvent() {
+            logPolling();
+            logPollingTimer.start(5,onLogPolling);
+            }
+        };
+
+    private void logPolling(){
+        new APICall<Pair<Long,StringList>>(main) {
+            @Override
+            public Call<Pair<Long,StringList>> apiFun() {
+                return main.service.getConsoleLogPolling(main.debugToken,logPollingLastNum);
+            }
+            @Override
+            public void onSucess(Pair<Long,StringList> oo) {
+                logPollingLastNum = oo.o1;
+                for(String ss : oo.o2)
+                    System.out.println(ss);
+                }
+            };
+        }
+
+    private void LogPollingItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LogPollingItemStateChanged
+        if (LogPolling.isSelected()){
+            logPolling();
+            logPollingTimer.start(5, onLogPolling);
+            }
+        else{
+            logPollingTimer.cancel();
+            }
+    }//GEN-LAST:event_LogPollingItemStateChanged
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1599,6 +1646,7 @@ public class ServerPanel extends BasePanel{
     public void shutDown() {
         isDown=true;
         stateLoopThread.interrupt();
+        logPollingTimer.cancel();
     }
 
 
@@ -1631,6 +1679,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JButton LockServer;
     private javax.swing.JButton LogFileReopen;
     private javax.swing.JButton LogFolder;
+    private javax.swing.JCheckBox LogPolling;
     private javax.swing.JTextField LogSize;
     private javax.swing.JTextField MB;
     private java.awt.Choice Mode;
