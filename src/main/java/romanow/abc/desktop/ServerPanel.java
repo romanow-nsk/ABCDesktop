@@ -103,7 +103,8 @@ public class ServerPanel extends BasePanel{
         DBPort.add("4573");
         DBPort.add("4575");
         DBPort.add("5001");
-        Password.setText(main.loginUser.getAccount().getPassword());
+        String pass = main.loginUser.getAccount().getPassword();
+        Password.setText(pass);
         client = main0;
         operList = main.filter(main.constList,"DBOperation");
         Operation.removeAll();
