@@ -7,6 +7,8 @@ package romanow.abc.desktop;
 
 import romanow.abc.core.UniException;
 
+import javax.swing.*;
+
 /**
  *
  * @author romanow
@@ -23,17 +25,21 @@ public class KeyBoardPanel extends ABCBaseView {
     private boolean pass=false;
     private I_Value<String> back=null;
     private boolean shift=false;
-    public KeyBoardPanel(boolean pass0,String startText, I_Value<String> back0) {
+    private JTextField field;
+    public KeyBoardPanel(boolean pass0, JTextField field0, String startValue, I_Value<String> back0) {
         super(670,250);
         initComponents();
-        char zz[] = startText.toCharArray();
+        field = field0;
+        if (field0!=null)
+            Value.setVisible(false);
+        char zz[] = field==null ? startValue.toCharArray() : field.getText().toCharArray();
         nn=zz.length;
         for(int i=0;i<nn;i++)
             cc[i]=zz[i];
         showString();
         pass = pass0;
         back = back0;
-        positionOn(400,400);
+        positionOn(600,450);
         Shift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/down.png"))); // NOI18N
         retryLongDelay();
         }
@@ -44,10 +50,17 @@ public class KeyBoardPanel extends ABCBaseView {
                 zz[i]='.';
                 zz[i+1]=' ';
                 }
-            Value.setText(new String(zz));
+            String cc= new String(zz);
+            Value.setText(cc);
+            if (field!=null)
+                field.setText(cc);
             }
-        else
-            Value.setText(new String(cc,0,nn));
+        else{
+            String bb = new String(cc,0,nn);
+            Value.setText(bb);
+            if (field!=null)
+                field.setText(bb);
+            }
         retryLongDelay();
         }
     private void procDigit(char digit){
@@ -754,7 +767,7 @@ public class KeyBoardPanel extends ABCBaseView {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new KeyBoardPanel(false,"AaCc12",new I_Value<String>() {
+                new KeyBoardPanel(false,null,"aaaaaa",new I_Value<String>() {
                     @Override
                     public void onEnter(String value) {
                         System.out.println(value);
