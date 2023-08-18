@@ -2,6 +2,8 @@ package romanow.abc.desktop;
 
 import romanow.abc.core.I_EmptyEvent;
 
+import java.awt.*;
+
 public class GUITimer {
     private Thread thread=null;
     private boolean stop=false;
@@ -28,5 +30,16 @@ public class GUITimer {
         if (thread!=null)
             thread.interrupt();
         stop = true;
+    }
+//------------------------------------------------------------------
+public static void trace(Component component, int delay, Color clr) {
+    final Color color = component.getBackground();
+    component.setBackground(clr);
+    new GUITimer().start(delay, new I_EmptyEvent() {
+        @Override
+        public void onEvent() {
+            component.setBackground(color);
+            }
+        });
     }
 }
