@@ -38,11 +38,11 @@ public class Client extends MainBaseFrame   {
     public final static int PanelOffsetY=60;
     public final static int RatioW=4;
     public final static int RatioH=3;
-    public final static int PanelH=700;
-    public final static int PanelW=PanelH*RatioW/RatioH;        // Для отношения сторон 800;
+    public final static int PanelH= ScreenDesktopHeight;
+    public final static int PanelW=ScreenDesktopWidth;
     public final static int MesW=600;
     public final static int ShortView=PanelW+30;
-    public final static int ViewHight = PanelH+100;
+    public final static int ViewHight = PanelH+80;
     public final static int X0 = 50;
     public final static int Y0 = 50;
     private LogView logView = new LogView();
@@ -232,7 +232,7 @@ public class Client extends MainBaseFrame   {
 
         PanelList.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(PanelList);
-        PanelList.setBounds(10, 10, 700, 700);
+        PanelList.setBounds(10, 10, 850, 700);
 
         ShowLog.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         ShowLog.setText("log");
@@ -242,9 +242,9 @@ public class Client extends MainBaseFrame   {
             }
         });
         getContentPane().add(ShowLog);
-        ShowLog.setBounds(650, 720, 60, 25);
+        ShowLog.setBounds(820, 730, 60, 21);
         getContentPane().add(MESLOC);
-        MESLOC.setBounds(10, 720, 630, 25);
+        MESLOC.setBounds(10, 730, 800, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -356,6 +356,5 @@ public class Client extends MainBaseFrame   {
     private javax.swing.JTextField MESLOC;
     private javax.swing.JTabbedPane PanelList;
     private javax.swing.JCheckBox ShowLog;
-
     // End of variables declaration//GEN-END:variables
 }

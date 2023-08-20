@@ -5,6 +5,8 @@
  */
 package romanow.abc.desktop;
 
+import romanow.abc.core.constants.ValuesBase;
+
 import java.awt.*;
 
 /**
@@ -33,7 +35,7 @@ public class LogPanel extends BasePanel implements I_LogArea {
 
         setLayout(null);
         add(MES);
-        MES.setBounds(10, 10, 910, 650);
+        MES.setBounds(10, 10, ValuesBase.ScreenDesktopWidth, ValuesBase.ScreenDesktopHeight);
     }// </editor-fold>//GEN-END:initComponents
 
 
