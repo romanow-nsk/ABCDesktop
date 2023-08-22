@@ -38,7 +38,7 @@ public class Client extends MainBaseFrame   {
     public final static int PanelOffsetY=60;
     public final static int RatioW=4;
     public final static int RatioH=3;
-    public final static int PanelH= ScreenDesktopHeight;
+    public final static int PanelH= ScreenDesktopHeight+20;
     public final static int PanelW=ScreenDesktopWidth;
     public final static int MesW=600;
     public final static int ShortView=PanelW+30;
