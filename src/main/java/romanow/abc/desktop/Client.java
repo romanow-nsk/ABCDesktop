@@ -242,9 +242,9 @@ public class Client extends MainBaseFrame   {
             }
         });
         getContentPane().add(ShowLog);
-        ShowLog.setBounds(820, 730, 60, 21);
+        ShowLog.setBounds(820, 750, 60, 21);
         getContentPane().add(MESLOC);
-        MESLOC.setBounds(10, 730, 800, 25);
+        MESLOC.setBounds(10, 750, 800, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
