@@ -37,7 +37,7 @@ public class Message extends ABCBaseView {
             cnt = UtilsDesktop.setLabelText(Text,title);
         else
             cnt = UtilsDesktop.setLabelText(Text,title,40);
-        setWH(450,cnt*25+120);
+        setWH(600,cnt*25+120);
         Text.setBounds(20,10,410,cnt*25+30);
         OK.setBounds(180, cnt*25+40, 70, 30);
         positionOn(x+20,y+20);
