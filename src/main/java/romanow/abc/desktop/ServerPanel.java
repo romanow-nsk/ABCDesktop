@@ -723,8 +723,8 @@ public class ServerPanel extends BasePanel{
             public void onSucess(StringList oo) {
                 String ss = "лог сервера ="+logSize+" ["+oo.size()+"]-------------------------------------------\n";
                 System.out.println(ss);
-                for(String zz : oo)
-                    System.out.println(zz);
+                for(int i=oo.size()-1; i>=0; i--)
+                    System.out.println(oo.get(i));
                 }
             };
     }//GEN-LAST:event_ServerLogActionPerformed
