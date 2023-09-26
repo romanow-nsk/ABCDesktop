@@ -18,6 +18,10 @@ public class GUITimer {
                         return;
                     java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
+                            synchronized (GUITimer.this){
+                                if (stop)
+                                    return;
+                                }
                             back.onEvent();
                         }
                     });

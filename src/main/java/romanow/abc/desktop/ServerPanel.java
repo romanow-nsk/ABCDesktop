@@ -1567,7 +1567,8 @@ public class ServerPanel extends BasePanel{
         @Override
         public void onEvent() {
             logPolling();
-            logPollingTimer.start(5,onLogPolling);
+            if (LogPolling.isSelected())
+                logPollingTimer.start(5,onLogPolling);
             }
         };
 
