@@ -7,6 +7,9 @@ package romanow.abc.desktop;
 
 import java.awt.*;
 
+import static romanow.abc.core.constants.ValuesBase.ScreenDesktopX0;
+import static romanow.abc.core.constants.ValuesBase.ScreenDesktopY0;
+
 /**
  *
  * @author romanow
@@ -19,7 +22,7 @@ public class LogView extends javax.swing.JFrame implements I_LogArea{
     public LogView() {
         initComponents();
         setTitle("Трассировка");
-        setBounds(Client.X0+Client.PanelW+30,Client.Y0,Client.MesW,Client.ViewHight);
+        setBounds(ScreenDesktopX0+Client.PanelW+30,ScreenDesktopY0,Client.MesW,Client.ViewHight);
         MES.setBounds(0, 0, Client.MesW, Client.ViewHight-50);
         }
 

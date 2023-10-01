@@ -43,8 +43,6 @@ public class Client extends MainBaseFrame   {
     public final static int MesW=600;
     public final static int ShortView=PanelW+30;
     public final static int ViewHight = PanelH+80;
-    public final static int X0 = 50;
-    public final static int Y0 = 50;
     private LogView logView = new LogView();
     @Getter @Setter private LogPanel logPanel;
     private Login loginForm=null;
@@ -128,7 +126,7 @@ public class Client extends MainBaseFrame   {
         try {
             setTitle(ValuesBase.env().applicationName(AppNameTitle)+": "+loginUser().getHeader());
             debugToken = loginUser().getSessionToken();
-            setBounds(X0, Y0, ShortView, ViewHight);
+            setBounds(ScreenDesktopX0, ScreenDesktopY0, ShortView, ViewHight);
             PanelList.setBounds(10,10,PanelW,PanelH);
             ShowLog.setSelected(false);
             PanelList.removeAll();

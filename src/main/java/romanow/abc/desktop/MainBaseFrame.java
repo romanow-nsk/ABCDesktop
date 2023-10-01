@@ -139,8 +139,6 @@ public class MainBaseFrame extends JFrame implements I_Important {
         if (setLog)
             restoreContext();
         }
-    public final static int X0=100;
-    public final static int Y0=100;
     private String serverIP="";
     private String serverPort="";
     public String getServerIP() {
