@@ -31,6 +31,7 @@ import romanow.abc.dataserver.DBExample;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -59,8 +60,14 @@ public class ServerPanel extends BasePanel{
         initComponents();
         EntityNames.removeAll();
         classes = ValuesBase.EntityFactory().classList();
+        classes.sort(new Comparator<TableItem>() {
+            @Override
+            public int compare(TableItem o1, TableItem o2) {
+                return o1.clazz.getSimpleName().compareTo(o2.clazz.getSimpleName());
+                }
+            });
         for(TableItem ss : classes){
-            EntityNames.add(ss.name+" ("+ss.clazz.getSimpleName()+")");
+            EntityNames.add(ss.clazz.getSimpleName()+" ("+ss.name+")");
             }
         for(int i=0;i<=10;i++)
             Level.add(""+i);
