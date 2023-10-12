@@ -392,20 +392,24 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         });
         }
-    public void loadFileGroup(final String dir, final ArrayList<Artifact> artifacts, final int idx){
+    public void loadFileGroup(final String dir,final ArrayList<Artifact> artifacts, final int idx){
+        loadFileGroup(dir,null,artifacts,idx);
+        }
+    public void loadFileGroup(final String dir, final ArrayList<String> outTitles, final ArrayList<Artifact> artifacts, final int idx){
         if (idx>=artifacts.size())
             return;
         final Artifact art = artifacts.get(idx);
-        loadFile(art, dir + "/" + art.getOriginalName(), new I_DownLoad() {
+        String outSpec = outTitles==null ? art.getOriginalName() : outTitles.get(idx)+"."+art.getOriginal().getExt();
+        loadFile(art, dir + "/" + outSpec, new I_DownLoad() {
             @Override
             public void onSuccess() {
                 System.out.println("Экспорт файла выполнен "+art.getOriginalName());
-                loadFileGroup(dir,artifacts,idx+1);
+                loadFileGroup(dir,outTitles,artifacts,idx+1);
                 }
             @Override
             public void onError(String mes) {
                 System.out.println("Ошибка экспорта "+art.getOriginalName()+"\n"+mes);
-                loadFileGroup(dir,artifacts,idx+1);
+                loadFileGroup(dir,outTitles, artifacts,idx+1);
                 }
             });
         }
