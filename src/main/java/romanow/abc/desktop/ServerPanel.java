@@ -212,8 +212,7 @@ public class ServerPanel extends BasePanel{
         jLabel14 = new javax.swing.JLabel();
         LockServer = new javax.swing.JButton();
         CashMode = new javax.swing.JCheckBox();
-        TotalCount = new javax.swing.JTextField();
-        CashPercent = new javax.swing.JLabel();
+        CashPercent = new javax.swing.JTextField();
         CashCount = new javax.swing.JTextField();
         Monitor = new javax.swing.JCheckBox();
         ExportAtrifacts = new javax.swing.JButton();
@@ -241,6 +240,9 @@ public class ServerPanel extends BasePanel{
         DBExport = new javax.swing.JButton();
         RecordAdd = new javax.swing.JButton();
         LogPolling = new javax.swing.JCheckBox();
+        CashPercent1 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        TotalCount = new javax.swing.JTextField();
 
         jButton1.setText("jButton1");
 
@@ -429,9 +431,9 @@ public class ServerPanel extends BasePanel{
         add(RecordsRefresh);
         RecordsRefresh.setBounds(500, 430, 40, 30);
 
-        jLabel12.setText("Запросов");
+        jLabel12.setText("Копирование порт-порт");
         add(jLabel12);
-        jLabel12.setBounds(270, 295, 60, 16);
+        jLabel12.setBounds(420, 180, 190, 16);
 
         ReleaseNum.setEnabled(false);
         add(ReleaseNum);
@@ -519,14 +521,10 @@ public class ServerPanel extends BasePanel{
         add(CashMode);
         CashMode.setBounds(410, 70, 160, 20);
 
-        TotalCount.setEditable(false);
-        TotalCount.setEnabled(false);
-        add(TotalCount);
-        TotalCount.setBounds(410, 130, 60, 25);
-
-        CashPercent.setText("% кэширования");
+        CashPercent.setEditable(false);
+        CashPercent.setEnabled(false);
         add(CashPercent);
-        CashPercent.setBounds(480, 110, 90, 16);
+        CashPercent.setBounds(480, 130, 60, 25);
 
         CashCount.setEditable(false);
         CashCount.setEnabled(false);
@@ -717,6 +715,19 @@ public class ServerPanel extends BasePanel{
         });
         add(LogPolling);
         LogPolling.setBounds(150, 80, 90, 20);
+
+        CashPercent1.setText("% кэширования");
+        add(CashPercent1);
+        CashPercent1.setBounds(480, 110, 90, 16);
+
+        jLabel16.setText("Запросов");
+        add(jLabel16);
+        jLabel16.setBounds(270, 295, 60, 16);
+
+        TotalCount.setEditable(false);
+        TotalCount.setEnabled(false);
+        add(TotalCount);
+        TotalCount.setBounds(410, 130, 60, 25);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1617,12 +1628,12 @@ public class ServerPanel extends BasePanel{
         RequestCount.setText(""+serverState.getRequestNum());
         CashMode.setSelected(serverState.isСashEnabled());
         if (!serverState.isСashEnabled() || serverState.getTotalGetCount()==0) {
-            TotalCount.setText("");
+            CashPercent.setText("");
             CashCount.setText("");
             CashPercent.setText("");
             }
         else {
-            TotalCount.setText(""+serverState.getTotalGetCount());
+            CashPercent.setText(""+serverState.getTotalGetCount());
             CashCount.setText(""+serverState.getCashGetCount());
             CashPercent.setText("" + serverState.getCashGetCount() * 100 / serverState.getTotalGetCount()+" %");
             }
@@ -1665,7 +1676,8 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JTextField BlockSize;
     private javax.swing.JTextField CashCount;
     private javax.swing.JCheckBox CashMode;
-    private javax.swing.JLabel CashPercent;
+    private javax.swing.JTextField CashPercent;
+    private javax.swing.JLabel CashPercent1;
     private javax.swing.JButton ClearDB;
     private javax.swing.JButton ClearTable1;
     private javax.swing.JTextField CommandLine;
@@ -1730,6 +1742,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
