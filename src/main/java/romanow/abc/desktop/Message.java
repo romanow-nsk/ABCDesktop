@@ -5,6 +5,8 @@
  */
 package romanow.abc.desktop;
 
+import romanow.abc.core.constants.ValuesBase;
+
 import java.awt.*;
 
 /**
@@ -32,7 +34,7 @@ public class Message extends ABCBaseView {
         super(100,100);
         initComponents();
         ok = ok0;
-        Text.setFont(new Font("Arial Cyr", Font.PLAIN, 14));
+        Text.setFont(new Font(ValuesBase.FontName, Font.PLAIN, 14));
         if (title.indexOf("$")!=-1)
             cnt = UtilsDesktop.setLabelText(Text,title);
         else

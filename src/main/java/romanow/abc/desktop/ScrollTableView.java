@@ -1,5 +1,6 @@
 package romanow.abc.desktop;
 
+import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.reports.TableData;
 
 import javax.swing.*;
@@ -182,7 +183,7 @@ public class ScrollTableView  extends JPanel {
         cell.setForeground(Color.black);
         if (cell instanceof JTextArea) ((JTextArea)cell).setEditable(false);
         else ((JTextField)cell).setEditable(false);
-        cell.setFont(new Font("Arial",0,12));
+        cell.setFont(new Font(ValuesBase.FontName,0,12));
         cell.setBorder(border);
     }
     public ScrollTableView(int size0, int h0, int v0, I_TableBack lsn0){

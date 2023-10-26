@@ -5,6 +5,9 @@
  */
 package romanow.abc.desktop;
 
+import org.jfree.data.Values;
+import romanow.abc.core.constants.ValuesBase;
+
 import java.awt.*;
 
 /**
@@ -24,7 +27,7 @@ public class OK extends ABCBaseView {
         setUndecorated(true);
         initComponents();
         ok = ok0;
-        OK.setFont(new Font("Arial Cyr", Font.PLAIN, 13));
+        OK.setFont(new Font(ValuesBase.FontName, Font.PLAIN, 13));
         UtilsDesktop.setButtonText(OK,title,45);
         //setBounds(x+20,y+20,330,120);
         OK.setBounds(10, 5, 330, 60);
