@@ -411,6 +411,12 @@ public class ServerPanel extends BasePanel{
         jLabel10.setText("Таблица");
         add(jLabel10);
         jLabel10.setBounds(160, 405, 60, 16);
+
+        Level.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                LevelItemStateChanged(evt);
+            }
+        });
         add(Level);
         Level.setBounds(280, 440, 60, 20);
         add(Mode);
@@ -548,6 +554,12 @@ public class ServerPanel extends BasePanel{
         });
         add(ExportAtrifacts);
         ExportAtrifacts.setBounds(20, 200, 120, 22);
+
+        Record.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                RecordItemStateChanged(evt);
+            }
+        });
         add(Record);
         Record.setBounds(160, 465, 460, 20);
 
@@ -1016,9 +1028,10 @@ public class ServerPanel extends BasePanel{
 
     public void refreshEntityList(){
         entityClassName = classes.get(EntityNames.getSelectedIndex()).clazz.getSimpleName();
-        records = main.getList(entityClassName,Mode.getSelectedIndex(),Level.getSelectedIndex());
+        records = main.getList(entityClassName,Mode.getSelectedIndex(),0);
         Record.removeAll();
         records.sortById();
+        Record.add("...");
         for(Entity ent : records){
             String title="";
             try {
@@ -1026,6 +1039,7 @@ public class ServerPanel extends BasePanel{
                 } catch (Exception ee){ }
             Record.add("[" + ent.getOid() + "] " + title);
             }
+        Record.select(0);
         }
     
     private void RecordsRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordsRefreshActionPerformed
@@ -1389,9 +1403,12 @@ public class ServerPanel extends BasePanel{
     }//GEN-LAST:event_RecordRemoveActionPerformed
 
     private void RecordEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordEditActionPerformed
-        if (records.size()==0)
+        if (records.size()<=1)
             return;
-        final Entity entity = records.get(Record.getSelectedIndex());
+        int idx = Record.getSelectedIndex();
+        if (idx==0)
+            return;
+        final Entity entity = records.get(idx-1);
         new EntityEditPanel(main,entity);
     }//GEN-LAST:event_RecordEditActionPerformed
 
@@ -1614,6 +1631,39 @@ public class ServerPanel extends BasePanel{
             logPollingTimer.cancel();
             }
     }//GEN-LAST:event_LogPollingItemStateChanged
+
+    private void showRecord(){
+        if (records.size()<=1)
+            return;
+        int idx = Record.getSelectedIndex();
+        if (idx==0)
+            return;
+        long oid =  records.get(idx-1).getOid();
+        new APICall<DBRequest>(main){
+            @Override
+            public Call<DBRequest> apiFun() {
+                return main.service.getEntity(main.debugToken,entityClassName,oid,Level.getSelectedIndex());
+            }
+            @Override
+            public void onSucess(DBRequest oo) {
+                try {
+                    Entity entity = (Entity) oo.get(main.gson);
+                    System.out.println("---------------------------------------------\nОбъект уровня "
+                            +Level.getSelectedIndex()+":\n"+entity.getTitle()+"\n"+entity.toString());
+                } catch (Exception ee){
+                    System.out.println("Ошибка десериализации объекта класса "+entityClassName+"["+oid+"]: "+ee.toString());
+                    }
+                }
+            };
+        }
+
+    private void RecordItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_RecordItemStateChanged
+        showRecord();
+    }//GEN-LAST:event_RecordItemStateChanged
+
+    private void LevelItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LevelItemStateChanged
+        showRecord();
+    }//GEN-LAST:event_LevelItemStateChanged
 
     private void showState(){
         onBusy=true;
