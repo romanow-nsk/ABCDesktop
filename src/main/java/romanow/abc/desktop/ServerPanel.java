@@ -1403,7 +1403,7 @@ public class ServerPanel extends BasePanel{
     }//GEN-LAST:event_RecordRemoveActionPerformed
 
     private void RecordEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordEditActionPerformed
-        if (records.size()<=1)
+        if (records.size()==0)
             return;
         int idx = Record.getSelectedIndex();
         if (idx==0)
