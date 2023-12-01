@@ -653,7 +653,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
             public boolean accept(File dir, String name) {
                 return name.endsWith("."+defName);
             }
-        });
+            });
         dlg.show();
         if (dlg.getDirectory()==null) return null;
         String fname = dlg.getFile();
@@ -661,6 +661,30 @@ public class MainBaseFrame extends JFrame implements I_Important {
             fname+="."+defName;
         FileNameExt out = new FileNameExt(dlg.getDirectory(),fname);
         return out;
+        }
+    public String saveFile(String title, final String extName, String srcName, String text){
+        FileDialog dlg=new FileDialog(this,title,FileDialog.SAVE);
+        dlg.setFile(srcName);
+        dlg.setFilenameFilter(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith("."+extName);
+            }
+            });
+        dlg.show();
+        if (dlg.getDirectory()==null) return "Не выбран каталог";
+        String fname = dlg.getFile();
+        if (!fname.endsWith("."+extName))
+            fname+="."+extName;
+        try {
+            OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(dlg.getDirectory() + "/" + fname), "UTF-8");
+            out.write(text);
+            out.flush();
+            out.close();
+            } catch (Exception ee){
+                return "Ошибка сохранения файла: "+ee.toString();
+                }
+        return null;
         }
     public User loginUser() {
         return loginUser; }
