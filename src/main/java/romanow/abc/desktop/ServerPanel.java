@@ -318,7 +318,7 @@ public class ServerPanel extends BasePanel{
         add(jLabel1);
         jLabel1.setBounds(90, 290, 80, 16);
 
-        LogSize.setText("50");
+        LogSize.setText("200");
         add(LogSize);
         LogSize.setBounds(150, 110, 40, 25);
 
