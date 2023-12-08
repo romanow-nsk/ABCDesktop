@@ -217,7 +217,7 @@ public class ServerPanel extends BasePanel{
         Monitor = new javax.swing.JCheckBox();
         ExportAtrifacts = new javax.swing.JButton();
         Record = new java.awt.Choice();
-        RecordRemove = new javax.swing.JButton();
+        RecordDelete = new javax.swing.JButton();
         RecordEdit = new javax.swing.JButton();
         ServerIPPort = new javax.swing.JLabel();
         LogFileReopen = new javax.swing.JButton();
@@ -243,6 +243,8 @@ public class ServerPanel extends BasePanel{
         CashPercent1 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         TotalCount = new javax.swing.JTextField();
+        RecordRemove = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -563,16 +565,16 @@ public class ServerPanel extends BasePanel{
         add(Record);
         Record.setBounds(160, 465, 460, 20);
 
-        RecordRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
-        RecordRemove.setBorderPainted(false);
-        RecordRemove.setContentAreaFilled(false);
-        RecordRemove.addActionListener(new java.awt.event.ActionListener() {
+        RecordDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
+        RecordDelete.setBorderPainted(false);
+        RecordDelete.setContentAreaFilled(false);
+        RecordDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordRemoveActionPerformed(evt);
+                RecordDeleteActionPerformed(evt);
             }
         });
-        add(RecordRemove);
-        RecordRemove.setBounds(660, 455, 30, 30);
+        add(RecordDelete);
+        RecordDelete.setBounds(660, 455, 30, 30);
 
         RecordEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/no_problem.png"))); // NOI18N
         RecordEdit.setBorderPainted(false);
@@ -740,6 +742,21 @@ public class ServerPanel extends BasePanel{
         TotalCount.setEnabled(false);
         add(TotalCount);
         TotalCount.setBounds(410, 130, 60, 25);
+
+        RecordRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/remove.png"))); // NOI18N
+        RecordRemove.setBorderPainted(false);
+        RecordRemove.setContentAreaFilled(false);
+        RecordRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordRemoveActionPerformed(evt);
+            }
+        });
+        add(RecordRemove);
+        RecordRemove.setBounds(700, 455, 30, 30);
+
+        jLabel17.setText("soft         hard");
+        add(jLabel17);
+        jLabel17.setBounds(660, 430, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1381,17 +1398,17 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_ExportAtrifactsActionPerformed
 
-    private void RecordRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordRemoveActionPerformed
+    private void RecordDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordDeleteActionPerformed
         if (records.size()==0)
             return;
-        final Entity entity = records.get(Record.getSelectedIndex());
+        final Entity entity = records.get(Record.getSelectedIndex()-1);
         new OK(200, 200, "Удалить: [" + entity.getOid() + "] " + entity.getTitle(), new I_Button() {
             @Override
             public void onPush() {
                 new APICall<JBoolean>(main){
                     @Override
                     public Call<JBoolean> apiFun() {
-                        return main.service.removeEntity(main.debugToken,entityClassName,entity.getOid());
+                        return main.service.deleteById(main.debugToken,entityClassName,entity.getOid());
                         }
                     @Override
                     public void onSucess(JBoolean oo) {
@@ -1400,7 +1417,7 @@ public class ServerPanel extends BasePanel{
                 };
             }
         });
-    }//GEN-LAST:event_RecordRemoveActionPerformed
+    }//GEN-LAST:event_RecordDeleteActionPerformed
 
     private void RecordEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordEditActionPerformed
         if (records.size()==0)
@@ -1665,6 +1682,27 @@ public class ServerPanel extends BasePanel{
         showRecord();
     }//GEN-LAST:event_LevelItemStateChanged
 
+    private void RecordRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordRemoveActionPerformed
+        if (records.size()==0)
+            return;
+        final Entity entity = records.get(Record.getSelectedIndex()-1);
+        new OK(200, 200, "Удалить: [" + entity.getOid() + "] " + entity.getTitle(), new I_Button() {
+            @Override
+            public void onPush() {
+                new APICall<JBoolean>(main){
+                    @Override
+                    public Call<JBoolean> apiFun() {
+                        return main.service.removeEntity(main.debugToken,entityClassName,entity.getOid());
+                        }
+                    @Override
+                    public void onSucess(JBoolean oo) {
+                        refreshEntityList();
+                    }
+                };
+            }
+        });
+    }//GEN-LAST:event_RecordRemoveActionPerformed
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1761,6 +1799,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JPasswordField Password;
     private java.awt.Choice Record;
     private javax.swing.JButton RecordAdd;
+    private javax.swing.JButton RecordDelete;
     private javax.swing.JButton RecordEdit;
     private javax.swing.JButton RecordRemove;
     private javax.swing.JButton RecordsRefresh;
@@ -1793,6 +1832,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
