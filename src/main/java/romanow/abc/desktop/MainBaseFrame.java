@@ -49,7 +49,7 @@ import static romanow.abc.core.Utils.httpError;
  * @author romanow
  */
 public class MainBaseFrame extends JFrame implements I_Important {
-    private ClientContext clientContext = new ClientContext();
+    @Getter private ClientContext clientContext = new ClientContext();
     public RestAPIBase getService() {
         return clientContext.getService();}
     public User loginUser() {

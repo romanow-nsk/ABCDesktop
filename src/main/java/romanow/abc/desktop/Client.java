@@ -34,7 +34,7 @@ import static romanow.abc.core.constants.ValuesBase.*;
  *
  * @author romanow
  */
-public class Client extends MainBaseFrame   {
+public class Client extends MainBaseFrame {
     public final static int PanelOffsetY=60;
     public final static int RatioW=4;
     public final static int RatioH=3;
@@ -82,14 +82,24 @@ public class Client extends MainBaseFrame   {
         setVisible(false);
         if (loginForm!=null)
             loginForm.setVisible(true);
-        else
-        loginForm = new Login(this,new I_Button(){
-            @Override
-            public void onPush() {
-                startUser();
-                Client.this.setVisible(true);
-                }
+        else {
+            loginForm = new Login(getClientContext(), new I_LoginBack() {
+                @Override
+                public void onPush() {
+                    startUser();
+                    Client.this.setVisible(true);
+                    }
+                @Override
+                public void onLoginSuccess() {
+                    Client.this.onLoginSuccess();
+                    }
+                @Override
+                public void sendPopupMessage(JFrame parent, Container button, String text) {
+                    Client.this.sendPopupMessage(parent,button,text);
+                    }
             });
+            setMES(loginForm.getLogPanel());
+            }
         }
 
     public Client(boolean setLog0){
@@ -343,5 +353,6 @@ public class Client extends MainBaseFrame   {
     private javax.swing.JTextField MESLOC;
     private javax.swing.JTabbedPane PanelList;
     private javax.swing.JCheckBox ShowLog;
+
     // End of variables declaration//GEN-END:variables
 }

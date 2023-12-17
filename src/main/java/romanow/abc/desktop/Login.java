@@ -20,12 +20,14 @@ import java.util.ArrayList;
  * @author romanow
  */
 public class Login extends JFrame implements I_LogArea{
-    private MainBaseFrame main;
-    private I_Button back;
+    private ClientContext main;
+    private I_LoginBack back;
+    //private MainBaseFrame main;
+    //private I_Button back;
     /**
      * Creates new form Login
      */
-    public Login(MainBaseFrame main0, I_Button back0) {
+    public Login(ClientContext main0, I_LoginBack back0) {
         main=main0;
         back = back0;
         initComponents();
@@ -43,10 +45,12 @@ public class Login extends JFrame implements I_LogArea{
         setBounds(200,200,370,400);
         Login.setText("913*******");
         Password.setText("");
-        main.setMES(LOG);
+        //main.setMES(LOG);
         setVisible(true);
         }
-
+    public TextArea getLogPanel(){
+        return LOG;
+        }
     public void setLoginName(String name){
         Login.setText(name);
         }
@@ -195,21 +199,21 @@ public class Login extends JFrame implements I_LogArea{
 
     private void LButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LButtonActionPerformed
         if (!ClientON.isSelected()){
-            main.sendPopupMessage(this,LButton,"Произведите соединение с сервером");
+            back.sendPopupMessage(this,LButton,"Произведите соединение с сервером");
             return;
             }
         try {
             Response<User> res = main.getService().login(Login.getText(),new String(Password.getPassword())).execute();
             if (!res.isSuccessful()){
-                main.sendPopupMessage(this,LButton,"Ошибка сервера: "+ Utils.httpError(res));
+                back.sendPopupMessage(this,LButton,"Ошибка сервера: "+ Utils.httpError(res));
                 return;
                 }
-            main.loginUser(res.body());
-            main.loginUser().getAccount().setPassword(new String(Password.getPassword()));
-            main.setDebugToken(main.loginUser().getSessionToken());   // Токен новой сессии
+            main.setLoginUser(res.body());
+            main.getLoginUser().getAccount().setPassword(new String(Password.getPassword()));
+            main.setDebugToken(main.getLoginUser().getSessionToken());   // Токен новой сессии
             Response<ArrayList<String>>  serverEnv = main.getService().getSetverEnvironment(main.getDebugToken()).execute();
             if (!serverEnv.isSuccessful() || serverEnv.body()==null){
-                main.onLoginSuccess();
+                back.onLoginSuccess();
                 back.onPush();
                 dispose();
                 System.out.println("!!!!!! Сервер без проверки типа БД");
@@ -219,14 +223,14 @@ public class Login extends JFrame implements I_LogArea{
             String ownSubjectArea = ValuesBase.env().applicationName(ValuesBase.AppNameSubjectArea);
             String serverSubjectArea = main.getServerEnvironment().get(ValuesBase.AppNameSubjectArea);
             if (!serverSubjectArea.equals(ownSubjectArea)){
-                main.sendPopupMessage(this,LButton,"Другой тип сервера: "+ serverSubjectArea);
+                back.sendPopupMessage(this,LButton,"Другой тип сервера: "+ serverSubjectArea);
                 return;
                 }
-            main.onLoginSuccess();
+            back.onLoginSuccess();
             back.onPush();
             dispose();
             }catch (IOException ee){
-                main.sendPopupMessage(this,LButton,"Ошибка сервера: "+ee.toString());
+                back.sendPopupMessage(this,LButton,"Ошибка сервера: "+ee.toString());
                 }
 
     }//GEN-LAST:event_LButtonActionPerformed
