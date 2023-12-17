@@ -329,7 +329,7 @@ public abstract class EntityPanel extends EntityBasePanel {
         @Override
         public void onPush() {
             try {
-                Response<JBoolean> res = main.service.removeEntity(main.debugToken,entityName,data.get(listBox().getSelectedIndex()).getOid()).execute();
+                Response<JBoolean> res = main.getService().removeEntity(main.getDebugToken(),entityName,data.get(listBox().getSelectedIndex()).getOid()).execute();
                 if (!res.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res));
                     return;

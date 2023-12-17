@@ -57,14 +57,14 @@ public class AddressPanel extends javax.swing.JFrame {
         setTitle("Адрес");
         setVisible(true);
         GPS.setText(addr.getLocation().getTitle());
-        for(ConstValue cc : main.homeTypes)
+        for(ConstValue cc : main.homeTypes())
             HOMETYPE.add(cc.title());
-        for(ConstValue cc : main.officeTypes)
+        for(ConstValue cc : main.officeTypes())
             OFFICETYPE.add(cc.title());
         new APICall<ArrayList<DBRequest>>((Client)main){
             @Override
             public Call<ArrayList<DBRequest>> apiFun() {
-                return main.service.getEntityList(main.debugToken, "Street", ValuesBase.GetAllModeActual,1);
+                return main.getService().getEntityList(main.getDebugToken(), "Street", ValuesBase.GetAllModeActual,1);
                 }
             @Override
             public void onSucess(ArrayList<DBRequest> oo) {
@@ -111,7 +111,7 @@ public class AddressPanel extends javax.swing.JFrame {
             new APICall<JLong>((Client)main) {
                 @Override
                 public Call<JLong> apiFun() {
-                    return main.service.setAddressGPS(main.debugToken,addr.getOid(),gps);
+                    return main.getService().setAddressGPS(main.getDebugToken(),addr.getOid(),gps);
                     }
                 @Override
                 public void onSucess(JLong oo) {
@@ -221,7 +221,7 @@ public class AddressPanel extends javax.swing.JFrame {
                 new APICall<JLong>((Client)main){
                     @Override
                     public Call<JLong> apiFun() {
-                        return main.service.addEntity(main.debugToken,new DBRequest(addr,main.gson),0);
+                        return main.getService().addEntity(main.getDebugToken(),new DBRequest(addr,main.gson),0);
                         }
                     @Override
                     public void onSucess(JLong oo) {
@@ -234,7 +234,7 @@ public class AddressPanel extends javax.swing.JFrame {
                 new APICall<JEmpty>((Client)main){
                     @Override
                     public Call<JEmpty> apiFun() {
-                        return main.service.updateEntity(main.debugToken,new DBRequest(addr,main.gson));
+                        return main.getService().updateEntity(main.getDebugToken(),new DBRequest(addr,main.gson));
                         }
 
                     @Override
@@ -262,12 +262,12 @@ public class AddressPanel extends javax.swing.JFrame {
         }
 
     private void HOMETYPEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_HOMETYPEItemStateChanged
-        addr.setType(addr.getType() & ~0x0F00 | main.homeTypes.get(HOMETYPE.getSelectedIndex()).value());
+        addr.setType(addr.getType() & ~0x0F00 | main.homeTypes().get(HOMETYPE.getSelectedIndex()).value());
         setAddress();
     }//GEN-LAST:event_HOMETYPEItemStateChanged
 
     private void OFFICETYPEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_OFFICETYPEItemStateChanged
-        addr.setType(addr.getType() & ~0x0F000 | main.officeTypes.get(OFFICETYPE.getSelectedIndex()).value());
+        addr.setType(addr.getType() & ~0x0F000 | main.officeTypes().get(OFFICETYPE.getSelectedIndex()).value());
         setAddress();
     }//GEN-LAST:event_OFFICETYPEItemStateChanged
 

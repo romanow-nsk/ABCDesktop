@@ -220,7 +220,7 @@ public abstract class EntityPopupPanel extends EntityBasePanel {
         @Override
         public void onPush() {
             try {
-                Response<JBoolean> res = main.service.deleteById(main.debugToken,entityName,current.getOid()).execute();
+                Response<JBoolean> res = main.getService().deleteById(main.getDebugToken(),entityName,current.getOid()).execute();
                 if (!res.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res));
                     return;

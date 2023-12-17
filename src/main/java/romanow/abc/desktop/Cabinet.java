@@ -85,7 +85,7 @@ public class Cabinet extends MainBaseFrame{
             new APICall<ArrayList<DBRequest>>(Cabinet.this){
                 @Override
                 public Call<ArrayList<DBRequest>> apiFun() {
-                    return service.getEntityList(debugToken,className,Mode.getSelectedIndex(),Level.getSelectedIndex());
+                    return getService().getEntityList(getDebugToken(),className,Mode.getSelectedIndex(),Level.getSelectedIndex());
                     }
                 @Override
                 public void onSucess(ArrayList<DBRequest> oo) {
@@ -139,7 +139,7 @@ public class Cabinet extends MainBaseFrame{
                     new APICall<DBRequest>(Cabinet.this){
                         @Override
                         public Call<DBRequest> apiFun() {
-                            return service.getEntity(debugToken,className,data.get(listBox.getSelectedIndex()).getOid(),Level.getSelectedIndex());
+                            return getService().getEntity(getDebugToken(),className,data.get(listBox.getSelectedIndex()).getOid(),Level.getSelectedIndex());
                             }
                         @Override
                         public void onSucess(DBRequest xx) {
@@ -171,7 +171,7 @@ public class Cabinet extends MainBaseFrame{
     private CabinetEntityPanel currentPanel;
     //------------------------------------------------------------------------------------
     private void funcButton(){
-        if (service==null) {
+        if (getService()==null) {
             System.out.println("Клиент не подключен к серверу данных");
             return;
             }
@@ -448,7 +448,7 @@ public class Cabinet extends MainBaseFrame{
 
     private void  apiPing(){
         try {
-            Response<JEmpty> res = service.ping().execute();
+            Response<JEmpty> res = getService().ping().execute();
             if (!res.isSuccessful()){
                 System.out.println(Utils.httpError(res));
                 }
@@ -507,21 +507,21 @@ public class Cabinet extends MainBaseFrame{
         }
     private void apiLogin(){
         try {
-            Response<User> res5 = service.login(Phone.getText(),Password.getText()).execute();
+            Response<User> res5 = getService().login(Phone.getText(),Password.getText()).execute();
             if (res5.isSuccessful())
-                debugToken = res5.body().getSessionToken();
+                setDebugToken(res5.body().getSessionToken());
             System.out.println("Авторизация  "+res5.body());
-            System.out.println("Новый токен:" +debugToken);
+            System.out.println("Новый токен:" +getDebugToken());
             } catch (Exception ee){ System.out.println(ee.getMessage()); }
         }
     private void apiLoginBody(){
         try {
             Account acc = new Account("",Phone.getText(),Password.getText());
-            Response<User> res5 = service.login(acc).execute();
+            Response<User> res5 = getService().login(acc).execute();
             if (res5.isSuccessful())
-                debugToken = res5.body().getSessionToken();
+                setDebugToken(res5.body().getSessionToken());
             System.out.println("Авторизация  "+res5.body());
-            System.out.println("Новый токен:" +debugToken);
+            System.out.println("Новый токен:" +getDebugToken());
             System.out.println("Фотография:" +res5.body().getPhoto().getRef().createArtifactServerPath());
             } catch (Exception ee){ System.out.println(ee.getMessage()); }
         }
@@ -529,13 +529,13 @@ public class Cabinet extends MainBaseFrame{
     private void apiUploadFile(){
         FileNameExt fname = getInputFileName("Выгрузить файл","*",null);
         MultipartBody.Part body = RestAPICommon.createMultipartBody(fname);
-        Call<Artifact> call = service.upload(debugToken,"TestFile",fname.fileName(),body);
+        Call<Artifact> call = getService().upload(getDebugToken(),"TestFile",fname.fileName(),body);
         call.enqueue(artifactCallback);
         }
     private void apiLoadFile(long id){
         Response<Artifact> art = null;
         try {
-            art = service.getArtifactById(debugToken,id,Level.getSelectedIndex()).execute();
+            art = getService().getArtifactById(getDebugToken(),id,Level.getSelectedIndex()).execute();
             if (!art.isSuccessful()){
                 System.out.println(art.message());
                 return;
@@ -566,12 +566,12 @@ public class Cabinet extends MainBaseFrame{
             });
         }
     public void apiClearDB(){
-        service.clearDB(debugToken,Password.getText());
+        getService().clearDB(getDebugToken(),Password.getText());
         Password.setText("");
         }
     private void apiClearTable(){
         try {
-            String ss = service.clearTable(debugToken,EntityClasses.getSelectedItem(),Password.getText()).execute().body().getValue();
+            String ss = getService().clearTable(getDebugToken(),EntityClasses.getSelectedItem(),Password.getText()).execute().body().getValue();
             System.out.println(ss);
             } catch (IOException e) {
                 System.out.println(e.toString());
@@ -579,31 +579,31 @@ public class Cabinet extends MainBaseFrame{
         Password.setText("");
         }
     public void apiTargetDB() {
-        createDBExample().createAll(service,Password.getText());
+        createDBExample().createAll(getService(),Password.getText());
         Password.setText("");
         }
     private void apiDeleteById(){
         try {
             long id = Long.parseLong(Idddd.getText());
             String fullName = EntityClasses.getSelectedItem();
-            boolean bb = service.deleteById(debugToken,fullName,id).execute().body().value();
+            boolean bb = getService().deleteById(getDebugToken(),fullName,id).execute().body().value();
             } catch (Exception ex) { System.out.println(ex.getMessage()); }
             }
     private void apiUndeleteById(){
         try {
             long id = Long.parseLong(Idddd.getText());
             String fullName = EntityClasses.getSelectedItem();
-            boolean bb = service.undeleteById(debugToken,fullName,id).execute().body().value();
+            boolean bb = getService().undeleteById(getDebugToken(),fullName,id).execute().body().value();
         } catch (Exception ex) { System.out.println(ex.getMessage()); }
     }
     private void apiKeepAlive(){
         try {
-            int count  = service.keepalive(debugToken).execute().body().getValue();
+            int count  = getService().keepalive(getDebugToken()).execute().body().getValue();
             } catch (Exception ex) { System.out.println(ex.getMessage()); }
         }
     private void apiReadConsoleLog(){
         try {
-            Response<StringList> log = service.getConsoleLog(debugToken,30).execute();
+            Response<StringList> log = getService().getConsoleLog(getDebugToken(),30).execute();
             if (!log.isSuccessful()){
                 System.out.println(log.message());
                 return;
@@ -651,7 +651,7 @@ public class Cabinet extends MainBaseFrame{
                 ClientON.setSelected(false);
                 }
         else{
-            service=null;
+            setService(null);
             }
     }//GEN-LAST:event_ClientONItemStateChanged
 

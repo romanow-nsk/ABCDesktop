@@ -374,7 +374,7 @@ public class ArtifactPanel extends BasePanel{
                 int idx = ParentType.getSelectedIndex();
                 if (idx!=0)
                     zz = ValuesBase.ArtifactParentList[idx-1];
-                return main.service.getArtifactConditionList(main.debugToken,FileType.getSelectedIndex(),zz,
+                return main.getService().getArtifactConditionList(main.getDebugToken(),FileType.getSelectedIndex(),zz,
                         NameMask.getText(),FileNameMask.getText(),size1,size2,date1,date2);
                 }
             @Override

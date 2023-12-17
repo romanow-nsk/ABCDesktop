@@ -116,16 +116,16 @@ public class Client extends MainBaseFrame   {
         initComponents();
         disposeBack = disposeBack0;
         secondForm=true;
-        service = service0;
+        setService(service0);
         loginUser(user0);
-        debugToken = user0.getSessionToken();
+        setDebugToken(user0.getSessionToken());
         loadConstants();
         startUser();
         }
     public void startUser(){
         try {
             setTitle(ValuesBase.env().applicationName(AppNameTitle)+": "+loginUser().getHeader());
-            debugToken = loginUser().getSessionToken();
+            setDebugToken(loginUser().getSessionToken());
             setBounds(ScreenDesktopX0, ScreenDesktopY0, ShortView, ViewHight);
             PanelList.setBounds(10,10,PanelW,PanelH);
             ShowLog.setSelected(false);
@@ -134,7 +134,7 @@ public class Client extends MainBaseFrame   {
             DBRequest ws = new APICall2<DBRequest>(){
                 @Override
                 public Call<DBRequest> apiFun() {
-                    return service.workSettings(debugToken);
+                    return getService().workSettings(getDebugToken());
                     }
                 }.call(this);
             WorkSettingsBase base = (WorkSettingsBase)ws.get(new Gson());
@@ -147,7 +147,7 @@ public class Client extends MainBaseFrame   {
                     editMode=false;
                     }
                 else{
-                    if (loginUser.getTypeId()== UserSuperAdminType){
+                    if (loginUser().getTypeId()== UserSuperAdminType){
                         bb=true;
                         editMode=true;
                         }
@@ -194,18 +194,7 @@ public class Client extends MainBaseFrame   {
         refreshMode=false;
         }
 
-    public Object startSecondClient(String ip, String port, Class apiClass) throws UniException {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
-                .connectTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
-                .build();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://"+ip+":"+port)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
-        return retrofit.create(apiClass);
-        }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -256,7 +245,7 @@ public class Client extends MainBaseFrame   {
         for(I_PanelEvent xx : panels)
             xx.shutDown();
         try {
-            Response<JEmpty> res = service.logoff(debugToken).execute();
+            Response<JEmpty> res = getService().logoff(getDebugToken()).execute();
             if (!res.isSuccessful()){
                 System.out.println("Ошибка сервера: "+ Utils.httpError(res));
                 }

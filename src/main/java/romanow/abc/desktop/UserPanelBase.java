@@ -44,21 +44,21 @@ public class UserPanelBase extends BasePanel{
         userPanel = new EntityPanel(10,15,userAList,"User",main,true){
             @Override
             public Response apiFunGetAll() throws IOException {
-                return  main.service.getUserList(main.debugToken, ValuesBase.GetAllModeActual,0).execute();
+                return  main.getService().getUserList(main.getDebugToken(), ValuesBase.GetAllModeActual,0).execute();
                 }
             @Override
             public Response apiFunGetById() throws IOException {
-                return  main.service.getUserById(main.debugToken,data.get(listBox().getSelectedIndex()).getOid(),1).execute();
+                return  main.getService().getUserById(main.getDebugToken(),data.get(listBox().getSelectedIndex()).getOid(),1).execute();
                 }
             @Override
             public Response apiFunAdd() throws IOException {
                 User uu = new User();
                 uu.setTypeId(selectedType);
-                return main.service.addUser(main.debugToken,uu).execute();
+                return main.getService().addUser(main.getDebugToken(),uu).execute();
                 }
             @Override
             public Response apiFunUpdate() throws IOException {
-                return main.service.updateUser(main.debugToken,(User)current).execute();
+                return main.getService().updateUser(main.getDebugToken(),(User)current).execute();
             }
             @Override
             public void showRecord() {
@@ -72,7 +72,7 @@ public class UserPanelBase extends BasePanel{
                 PHONEMK.setText(uu.getLoginPhone());
                 PASS.setText(uu.getPassword());
                 Login.setText(uu.getLogin());
-                Type.setText(main.userTypes.get(uu.getTypeId()).title());
+                Type.setText(main.userTypes().get(uu.getTypeId()).title());
                 ViewPhoto.setVisible(uu.getPhoto().getOid()!=0);
                 CardICC.setText(uu.getSimCardICC());
                 }
@@ -119,10 +119,10 @@ public class UserPanelBase extends BasePanel{
         addButton.addActionListener(new ActionListener() {      // Перехват цепочки
             @Override
             public void actionPerformed(final ActionEvent e) {
-                new ListSelector(200, 200, "Роль пользователя", main.userTypes, new I_ListSelected() {
+                new ListSelector(200, 200, "Роль пользователя", main.userTypes(), new I_ListSelected() {
                     @Override
                     public void onSelect(int idx) {
-                        selectedType = main.userTypes.get(idx).value();
+                        selectedType = main.userTypes().get(idx).value();
                         chain.actionPerformed(e);
                     }
                 });

@@ -49,44 +49,107 @@ import static romanow.abc.core.Utils.httpError;
  * @author romanow
  */
 public class MainBaseFrame extends JFrame implements I_Important {
-    protected boolean offline=false;              // АВТОНОМНЫЙ клиент
-    protected WorkSettingsBase workSettings=null;
-    protected ArrayList<ConstValue> constList;
-    protected ArrayList<ConstValue> homeTypes;
-    protected ArrayList<ConstValue> officeTypes;
-    protected ArrayList<ConstValue> cityTypes;
-    protected ArrayList<ConstValue> streetTypes;
-    protected ArrayList<ConstValue> userTypes;
-    protected User loginUser=new User();
-    protected boolean localUser=false;
-    public void setDebugToken(String debugToken) {
-        this.debugToken = debugToken;}
-    protected String debugToken="";
-    protected boolean refreshMode=false;
-    protected Gson gson = new Gson();
-    protected ArrayList<String> serverEnvironment;
-    public ArrayList<ConstValue> getConstList() {
-        return constList;}
-    public String getDebugToken() {
-        return debugToken;}
+    private ClientContext clientContext = new ClientContext();
     public RestAPIBase getService() {
-        return service;}
+        return clientContext.getService();}
+    public User loginUser() {
+        return clientContext.getLoginUser(); }
+    public void loginUser(User loginUser) {
+        clientContext.setLoginUser(loginUser);
+        }
+    public boolean isLocalUser() {
+        return clientContext.isLocalUser(); }
+    public void setLocalUser(boolean localUser) {
+        clientContext.setLocalUser(localUser); }
+    public String getServerIP(){
+        return clientContext.getServerIP(); }
+    public String getServerPort(){
+        return clientContext.getServerPort(); }
+    public void loadConstants() throws UniException {
+        clientContext.loadConstants(); }
+    public boolean startClient(String ip, String port) {
+        return clientContext.startClient(ip,port); }
+    public URL createURLForArtifact(Artifact art) {
+        return clientContext.createURLForArtifact(art);}
+    public ArrayList<ConstValue> homeTypes(){
+        return clientContext.getHomeTypes(); }
+    public ArrayList<ConstValue> officeTypes(){
+        return clientContext.getOfficeTypes(); }
+    public ArrayList<ConstValue> userTypes(){
+        return clientContext.getUserTypes(); }
+    public ArrayList<ConstValue> constList(){
+        return clientContext.getConstList(); }
+    public ArrayList<ConstValue> filter(ArrayList<ConstValue> src, String filter){
+        return clientContext.filter(src,filter); }
+    public WorkSettingsBase workSettings(){
+        return clientContext.workSettings(); }
+    public String getWorkSettings(){
+        return clientContext.getWorkSettings(); }
+    public String getDebugToken(){
+        return clientContext.getDebugToken(); }
+    public Pair<RestAPIBase, String> startOneClient(String ip, String port) throws UniException {
+        return clientContext.startOneClient(ip,port); }
+    public void updateArtifactFromString(Artifact art, String text, final I_OK ok) {//GEN-FIRST:event_SaveActionPerformed
+        clientContext.updateArtifactFromString(art,text,ok);}
+    public void setLoginUser(User user){
+        clientContext.setLoginUser(user);}
+    public void setWorkSettins(WorkSettingsBase ws){
+        clientContext.setWorkSettings(ws); }
+    public void loadFile(long artOid, String fspec, final I_DownLoad back) {
+        clientContext.loadFile(artOid,fspec,back);}
+    public void loadFile(Artifact art, String fspec, final I_DownLoad back){
+        clientContext.loadFile(art,fspec,back);}
+    public void loadFileByName(final String outName, String folder, final String fname, final I_DownLoad back){
+        clientContext.loadFileByName(outName,folder,fname,back);}
+    public void loadFileAsString(Artifact art,final I_DownLoadString back) {
+        clientContext.loadFileAsString(art,back);}
+    public Pair<String,String> loadFileAsStringSync(Artifact art) {
+        return clientContext.loadFileAsStringSync(art); }
+    public void loadFileGroup(final String dir,final ArrayList<Artifact> artifacts, final int idx) {
+        clientContext.loadFileGroup(dir,artifacts,idx);}
+    public void loadFileGroup(final String dir, final ArrayList<String> outTitles, final ArrayList<Artifact> artifacts, final int idx) {
+        clientContext.loadFileGroup(dir,outTitles,artifacts,idx); }
+    public void setDebugToken(String debugToken) {
+        clientContext.setDebugToken(debugToken);}
+    public void setService(RestAPIBase base){
+        clientContext.setService(base); }
+    public ArrayList<String> getServerEnvironment(){
+        return clientContext.getServerEnvironment();}
+    public void setServerEnvironment( ArrayList<String> ss){
+        clientContext.setServerEnvironment(ss); }
+    //------------------------------------------------------------------------------------------------------------------
+    protected boolean offline=false;              // АВТОНОМНЫЙ клиент
+    //protected WorkSettingsBase workSettings=null;
+    //protected ArrayList<ConstValue> constList;
+    //protected ArrayList<ConstValue> homeTypes;
+    //protected ArrayList<ConstValue> officeTypes;
+    //protected ArrayList<ConstValue> cityTypes;
+    //protected ArrayList<ConstValue> streetTypes;
+    //protected ArrayList<ConstValue> userTypes;
+    //protected User loginUser=new User();
+    //protected boolean localUser=false;
+    //protected String debugToken="";
+    //protected ArrayList<String> serverEnvironment;
+    //public ArrayList<ConstValue> getConstList() {
+    //    return constList;}
+    //public String getDebugToken() {
+    //    return debugToken;}
     //---------------------------------------------------------------------------
     private StringFIFO externalFIFO=null;
     protected boolean serverOn=false;
-    protected RestAPIBase service=null;                                   // Тип интерфейса
+    //protected RestAPIBase service=null;                                   // Тип интерфейса
+    protected boolean refreshMode=false;
+    protected Gson gson = new Gson();
     protected String gblEncoding="";
     protected boolean utf8;
     private MESContext mesContext = null;
-    StringBuffer str = new StringBuffer();
-    private int lineCount=0;
     //------------------------------------------------------------------------------------------------------------------
     public void logOff(){}
     //--------------------------------Ленивая загрузка------------------------------------------------------------------
     public EntityList<Entity> getList(String name, int mode,int level){
         EntityList<Entity> out = new EntityList<>();
         try {
-            Response<ArrayList<DBRequest>> res = service.getEntityList(debugToken, name, mode,level).execute();
+            Response<ArrayList<DBRequest>> res = getService().getEntityList(getDebugToken(), name, mode,level).execute();
             if (!res.isSuccessful()){
                 System.out.println("Ошибка " + httpError(res));
                 }
@@ -139,12 +202,13 @@ public class MainBaseFrame extends JFrame implements I_Important {
         if (setLog)
             restoreContext();
         }
-    private String serverIP="";
-    private String serverPort="";
-    public String getServerIP() {
-        return serverIP; }
-    public String getServerPort() {
-        return serverPort; }
+    //private String serverIP="";
+    //private String serverPort="";
+    //public String getServerIP() {
+    //    return serverIP; }
+    //public String getServerPort() {
+    //    return serverPort; }
+    /*
     public URL createURLForArtifact(Artifact art){
         String path = art.createArtifactServerPath();
         String ss = "http://"+serverIP+":"+serverPort+"/file/"+path;
@@ -157,6 +221,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
             }
         return url;
         }
+     */
     public void onRightButton(JFrame parent, Container ct, MouseEvent evt, String mes){
         onRightButton(parent,ct,0,evt,mes);
         }
@@ -257,6 +322,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
         this.mesContext = mesContext; }
     //-----------------------------------------------------------------------------------------------
     public void onLoginSuccess(){}
+    /*
     public Pair<RestAPIBase,String> startOneClient(String ip, String port) throws UniException {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(ValuesBase.HTTPTimeOut, TimeUnit.SECONDS)
@@ -305,7 +371,6 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 out.add(cc);
         return out;
         }
-
     public boolean startClient(String ip, String port){
         serverIP=ip;
         serverPort=port;
@@ -320,6 +385,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 }
         return true;
         }
+     */
     public void showImageArtifact(Artifact art){
         if (art.type()!=ValuesBase.ArtifactImageType)
             System.out.println("Это не изображение");
@@ -342,10 +408,10 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 @Override
                 public void onSuccess() {
                     new VideoPanel(art.getTitle(),200,200,640,480,new File("").getAbsolutePath()+"/"+fname.fullName());
-                }
-            });
+                    }
+                });
+            }
         }
-    }
     public void loadFile(Artifact art, FileNameExt ff, I_Success back){
         if (ff==null){
             ff = getOutputFileName("Экспорт файла",art.getOriginalExt(),art.getOriginalName());
@@ -359,8 +425,8 @@ public class MainBaseFrame extends JFrame implements I_Important {
             @Override
             public void onError(String mes) {
                 System.out.println(mes);
-            }
-        });
+                }
+            });
         }
     public void loadFile(Artifact art){
         FileNameExt ff = getOutputFileName("Экспорт файла",art.getOriginalExt(),art.getOriginalName());
@@ -379,7 +445,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 new APICall<JEmpty>(MainBaseFrame.this){
                     @Override
                     public Call<JEmpty> apiFun() {
-                        return service.removeArtifact(debugToken,art.getOid());
+                        return getService().removeArtifact(getDebugToken(),art.getOid());
                     }
                     @Override
                     public void onSucess(JEmpty oo) {}
@@ -389,9 +455,10 @@ public class MainBaseFrame extends JFrame implements I_Important {
             @Override
             public void onError(String mes) {
                 System.out.println(mes);
-            }
-        });
+                }
+            });
         }
+    /*
     public void loadFileGroup(final String dir,final ArrayList<Artifact> artifacts, final int idx){
         loadFileGroup(dir,null,artifacts,idx);
         }
@@ -462,7 +529,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 }
             });
         }
-
+    */
     public void loadFile(String folder, String fname){
         int idx = fname.lastIndexOf(".");
         String ext = idx==-1 ? "" : fname.substring(idx+1);
@@ -471,6 +538,8 @@ public class MainBaseFrame extends JFrame implements I_Important {
             return;
         loadFileByName(ff.fullName(),folder,fname,null);
         }
+    /*
+    //------------------------------------------------------------------------------------------------------------------
     public void loadFileByName(final String outName, String folder, final String fname, final I_DownLoad back){
         Call<ResponseBody> call2 = service.downLoadByName(debugToken,folder+"/"+fname,false);
         call2.enqueue(new Callback<ResponseBody>() {
@@ -590,7 +659,8 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 return new Pair<>(mes,null);
                 }
             }
-        //------------------------------------------------------------------------------------------------------------------
+     */
+    //------------------------------------------------------------------------------------------------------------------
     public void viewCalendarPeriod(I_Period fun){
         new CalendarView("Начало периода",new I_CalendarTime() {
             @Override
@@ -643,8 +713,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
         if (fname==null) return null;
         FileNameExt out = new FileNameExt(fname,dlg.getFile());
         return out;
-    }
-
+        }
     public FileNameExt getOutputFileName(String title, final String defName, String srcName){
         FileDialog dlg=new FileDialog(this,title,FileDialog.SAVE);
         dlg.setFile(srcName);
@@ -686,56 +755,6 @@ public class MainBaseFrame extends JFrame implements I_Important {
                 }
         return null;
         }
-    public User loginUser() {
-        return loginUser; }
-    public void loginUser(User loginUser) {
-        this.loginUser = loginUser;
-        }
-    public boolean isLocalUser() {
-        return localUser; }
-    public void setLocalUser(boolean localUser) {
-        this.localUser = localUser; }
-    public boolean getWorkSettings(){
-        try {
-            Response<DBRequest> wsr = service.workSettings(debugToken).execute();
-            if (!wsr.isSuccessful()){
-                popup("Ошибка чтения настроек  " + httpError(wsr));
-                return false;
-                }
-            workSettings = (WorkSettingsBase) wsr.body().get(new Gson());
-            } catch (Exception e) {
-                popup("Ошибка чтения настроек  " + e.toString());
-                return false;
-                }
-            return true;
-            }
-
-    public void updateArtifactFromString(Artifact art, String text,final I_OK ok) {//GEN-FIRST:event_SaveActionPerformed
-        try {
-            MultipartBody.Part body2 = MultipartBody.Part.createFormData("file",text);
-            Call<Artifact> call3 = service.update(debugToken,art.getOid(),body2);
-            call3.enqueue(new Callback<Artifact>() {
-                @Override
-                public void onResponse(Call<Artifact> call, Response<Artifact> response) {
-                    if (!response.isSuccessful()){
-                        System.out.println("Ошибка выгрузки файла  "+ Utils.httpError(response));
-                    }
-                    else{
-                        java.awt.EventQueue.invokeLater(new Runnable() {
-                            public void run() {
-                                ok.onOK(response.body());
-                                }
-                            });
-                        }
-                    }
-                @Override
-                public void onFailure(Call<Artifact> call, Throwable ee) {
-                    System.out.println("Ошибка сервера: "+ ee.toString());
-                    }
-                });
-            } catch (Exception e) { System.out.println("Ошибка сервера: "+e.toString()); }
-
-        }//GEN-LAST:event_SaveActionPerformed
     //------------------------------ Всякий код -------------------------------------------------------------------
     public void sendEvent(int code, long par2){}
     public void sendEventPanel(int code, int par1, long par2, String par3, Object oo){}

@@ -291,9 +291,12 @@ public class WorkSettingsPanel extends BasePanel{
     @Override
     public void refresh() {
         try {
-            if (!main.getWorkSettings())
+            String ss = main.getWorkSettings();
+            if (ss!=null){
+                System.out.println();
                 return;
-            WorkSettingsBase ws = main.workSettings;
+                }
+            WorkSettingsBase ws = main.workSettings();
             ServerFileDirectory.setText(ws.getDataServerFileDir());
             ServerFileDirectoryDefault.setSelected(ws.isDataServerFileDirDefault());
             ConvertArtifact.setSelected(ws.isConvertAtrifact());
@@ -329,7 +332,7 @@ public class WorkSettingsPanel extends BasePanel{
     private void updateSettings(KeyEvent evt){
         Response<JEmpty> wsr = null;
         try {
-            wsr = main.service.updateWorkSettings(main.debugToken,new DBRequest(ws,new Gson())).execute();
+            wsr = main.getService().updateWorkSettings(main.getDebugToken(),new DBRequest(ws,new Gson())).execute();
             if (!wsr.isSuccessful()){
                 popup("Ошибка обновления настроек  " + httpError(wsr));
                 return;
@@ -346,7 +349,7 @@ public class WorkSettingsPanel extends BasePanel{
     private void updateSettings(KeyEvent evt, String name, int val){
         Response<JEmpty> wsr = null;
         try {
-            wsr = main.service.updateWorkSettings(main.debugToken,name,val).execute();
+            wsr = main.getService().updateWorkSettings(main.getDebugToken(),name,val).execute();
             if (!wsr.isSuccessful()){
                 popup("Ошибка обновления настроек  " + httpError(wsr));
                 return;
@@ -363,7 +366,7 @@ public class WorkSettingsPanel extends BasePanel{
     private void updateSettings(KeyEvent evt, String name, boolean val){
         Response<JEmpty> wsr = null;
         try {
-            wsr = main.service.updateWorkSettings(main.debugToken,name,val).execute();
+            wsr = main.getService().updateWorkSettings(main.getDebugToken(),name,val).execute();
             if (!wsr.isSuccessful()){
                 popup("Ошибка обновления настроек  " + httpError(wsr));
                 return;
@@ -380,7 +383,7 @@ public class WorkSettingsPanel extends BasePanel{
     private void updateSettings(KeyEvent evt, String name, String val){
         Response<JEmpty> wsr = null;
         try {
-            wsr = main.service.updateWorkSettings(main.debugToken,name,val).execute();
+            wsr = main.getService().updateWorkSettings(main.getDebugToken(),name,val).execute();
             if (!wsr.isSuccessful()){
                 popup("Ошибка обновления настроек  " + httpError(wsr));
                 return;

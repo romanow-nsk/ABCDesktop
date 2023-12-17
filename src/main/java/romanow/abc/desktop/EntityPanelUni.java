@@ -112,7 +112,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
                 }
             else{
                 Response<ArrayList<DBRequest>> res7=null;
-                res7 = main.service.getEntityList(main.debugToken, entityName,ValuesBase.GetAllModeActual,levelAll).execute();
+                res7 = main.getService().getEntityList(main.getDebugToken(), entityName,ValuesBase.GetAllModeActual,levelAll).execute();
                 //System.out.println("time="+(System.currentTimeMillis()-tt)+" мс");
                 if (!res7.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res7));
@@ -159,7 +159,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
                 showRecord();
                 }
             else{
-                res7 = main.service.getEntity(main.debugToken, entityName,data.get(listBox().getSelectedIndex()).getOid(),levelGet).execute();
+                res7 = main.getService().getEntity(main.getDebugToken(), entityName,data.get(listBox().getSelectedIndex()).getOid(),levelGet).execute();
                 //System.out.println("time="+(System.currentTimeMillis()-tt)+" мс");
                 if (!res7.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res7));
@@ -281,7 +281,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
         try {
             if (listBox.getItemCount() == 0) return;
             updateRecord();
-            Response<JEmpty> res7 = main.service.updateEntity(main.debugToken,new DBRequest(current,gson)).execute();
+            Response<JEmpty> res7 = main.getService().updateEntity(main.getDebugToken(),new DBRequest(current,gson)).execute();
             if (!res7.isSuccessful()) {
                 main.viewUpdate(evt,false);
                 System.out.println("Ошибка запроса  " + Utils.httpError(res7));
@@ -332,7 +332,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
                     return;
                     }
                 Entity ent = (Entity)cc.newInstance();
-                Response<JLong> res7 = main.service.addEntity(main.debugToken,new DBRequest(ent,gson),0).execute();
+                Response<JLong> res7 = main.getService().addEntity(main.getDebugToken(),new DBRequest(ent,gson),0).execute();
                 if (!res7.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res7));
                     return;
@@ -356,7 +356,7 @@ public abstract class EntityPanelUni extends EntityBasePanel{
         @Override
         public void onPush() {
             try {
-                Response<JBoolean> res = main.service.removeEntity(main.debugToken,entityName,data.get(listBox().getSelectedIndex()).getOid()).execute();
+                Response<JBoolean> res = main.getService().removeEntity(main.getDebugToken(),entityName,data.get(listBox().getSelectedIndex()).getOid()).execute();
                 if (!res.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(res));
                     return;

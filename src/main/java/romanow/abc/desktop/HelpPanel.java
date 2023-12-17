@@ -193,7 +193,7 @@ public class HelpPanel extends BasePanel{
         new APICall<EntityList<HelpFile>>(main){
             @Override
             public Call<EntityList<HelpFile>> apiFun() {
-                return main.service.getHelpFileList(Question.getText());
+                return main.getService().getHelpFileList(Question.getText());
                 }
             @Override
             public void onSucess(EntityList<HelpFile> oo) {

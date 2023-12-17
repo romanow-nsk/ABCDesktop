@@ -75,7 +75,7 @@ public class EntityEditPanel extends javax.swing.JFrame {
                                 new APICall<JEmpty>(main){
                                     @Override
                                     public Call<JEmpty> apiFun() {
-                                        return main.service.updateEntityField(main.debugToken, ff.name, new DBRequest(entity, new Gson()));
+                                        return main.getService().updateEntityField(main.getDebugToken(), ff.name, new DBRequest(entity, new Gson()));
                                         }
                                     @Override
                                     public void onSucess(JEmpty oo) {

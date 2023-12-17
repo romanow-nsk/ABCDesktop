@@ -188,7 +188,7 @@ public class Login extends JFrame implements I_LogArea{
 
     public void disConnect(){
         ClientON.setSelected(false);
-        main.service=null;
+        main.setService(null);
         }
 
 
@@ -199,15 +199,15 @@ public class Login extends JFrame implements I_LogArea{
             return;
             }
         try {
-            Response<User> res = main.service.login(Login.getText(),new String(Password.getPassword())).execute();
+            Response<User> res = main.getService().login(Login.getText(),new String(Password.getPassword())).execute();
             if (!res.isSuccessful()){
                 main.sendPopupMessage(this,LButton,"Ошибка сервера: "+ Utils.httpError(res));
                 return;
                 }
             main.loginUser(res.body());
-            main.loginUser.getAccount().setPassword(new String(Password.getPassword()));
-            main.debugToken = main.loginUser().getSessionToken();   // Токен новой сессии
-            Response<ArrayList<String>>  serverEnv = main.service.getSetverEnvironment(main.debugToken).execute();
+            main.loginUser().getAccount().setPassword(new String(Password.getPassword()));
+            main.setDebugToken(main.loginUser().getSessionToken());   // Токен новой сессии
+            Response<ArrayList<String>>  serverEnv = main.getService().getSetverEnvironment(main.getDebugToken()).execute();
             if (!serverEnv.isSuccessful() || serverEnv.body()==null){
                 main.onLoginSuccess();
                 back.onPush();
@@ -215,9 +215,9 @@ public class Login extends JFrame implements I_LogArea{
                 System.out.println("!!!!!! Сервер без проверки типа БД");
                 return;
                 }
-            main.serverEnvironment = serverEnv.body();
+            main.setServerEnvironment(serverEnv.body());
             String ownSubjectArea = ValuesBase.env().applicationName(ValuesBase.AppNameSubjectArea);
-            String serverSubjectArea = main.serverEnvironment.get(ValuesBase.AppNameSubjectArea);
+            String serverSubjectArea = main.getServerEnvironment().get(ValuesBase.AppNameSubjectArea);
             if (!serverSubjectArea.equals(ownSubjectArea)){
                 main.sendPopupMessage(this,LButton,"Другой тип сервера: "+ serverSubjectArea);
                 return;

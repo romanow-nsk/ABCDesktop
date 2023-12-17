@@ -11,6 +11,9 @@ import java.io.IOException;
 public abstract class APICall2<T> {
     public abstract Call<T> apiFun();
     public APICall2(){}
+    public T call()throws UniException {
+        return call(null);
+        }
     public T call(MainBaseFrame base)throws UniException {
         String mes="";
         String mes1="";
@@ -27,7 +30,8 @@ public abstract class APICall2<T> {
                     mes =  "Сеанс закрыт " + Utils.httpError(res);
                     System.out.println(mes.replace("$","\n"));
                     //new Message(300,300,mes,ValuesBase.PopupMessageDelay);
-                    base.logOff();
+                    if (base!=null)
+                        base.logOff();
                     throw UniException.io(mes);
                     }
                 try {

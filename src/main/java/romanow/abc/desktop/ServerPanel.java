@@ -110,10 +110,10 @@ public class ServerPanel extends BasePanel{
         DBPort.add("4573");
         DBPort.add("4575");
         DBPort.add("5001");
-        String pass = main.loginUser.getAccount().getPassword();
+        String pass = main.loginUser().getAccount().getPassword();
         Password.setText(pass);
         client = main0;
-        operList = main.filter(main.constList,"DBOperation");
+        operList = main.filter(main.constList(),"DBOperation");
         Operation.removeAll();
         for(ConstValue ss:operList)
             Operation.add(ss.title());
@@ -125,11 +125,11 @@ public class ServerPanel extends BasePanel{
         bugPanel = new EntityPanel(20,570,bugList,"BugMessage",main,true,false){
             @Override
             public Response apiFunGetAll() throws IOException {
-                return  main.service.getBugList(main.debugToken, ValuesBase.GetAllModeActual).execute();
+                return  main.getService().getBugList(main.getDebugToken(), ValuesBase.GetAllModeActual).execute();
             }
             @Override
             public Response apiFunGetById() throws IOException {
-                return  main.service.getBug(main.debugToken,data.get(listBox().getSelectedIndex()).getOid()).execute();
+                return  main.getService().getBug(main.getDebugToken(),data.get(listBox().getSelectedIndex()).getOid()).execute();
             }
             @Override
             public Response apiFunAdd() throws IOException {
@@ -764,7 +764,7 @@ public class ServerPanel extends BasePanel{
         new APICall<StringList>(main){
             @Override
             public Call<StringList> apiFun() {
-                return main.service.getConsoleLog(main.debugToken,logSize);
+                return main.getService().getConsoleLog(main.getDebugToken(),logSize);
                 }
             @Override
             public void onSucess(StringList oo) {
@@ -790,7 +790,7 @@ public class ServerPanel extends BasePanel{
         new APICall<Artifact>(main){
             @Override
             public Call<Artifact> apiFun() {
-                return main.service.dump(main.debugToken);
+                return main.getService().dump(main.getDebugToken());
                 }
             @Override
             public void onSucess(Artifact oo) {
@@ -803,7 +803,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.rebootServer(main.debugToken,Password.getText());
+                return main.getService().rebootServer(main.getDebugToken(),Password.getText());
             }
             @Override
             public void onSucess(JEmpty oo) {
@@ -815,7 +815,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JString>(main){
             @Override
             public Call<JString> apiFun() {
-                return main.service.shutdown(main.debugToken,Password.getText());
+                return main.getService().shutdown(main.getDebugToken(),Password.getText());
                 }
             @Override
             public void onSucess(JString oo) {
@@ -835,7 +835,7 @@ public class ServerPanel extends BasePanel{
         new APICall<Artifact>(main){
             @Override
             public Call<Artifact> apiFun() {
-                return main.service.createArtifact(main.debugToken,"DB-import",fname.fileName(),ff.length());
+                return main.getService().createArtifact(main.getDebugToken(),"DB-import",fname.fileName(),ff.length());
                 }
             @Override
             public void onSucess(final Artifact oo) {
@@ -857,9 +857,9 @@ public class ServerPanel extends BasePanel{
                             @Override
                             public Call<JString> apiFun() {
                                 if (gzip)
-                                    return main.service.restore(main.debugToken,Password.getText(),oo.getOid());
+                                    return main.getService().restore(main.getDebugToken(),Password.getText(),oo.getOid());
                                 else
-                                    return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
+                                    return main.getService().importDBxls(main.getDebugToken(),Password.getText(),oo.getOid());
                                 }
                             @Override
                             public void onSucess(JString ss) {
@@ -881,7 +881,7 @@ public class ServerPanel extends BasePanel{
         new APICall<Artifact>(main){
             @Override
             public Call<Artifact> apiFun() {
-                return main.service.upload(main.debugToken,"DB-import",fname.fileName(),body);
+                return main.getService().upload(main.getDebugToken(),"DB-import",fname.fileName(),body);
                 }
             @Override
             public void onSucess(final Artifact oo) {
@@ -889,9 +889,9 @@ public class ServerPanel extends BasePanel{
                     @Override
                     public Call<JString> apiFun() {
                         if (gzip)
-                            return main.service.restore(main.debugToken,Password.getText(),oo.getOid());
+                            return main.getService().restore(main.getDebugToken(),Password.getText(),oo.getOid());
                         else
-                            return main.service.importDBxls(main.debugToken,Password.getText(),oo.getOid());
+                            return main.getService().importDBxls(main.getDebugToken(),Password.getText(),oo.getOid());
                         }
                     @Override
                     public void onSucess(JString oo) {
@@ -923,7 +923,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.service.clearTable(main.debugToken,name,Password.getText());
+                        return main.getService().clearTable(main.getDebugToken(),name,Password.getText());
                     }
                     @Override
                     public void onSucess(JString oo) {
@@ -940,7 +940,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.uploadByName(main.debugToken,ValuesBase.env().applicationName(ValuesBase.AppNameAPK),body2,false);
+                return main.getService().uploadByName(main.getDebugToken(),ValuesBase.env().applicationName(ValuesBase.AppNameAPK),body2,false);
             }
             @Override
             public void onSucess(JEmpty oo) {
@@ -953,7 +953,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JString>(main){
             @Override
             public Call<JString> apiFun() {
-                return main.service.deployMB(main.debugToken,Password.getText(),Integer.parseInt(MB.getText()));
+                return main.getService().deployMB(main.getDebugToken(),Password.getText(),Integer.parseInt(MB.getText()));
             }
             @Override
             public void onSucess(JString oo) {
@@ -996,7 +996,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.uploadByName(main.debugToken,ValuesBase.env().applicationName(ValuesBase.AppNameServerJar),body2,false);
+                return main.getService().uploadByName(main.getDebugToken(),ValuesBase.env().applicationName(ValuesBase.AppNameServerJar),body2,false);
             }
             @Override
             public void onSucess(JEmpty oo) {
@@ -1070,7 +1070,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.service.clearDB(main.debugToken,Password.getText());
+                        return main.getService().clearDB(main.getDebugToken(),Password.getText());
                         }
                     @Override
                     public void onSucess(JString oo) {
@@ -1092,7 +1092,7 @@ public class ServerPanel extends BasePanel{
         new OK(200, 200, "Тестовая БД", new I_Button() {
             @Override
             public void onPush() {
-                new DBExample().createAll(main.service,Password.getText());
+                new DBExample().createAll(main.getService(),Password.getText());
                 client.logOff();
                 }
             });
@@ -1104,7 +1104,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.service.execute(main.debugToken,Password.getText(),CommandLine.getText());
+                        return main.getService().execute(main.getDebugToken(),Password.getText(),CommandLine.getText());
                         }
                     @Override
                     public void onSucess(JString oo) {
@@ -1131,7 +1131,7 @@ public class ServerPanel extends BasePanel{
                     @Override
                     public Call<ErrorList> apiFun() {
                         int value = operList.get(Operation.getSelectedIndex()).value();
-                        return main.service.prepareDB(main.debugToken,value,Password.getText());
+                        return main.getService().prepareDB(main.getDebugToken(),value,Password.getText());
                         }
                     @Override
                     public void onSucess(ErrorList oo) {
@@ -1155,7 +1155,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.service.testCall(main.debugToken,TestNumber.getSelectedIndex(),"abcd");
+                        return main.getService().testCall(main.getDebugToken(),TestNumber.getSelectedIndex(),"abcd");
                         }
                     @Override
                     public void onSucess(JString oo) {
@@ -1170,7 +1170,7 @@ public class ServerPanel extends BasePanel{
         new APICall<ErrorList>(main){
             @Override
             public Call<ErrorList> apiFun() {
-                return main.service.longPolling(main.debugToken,Password.getText());
+                return main.getService().longPolling(main.getDebugToken(),Password.getText());
                 }
             @Override
             public void onSucess(ErrorList oo) {
@@ -1195,7 +1195,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JEmpty>(main){
                     @Override
                     public Call<JEmpty> apiFun() {
-                        return main.service.lock(main.debugToken,Password.getText(),!locked);
+                        return main.getService().lock(main.getDebugToken(),Password.getText(),!locked);
                     }
                     @Override
                     public void onSucess(JEmpty oo) {
@@ -1211,7 +1211,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.setCashMode(main.debugToken,CashMode.isSelected(),Password.getText());
+                return main.getService().setCashMode(main.getDebugToken(),CashMode.isSelected(),Password.getText());
                 }
             @Override
             public void onSucess(JEmpty oo) {}
@@ -1303,7 +1303,7 @@ public class ServerPanel extends BasePanel{
     private boolean uploadByName(String clientName, String ext, String serverName){
         try {
             MultipartBody.Part body2 = RestAPICommon.createMultipartBody(clientName,ext);
-            Response<JEmpty> call3 = main.service.uploadByName(main.debugToken,serverName,body2,false).execute();
+            Response<JEmpty> call3 = main.getService().uploadByName(main.getDebugToken(),serverName,body2,false).execute();
             if (!call3.isSuccessful()){
                  System.out.println("Ошибка выгрузки файла  "+ Utils.httpError(call3));
                  return false;
@@ -1319,7 +1319,7 @@ public class ServerPanel extends BasePanel{
         new APICall<JEmpty>(main){
             @Override
             public Call<JEmpty> apiFun() {
-                return main.service.updateEntityField(main.debugToken,fld,request);
+                return main.getService().updateEntityField(main.getDebugToken(),fld,request);
                 }
             @Override
             public void onSucess(JEmpty oo) {}
@@ -1381,7 +1381,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<ArrayList<DBRequest>>(main){
                     @Override
                     public Call<ArrayList<DBRequest>> apiFun() {
-                        return main.service.getEntityList(main.debugToken,"Artifact",ValuesBase.GetAllModeActual,0);
+                        return main.getService().getEntityList(main.getDebugToken(),"Artifact",ValuesBase.GetAllModeActual,0);
                         }
                     @Override
                     public void onSucess(ArrayList<DBRequest> oo) {
@@ -1408,7 +1408,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JBoolean>(main){
                     @Override
                     public Call<JBoolean> apiFun() {
-                        return main.service.deleteById(main.debugToken,entityClassName,entity.getOid());
+                        return main.getService().deleteById(main.getDebugToken(),entityClassName,entity.getOid());
                         }
                     @Override
                     public void onSucess(JBoolean oo) {
@@ -1436,7 +1436,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JEmpty>(main){
                     @Override
                     public Call<JEmpty> apiFun() {
-                        return main.service.reopenLogFile(main.debugToken,Password.getText());
+                        return main.getService().reopenLogFile(main.getDebugToken(),Password.getText());
                     }
                     @Override
                     public void onSucess(JEmpty dd) {
@@ -1451,7 +1451,7 @@ public class ServerPanel extends BasePanel{
         new APICall<StringList>(main){
             @Override
             public Call<StringList> apiFun() {
-                return main.service.getFolder(main.debugToken,Password.getText(),dir);
+                return main.getService().getFolder(main.getDebugToken(),Password.getText(),dir);
             }
             @Override
             public void onSucess(StringList oo) {
@@ -1496,7 +1496,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<ArrayList<DBRequest>>(main){
                     @Override
                     public Call<ArrayList<DBRequest>> apiFun() {
-                        return main.service.getEntityList(main.debugToken,"Artifact",ValuesBase.GetAllModeActual,0);
+                        return main.getService().getEntityList(main.getDebugToken(),"Artifact",ValuesBase.GetAllModeActual,0);
                     }
                     @Override
                     public void onSucess(ArrayList<DBRequest> oo) {
@@ -1521,7 +1521,7 @@ public class ServerPanel extends BasePanel{
         new APICall<Artifact>(main){
             @Override
             public Call<Artifact> apiFun() {
-                return main.service.exportDBxlsx(main.debugToken,XLSX.isSelected(),Integer.parseInt(BlockSize.getText()));
+                return main.getService().exportDBxlsx(main.getDebugToken(),XLSX.isSelected(),Integer.parseInt(BlockSize.getText()));
             }
             @Override
             public void onSucess(Artifact oo) {
@@ -1546,7 +1546,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<ErrorList>(main) {
                     @Override
                     public Call<ErrorList> apiFun() {
-                        return main.service.copyDBFrom(main.debugToken, Password.getText(),port);
+                        return main.getService().copyDBFrom(main.getDebugToken(), Password.getText(),port);
                     }
                     @Override
                     public void onSucess(ErrorList oo) {
@@ -1575,7 +1575,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<ErrorList>(main) {
                     @Override
                     public Call<ErrorList> apiFun() {
-                        return main.service.copyDBTo(main.debugToken, Password.getText(),port);
+                        return main.getService().copyDBTo(main.getDebugToken(), Password.getText(),port);
                       }
                     @Override
                     public void onSucess(ErrorList oo) {
@@ -1603,7 +1603,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JLong>(main) {
                     @Override
                     public Call<JLong> apiFun() {
-                        return main.service.addEntity(main.debugToken,new DBRequest(entity2,main.gson),0);
+                        return main.getService().addEntity(main.getDebugToken(),new DBRequest(entity2,main.gson),0);
                         }
                     @Override
                     public void onSucess(JLong oo) {
@@ -1628,7 +1628,7 @@ public class ServerPanel extends BasePanel{
         new APICall<Pair<Long,StringList>>(main) {
             @Override
             public Call<Pair<Long,StringList>> apiFun() {
-                return main.service.getConsoleLogPolling(main.debugToken,logPollingLastNum);
+                return main.getService().getConsoleLogPolling(main.getDebugToken(),logPollingLastNum);
             }
             @Override
             public void onSucess(Pair<Long,StringList> oo) {
@@ -1659,7 +1659,7 @@ public class ServerPanel extends BasePanel{
         new APICall<DBRequest>(main){
             @Override
             public Call<DBRequest> apiFun() {
-                return main.service.getEntity(main.debugToken,entityClassName,oid,Level.getSelectedIndex());
+                return main.getService().getEntity(main.getDebugToken(),entityClassName,oid,Level.getSelectedIndex());
             }
             @Override
             public void onSucess(DBRequest oo) {
@@ -1692,7 +1692,7 @@ public class ServerPanel extends BasePanel{
                 new APICall<JBoolean>(main){
                     @Override
                     public Call<JBoolean> apiFun() {
-                        return main.service.removeEntity(main.debugToken,entityClassName,entity.getOid());
+                        return main.getService().removeEntity(main.getDebugToken(),entityClassName,entity.getOid());
                         }
                     @Override
                     public void onSucess(JBoolean oo) {
@@ -1732,7 +1732,7 @@ public class ServerPanel extends BasePanel{
         new APICall<ServerState>(main){
             @Override
             public Call<ServerState> apiFun() {
-                return main.service.serverState(main.debugToken);
+                return main.getService().serverState(main.getDebugToken());
                 }
             @Override
             public void onSucess(ServerState oo) {

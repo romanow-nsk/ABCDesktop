@@ -262,7 +262,7 @@ public class ReportsPanelBase extends BasePanel{
 
     private void procNotifications(){
         try {
-            Response<EntityList<NTMessage>> ss = main.service.getNotificationUserList(userToken,0,ValuesBase.UserSuperAdminType,ValuesBase.NSSend).execute();
+            Response<EntityList<NTMessage>> ss = main.getService().getNotificationUserList(userToken,0,ValuesBase.UserSuperAdminType,ValuesBase.NSSend).execute();
             if (!ss.isSuccessful()) {
                 System.out.println("Ошибка запроса  " + Utils.httpError(ss));
             } else {
@@ -271,7 +271,7 @@ public class ReportsPanelBase extends BasePanel{
                 for (NTMessage note : list) {
                     changed |= notificationList.add(note);
                     note.setState(ValuesBase.NSReceived);
-                    Response<JEmpty> rr = main.service.setNotificationState(userToken,note.getOid(),ValuesBase.NSReceived).execute();
+                    Response<JEmpty> rr = main.getService().setNotificationState(userToken,note.getOid(),ValuesBase.NSReceived).execute();
                     if (!ss.isSuccessful()) {
                         System.out.println("Ошибка запроса  " + Utils.httpError(rr));
                         }
@@ -319,7 +319,7 @@ public class ReportsPanelBase extends BasePanel{
                 if (!logOn)
                     break;
                 try {
-                    Response<JInt> ss = main.service.getNotificationCount(userToken).execute();
+                    Response<JInt> ss = main.getService().getNotificationCount(userToken).execute();
                     if (!ss.isSuccessful()) {
                         System.out.println("Ошибка запроса  " + Utils.httpError(ss));
                     } else {
@@ -338,7 +338,7 @@ public class ReportsPanelBase extends BasePanel{
             return;
         if (Login.isSelected()) {
             try {
-                Response<User> ss = main.service.login("89131111111", "1234").execute();
+                Response<User> ss = main.getService().login("89131111111", "1234").execute();
                 if (!ss.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(ss));
                 } else {
@@ -349,7 +349,7 @@ public class ReportsPanelBase extends BasePanel{
                     logOn=true;
                     keepAliveThread = new Thread(keepAlive);
                     keepAliveThread.start();
-                    Response<EntityList<NTMessage>> zz = main.service.getNotificationUserList(userToken,0,ValuesBase.UserSuperAdminType,ValuesBase.NSReceived).execute();
+                    Response<EntityList<NTMessage>> zz = main.getService().getNotificationUserList(userToken,0,ValuesBase.UserSuperAdminType,ValuesBase.NSReceived).execute();
                     if (!ss.isSuccessful()) {
                         System.out.println("Ошибка запроса  " + Utils.httpError(ss));
                     } else {
@@ -367,7 +367,7 @@ public class ReportsPanelBase extends BasePanel{
             }
         else{
             try {
-                Response<JEmpty> ss = main.service.logoff(userToken).execute();
+                Response<JEmpty> ss = main.getService().logoff(userToken).execute();
                 if (!ss.isSuccessful()) {
                     System.out.println("Ошибка запроса  " + Utils.httpError(ss));
                     }
@@ -386,7 +386,7 @@ public class ReportsPanelBase extends BasePanel{
         try {
             if (NotifyList.getSelectedIndex()==0) return;
             long oid = notificationList.getData().get(NotifyList.getSelectedIndex()).getOid();
-            Response<JBoolean> ss = main.service.removeNotification(userToken,oid).execute();
+            Response<JBoolean> ss = main.getService().removeNotification(userToken,oid).execute();
             if (!ss.isSuccessful()) {
                 System.out.println("Ошибка запроса  " + Utils.httpError(ss));
                 return;

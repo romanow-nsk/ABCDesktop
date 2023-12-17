@@ -102,7 +102,7 @@ public class UploadPanel extends javax.swing.JFrame {
             }
         try {
             MultipartBody.Part body2 = RestAPICommon.createMultipartBody(fname);
-            Call<Artifact> call3 = main.service.upload(main.debugToken,Name.getText(),fname.fileName(),body2);
+            Call<Artifact> call3 = main.getService().upload(main.getDebugToken(),Name.getText(),fname.fileName(),body2);
             call3.enqueue(new Callback<Artifact>() {
                 @Override
                 public void onResponse(Call<Artifact> call, Response<Artifact> response) {

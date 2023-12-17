@@ -60,7 +60,7 @@ public class PopupList extends JTextField {
                 new APICall<EntityList<EntityNamed>>((Client)main){
                     @Override
                     public Call<EntityList<EntityNamed>> apiFun() {
-                        return main.service.getNamesByPattern(main.debugToken,entityName,ss);
+                        return main.getService().getNamesByPattern(main.getDebugToken(),entityName,ss);
                         }
                     @Override
                     public void onSucess(final EntityList<EntityNamed> oo){

@@ -29,11 +29,11 @@ public class EntitySelectorUni<T extends Entity> extends javax.swing.JFrame {
         initComponents();
         setTitle(ValuesBase.EntityFactory().getEntityNameBySimpleClass(name));
         ok = ok0;
-        token = main.debugToken;
+        token = main.getDebugToken();
         setBounds(x0,y0,470,150);
         setVisible(true);
         try {
-            Response<ArrayList<DBRequest>> res = main.service.getEntityList(main.debugToken,name,ValuesBase.GetAllModeActual,level).execute();
+            Response<ArrayList<DBRequest>> res = main.getService().getEntityList(main.getDebugToken(),name,ValuesBase.GetAllModeActual,level).execute();
             if (!res.isSuccessful()) {
                 System.out.println("Ошибка выбора  " + Utils.httpError(res));
                 return;

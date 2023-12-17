@@ -26,7 +26,7 @@ public abstract class EntitySelector<T extends Entity> extends javax.swing.JFram
         initComponents();
         setTitle(title);
         ok = ok0;
-        token = main.debugToken;
+        token = main.getDebugToken();
         setBounds(x0,y0,470,150);
         setVisible(true);
         try {
