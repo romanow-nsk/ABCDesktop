@@ -57,6 +57,9 @@ public class Login extends JFrame implements I_LogArea{
     public void setPassword(String name){
         Password.setText(name);
         }
+    public String getLoginName(){ return Login.getText(); }
+    public String getClientIP(){ return ClientIP.getSelectedItem(); }
+    public String getPort(){ return Port.getSelectedItem(); }
     public void addIP(String ip){ ClientIP.add(ip);}
     /**
      * This method is called from within the constructor to initialize the form.

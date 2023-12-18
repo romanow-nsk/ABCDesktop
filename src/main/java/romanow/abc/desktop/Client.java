@@ -134,6 +134,7 @@ public class Client extends MainBaseFrame {
         }
     public void startUser(){
         try {
+            getClientContext().getLoginUser().setLogin(loginForm.getLoginName());
             setTitle(ValuesBase.env().applicationName(AppNameTitle)+": "+loginUser().getHeader());
             setDebugToken(loginUser().getSessionToken());
             setBounds(ScreenDesktopX0, ScreenDesktopY0, ShortView, ViewHight);
