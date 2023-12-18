@@ -213,10 +213,10 @@ public class Login extends JFrame implements I_LogArea{
             main.setDebugToken(main.getLoginUser().getSessionToken());   // Токен новой сессии
             Response<ArrayList<String>>  serverEnv = main.getService().getSetverEnvironment(main.getDebugToken()).execute();
             if (!serverEnv.isSuccessful() || serverEnv.body()==null){
-                back.onLoginSuccess();
-                back.onPush();
                 dispose();
                 System.out.println("!!!!!! Сервер без проверки типа БД");
+                back.onLoginSuccess(new String(Password.getPassword()));
+                back.onPush();
                 return;
                 }
             main.setServerEnvironment(serverEnv.body());
@@ -226,9 +226,9 @@ public class Login extends JFrame implements I_LogArea{
                 back.sendPopupMessage(this,LButton,"Другой тип сервера: "+ serverSubjectArea);
                 return;
                 }
-            back.onLoginSuccess();
-            back.onPush();
             dispose();
+            back.onLoginSuccess(new String(Password.getPassword()));
+            back.onPush();
             }catch (IOException ee){
                 back.sendPopupMessage(this,LButton,"Ошибка сервера: "+ee.toString());
                 }

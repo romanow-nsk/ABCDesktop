@@ -90,7 +90,7 @@ public class Client extends MainBaseFrame {
                     Client.this.setVisible(true);
                     }
                 @Override
-                public void onLoginSuccess() {
+                public void onLoginSuccess(String passWord) {
                     Client.this.onLoginSuccess();
                     }
                 @Override
