@@ -369,8 +369,8 @@ public class ClientContext {
         });
     }
     //----------------------------------------------------------------------------------------------------------
-    public Pair<String,String> loadFileAsStringSync(Artifact art){
-        Call<ResponseBody> call2 = service.downLoad(debugToken,art.getOid());
+    public Pair<String,byte[]> loadFileAsBinSync(long oid){
+        Call<ResponseBody> call2 = service.downLoad(debugToken,oid);
         try {
             Response<ResponseBody> bbody = call2.execute();
             if (!bbody.isSuccessful()) {
@@ -380,17 +380,45 @@ public class ClientContext {
             ResponseBody body = bbody.body();
             long fileSize = body.contentLength();
             InputStream in = body.byteStream();
-            InputStreamReader reader = new InputStreamReader(in,"UTF8");
-            StringBuffer buffer = new StringBuffer();
-            int cc;
-            while ((cc=reader.read())!=-1){
-                buffer.append((char) cc);
-            }
-            reader.close();
-            return new Pair<>(null,buffer.toString());
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            int cc=0;
+            while ((cc=in.read())!=-1){
+                out.write(cc);
+                }
+            in.close();
+            out.flush();
+            return new Pair<>(null,out.toByteArray());
         } catch (IOException ee) {
             String mes = Utils.createFatalMessage(ee);
             return new Pair<>(mes,null);
         }
     }
+    //----------------------------------------------------------------------------------------------------------
+    public Pair<String,String> loadFileAsStringSync(long oid){
+        Call<ResponseBody> call2 = service.downLoad(debugToken,oid);
+        try {
+            Response<ResponseBody> bbody = call2.execute();
+            if (!bbody.isSuccessful()) {
+                String mes = httpError(bbody);
+                return new Pair<>(mes, null);
+                }
+            ResponseBody body = bbody.body();
+            long fileSize = body.contentLength();
+            InputStream in = body.byteStream();
+            InputStreamReader reader = new InputStreamReader(in,"UTF8");
+            StringBuffer buffer = new StringBuffer();
+            int cc;
+            while ((cc=reader.read())!=-1){
+                buffer.append((char) cc);
+                }
+            reader.close();
+            return new Pair<>(null,buffer.toString());
+            } catch (IOException ee) {
+                String mes = Utils.createFatalMessage(ee);
+                return new Pair<>(mes,null);
+                }
+            }
+    public Pair<String,String> loadFileAsStringSync(Artifact art){
+        return loadFileAsStringSync(art.getOid());
+        }
 }
