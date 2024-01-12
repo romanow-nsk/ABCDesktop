@@ -8,6 +8,7 @@ package romanow.abc.desktop;
 import romanow.abc.core.UniException;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  *
@@ -27,6 +28,9 @@ public class KeyBoardPanel extends ABCBaseView {
     private boolean shift=false;
     private JTextField field;
     public KeyBoardPanel(boolean pass0, JTextField field0, String startValue, I_Value<String> back0) {
+        this(-1,-1,pass0,field0,startValue,back0);
+        }
+    public KeyBoardPanel(int screenW, int screenH , boolean pass0, JTextField field0, String startValue, I_Value<String> back0) {
         super(670,250);
         initComponents();
         field = field0;
@@ -39,7 +43,10 @@ public class KeyBoardPanel extends ABCBaseView {
         showString();
         pass = pass0;
         back = back0;
-        positionOn(600,450);
+        if (screenW==-1)
+            positionOn(600,450);
+        else
+            positionOn((screenW-670)/2,(screenH-250)/2);
         Shift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/down.png"))); // NOI18N
         retryLongDelay();
         }
