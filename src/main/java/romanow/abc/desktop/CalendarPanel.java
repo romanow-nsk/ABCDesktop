@@ -10,6 +10,7 @@ import romanow.abc.core.constants.ValuesBase;
 import romanow.abc.core.utils.OwnDateTime;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -104,13 +105,8 @@ public class CalendarPanel extends javax.swing.JPanel {
                     days[nn-1] = ff;
                     Days.add(ff);
                     if (month==cdate.month() && nn==cdate.day() && date.year()==cdate.year()) {
-                        Rectangle rr = ff.getBounds();
-                        rr.x-=2;
-                        rr.y-=2;
-                        rr.height+=2;
-                        rr.width+=2;
-                        ff.setBounds(rr);
-                    	//ff.setBackground(Color.GREEN);
+                        ff.setBorder(BorderFactory.createLineBorder(new Color(0x008000),3,true));
+                    	//ff.setBackground(new Color(0x008000));
                         }
                     ff.addMouseListener(new MouseListener() {
                         @Override
