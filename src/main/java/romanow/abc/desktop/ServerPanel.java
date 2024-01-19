@@ -245,6 +245,7 @@ public class ServerPanel extends BasePanel{
         TotalCount = new javax.swing.JTextField();
         RecordRemove = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        ClearDB1 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -269,7 +270,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ImportGZ);
-        ImportGZ.setBounds(20, 490, 120, 22);
+        ImportGZ.setBounds(20, 520, 120, 22);
 
         ServerLog.setText("Лог сервера");
         ServerLog.addActionListener(new java.awt.event.ActionListener() {
@@ -342,14 +343,14 @@ public class ServerPanel extends BasePanel{
         add(ClearTable1);
         ClearTable1.setBounds(500, 400, 120, 22);
 
-        ClearDB.setText("Очистка БД");
+        ClearDB.setText("Удаление файлов");
         ClearDB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ClearDBActionPerformed(evt);
             }
         });
         add(ClearDB);
-        ClearDB.setBounds(20, 370, 120, 22);
+        ClearDB.setBounds(20, 430, 140, 22);
         add(EntityNames);
         EntityNames.setBounds(220, 400, 260, 30);
 
@@ -458,7 +459,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(Execute);
-        Execute.setBounds(20, 520, 120, 22);
+        Execute.setBounds(20, 550, 120, 22);
 
         CommandLine.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -466,7 +467,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(CommandLine);
-        CommandLine.setBounds(160, 520, 460, 25);
+        CommandLine.setBounds(160, 550, 460, 25);
         add(TestNumber);
         TestNumber.setBounds(330, 490, 290, 20);
 
@@ -641,7 +642,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ImportArtifact);
-        ImportArtifact.setBounds(20, 430, 120, 22);
+        ImportArtifact.setBounds(20, 460, 120, 22);
 
         XLSX.setText("xlsx");
         add(XLSX);
@@ -688,7 +689,7 @@ public class ServerPanel extends BasePanel{
             }
         });
         add(ImportXLS);
-        ImportXLS.setBounds(20, 460, 120, 22);
+        ImportXLS.setBounds(20, 490, 120, 22);
         add(DBPort);
         DBPort.setBounds(540, 200, 110, 20);
 
@@ -757,6 +758,15 @@ public class ServerPanel extends BasePanel{
         jLabel17.setText("soft         hard");
         add(jLabel17);
         jLabel17.setBounds(660, 430, 90, 16);
+
+        ClearDB1.setText("Очистка БД");
+        ClearDB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearDB1ActionPerformed(evt);
+            }
+        });
+        add(ClearDB1);
+        ClearDB1.setBounds(20, 370, 120, 22);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1064,28 +1074,21 @@ public class ServerPanel extends BasePanel{
     }//GEN-LAST:event_RecordsRefreshActionPerformed
 
     private void ClearDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDBActionPerformed
-        new OK(200, 200, "Очистить БД", new I_Button() {
+        new OK(200, 200, "Удалить файлы", new I_Button() {
             @Override
             public void onPush() {
                 new APICall<JString>(main){
                     @Override
                     public Call<JString> apiFun() {
-                        return main.getService().clearDB(main.getDebugToken(),Password.getText());
+                        return main.getService().clearFiles(main.getDebugToken(),Password.getText());
                         }
                     @Override
                     public void onSucess(JString oo) {
                         System.out.println(oo.getValue());
-                        main.delayInGUI(3,new Runnable(){
-                            @Override
-                            public void run() {
-                                client.logOff();
-                            }
-                        });
-                    }
-                };
-
-            }
-        });
+                        }
+                    };
+                }
+            });
     }//GEN-LAST:event_ClearDBActionPerformed
 
     private void TargetDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TargetDBActionPerformed
@@ -1703,6 +1706,10 @@ public class ServerPanel extends BasePanel{
         });
     }//GEN-LAST:event_RecordRemoveActionPerformed
 
+    private void ClearDB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearDB1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClearDB1ActionPerformed
+
     private void showState(){
         onBusy=true;
         TMid.setText(""+serverState.getTimeMiddle());
@@ -1767,6 +1774,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JTextField CashPercent;
     private javax.swing.JLabel CashPercent1;
     private javax.swing.JButton ClearDB;
+    private javax.swing.JButton ClearDB1;
     private javax.swing.JButton ClearTable1;
     private javax.swing.JTextField CommandLine;
     private javax.swing.JButton DBExport;
