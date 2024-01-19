@@ -122,7 +122,7 @@ public class ServerPanel extends BasePanel{
             ArtifactTypes.add(ss.title());
         ServerIPPort.setText(""+client.getServerIP()+" : "+client.getServerPort());
         //----------------------------------------------------------------------------------------------
-        bugPanel = new EntityPanel(20,570,bugList,"BugMessage",main,true,false){
+        bugPanel = new EntityPanel(20,580,bugList,"BugMessage",main,true,false){
             @Override
             public Response apiFunGetAll() throws IOException {
                 return  main.getService().getBugList(main.getDebugToken(), ValuesBase.GetAllModeActual).execute();
