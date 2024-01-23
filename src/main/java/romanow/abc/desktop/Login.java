@@ -61,6 +61,10 @@ public class Login extends JFrame implements I_LogArea{
     public String getClientIP(){ return ClientIP.getSelectedItem(); }
     public String getPort(){ return Port.getSelectedItem(); }
     public void addIP(String ip){ ClientIP.add(ip);}
+    @Override
+    public TextArea getLogArea() {
+        return LOG;
+        }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -96,7 +100,7 @@ public class Login extends JFrame implements I_LogArea{
             }
         });
         getContentPane().add(ClientON);
-        ClientON.setBounds(230, 90, 110, 23);
+        ClientON.setBounds(230, 90, 110, 20);
 
         ClientIP.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -129,24 +133,24 @@ public class Login extends JFrame implements I_LogArea{
 
         jLabel1.setText("Порт");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 90, 60, 14);
+        jLabel1.setBounds(20, 90, 60, 16);
 
         jLabel2.setText("Пароль");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 150, 85, 14);
+        jLabel2.setBounds(20, 150, 85, 16);
 
         jLabel3.setText("Сервер данных");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 65, 100, 14);
+        jLabel3.setBounds(20, 65, 100, 16);
 
         jLabel4.setText("Логин (телефон)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 120, 110, 14);
+        jLabel4.setBounds(20, 120, 110, 16);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Клиент сервера данных СНЭ");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(130, 20, 230, 20);
+        jLabel5.setBounds(80, 20, 270, 20);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable/battery.png"))); // NOI18N
         jButton1.setBorderPainted(false);
@@ -273,10 +277,5 @@ public class Login extends JFrame implements I_LogArea{
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-
-    @Override
-    public TextArea getLogArea() {
-        return LOG;
-    }
     // End of variables declaration//GEN-END:variables
 }

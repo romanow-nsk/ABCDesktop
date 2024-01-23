@@ -120,7 +120,7 @@ public class ServerPanel extends BasePanel{
         ArtifactTypes.removeAll();
         for(ConstValue ss : ValuesBase.title("ArtifactType"))
             ArtifactTypes.add(ss.title());
-        ServerIPPort.setText(""+client.getServerIP()+" : "+client.getServerPort());
+        ServerVersion.setText(""+client.getServerIP()+" : "+client.getServerPort());
         //----------------------------------------------------------------------------------------------
         bugPanel = new EntityPanel(20,580,bugList,"BugMessage",main,true,false){
             @Override
@@ -219,7 +219,7 @@ public class ServerPanel extends BasePanel{
         Record = new java.awt.Choice();
         RecordDelete = new javax.swing.JButton();
         RecordEdit = new javax.swing.JButton();
-        ServerIPPort = new javax.swing.JLabel();
+        ServerVersion = new javax.swing.JLabel();
         LogFileReopen = new javax.swing.JButton();
         LogFolder = new javax.swing.JButton();
         ArtifactFolder = new javax.swing.JButton();
@@ -246,6 +246,7 @@ public class ServerPanel extends BasePanel{
         RecordRemove = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         ClearDB1 = new javax.swing.JButton();
+        ServerIPPort = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -588,10 +589,10 @@ public class ServerPanel extends BasePanel{
         add(RecordEdit);
         RecordEdit.setBounds(620, 450, 40, 40);
 
-        ServerIPPort.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        ServerIPPort.setText("...");
-        add(ServerIPPort);
-        ServerIPPort.setBounds(30, 10, 320, 20);
+        ServerVersion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ServerVersion.setText("...");
+        add(ServerVersion);
+        ServerVersion.setBounds(320, 10, 440, 20);
 
         LogFileReopen.setText("Обновить log");
         LogFileReopen.addActionListener(new java.awt.event.ActionListener() {
@@ -767,6 +768,11 @@ public class ServerPanel extends BasePanel{
         });
         add(ClearDB1);
         ClearDB1.setBounds(20, 370, 120, 22);
+
+        ServerIPPort.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        ServerIPPort.setText("...");
+        add(ServerIPPort);
+        ServerIPPort.setBounds(30, 10, 270, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServerLogActionPerformed
@@ -1716,7 +1722,9 @@ public class ServerPanel extends BasePanel{
         TMin.setText(""+serverState.getTimeMin());
         TMax.setText(""+serverState.getTimeMax());
         TCount.setText(""+serverState.getTimeCount());
-        PID.setText(""+serverState.getPID());
+        PID.setText(""+serverState.getPid());
+        ServerVersion.setText(serverState.getVersion());
+        ServerIPPort.setText(""+client.getServerIP()+" : "+client.getServerPort());
         ReleaseNum.setText(""+serverState.getReleaseNumber());
         SeccionCount.setText(""+serverState.getSessionCount());
         ServerLocked.setSelected(serverState.isLocked());
@@ -1818,6 +1826,7 @@ public class ServerPanel extends BasePanel{
     private javax.swing.JLabel ServerIPPort;
     private javax.swing.JCheckBox ServerLocked;
     private javax.swing.JButton ServerLog;
+    private javax.swing.JLabel ServerVersion;
     private javax.swing.JButton Shutdown;
     private javax.swing.JTextField TCount;
     private javax.swing.JTextField TMax;
