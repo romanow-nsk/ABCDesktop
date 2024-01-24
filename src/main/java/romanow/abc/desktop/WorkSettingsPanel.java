@@ -68,6 +68,9 @@ public class WorkSettingsPanel extends BasePanel{
         jLabel33 = new javax.swing.JLabel();
         TraceLevel = new java.awt.Choice();
         jLabel34 = new javax.swing.JLabel();
+        LogDepthInDay = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -128,7 +131,7 @@ public class WorkSettingsPanel extends BasePanel{
 
         jLabel31.setText("трассировки");
         add(jLabel31);
-        jLabel31.setBounds(30, 350, 100, 16);
+        jLabel31.setBounds(30, 340, 100, 16);
 
         MailHost.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -210,9 +213,25 @@ public class WorkSettingsPanel extends BasePanel{
         add(TraceLevel);
         TraceLevel.setBounds(140, 330, 90, 20);
 
-        jLabel34.setText("Уровень ");
+        jLabel34.setText("логов (дней)");
         add(jLabel34);
-        jLabel34.setBounds(30, 330, 90, 16);
+        jLabel34.setBounds(30, 375, 90, 16);
+
+        LogDepthInDay.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LogDepthInDayKeyPressed(evt);
+            }
+        });
+        add(LogDepthInDay);
+        LogDepthInDay.setBounds(140, 360, 50, 25);
+
+        jLabel35.setText("Уровень ");
+        add(jLabel35);
+        jLabel35.setBounds(30, 325, 90, 16);
+
+        jLabel36.setText("Хранение");
+        add(jLabel36);
+        jLabel36.setBounds(30, 360, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerFileDirectoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ServerFileDirectoryKeyPressed
@@ -266,6 +285,10 @@ public class WorkSettingsPanel extends BasePanel{
         refresh();
     }//GEN-LAST:event_TraceLevelItemStateChanged
 
+    private void LogDepthInDayKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LogDepthInDayKeyPressed
+        procPressedInt(evt, LogDepthInDay,"logDepthInDay");
+    }//GEN-LAST:event_LogDepthInDayKeyPressed
+
     private void procPressedInt(KeyEvent evt, JTextField text, String name){
         if(evt.getKeyCode()!=10) return;
         int vv=0;
@@ -307,6 +330,7 @@ public class WorkSettingsPanel extends BasePanel{
             MailSendTo.setText(ws.getMailToSend());
             MailPort.setText(""+ws.getMailPort());
             MailNotification.setSelected(ws.isMailNotifycation());
+            LogDepthInDay.setText(""+ws.getLogDepthInDay());
             TraceLevel.removeAll();
             for(ConstValue  trace : traceLevel)
                 TraceLevel.add(trace.title());
@@ -400,6 +424,7 @@ public class WorkSettingsPanel extends BasePanel{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ConvertArtifact;
+    private javax.swing.JTextField LogDepthInDay;
     private javax.swing.JTextField MailBox;
     private javax.swing.JTextField MailHost;
     private javax.swing.JCheckBox MailNotification;
@@ -420,6 +445,8 @@ public class WorkSettingsPanel extends BasePanel{
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
