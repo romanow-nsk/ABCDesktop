@@ -67,7 +67,8 @@ public class ClientContext {
         return workSettings; }
     //-------------------------------------------------------------------------------------------------------------------
     public URL createURLForArtifact(Artifact art) {
-        String path = art.createArtifactServerPath();
+        int timeZoneHour = workSettings().getTimeZoneHours();
+        String path = art.createArtifactServerPath(-timeZoneHour);
         String ss = "http://" + serverIP + ":" + serverPort + "/file/" + path;
         URL url = null;
         try {

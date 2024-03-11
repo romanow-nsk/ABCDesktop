@@ -188,7 +188,9 @@ public class Cabinet extends MainBaseFrame{
         case 6: apiLoginBody(); break;
         case 7: apiDeleteById(); break;
         case 8: apiUndeleteById(); break;
-        case 9: System.out.println("Имя файла-артефакта:"+artifactList.get(panelList[1].listBox.getSelectedIndex()).createArtifactServerPath());
+        case 9:
+            int timeZoneHour = getClientContext().workSettings().getTimeZoneHours();
+            System.out.println("Имя файла-артефакта:"+artifactList.get(panelList[1].listBox.getSelectedIndex()).createArtifactServerPath(-timeZoneHour));
                 break;
         case 10: apiReadConsoleLog(); break;
         case 11: apiPing(); break;
@@ -522,7 +524,8 @@ public class Cabinet extends MainBaseFrame{
                 setDebugToken(res5.body().getSessionToken());
             System.out.println("Авторизация  "+res5.body());
             System.out.println("Новый токен:" +getDebugToken());
-            System.out.println("Фотография:" +res5.body().getPhoto().getRef().createArtifactServerPath());
+            int timeZoneHour = getClientContext().workSettings().getTimeZoneHours();
+            System.out.println("Фотография:" +res5.body().getPhoto().getRef().createArtifactServerPath(-timeZoneHour));
             } catch (Exception ee){ System.out.println(ee.getMessage()); }
         }
 

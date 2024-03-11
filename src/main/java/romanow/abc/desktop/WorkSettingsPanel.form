@@ -278,7 +278,7 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel36">
+    <Component class="javax.swing.JLabel" name="jLabel37">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x425;&#x440;&#x430;&#x43d;&#x435;&#x43d;&#x438;&#x435;"/>
       </Properties>

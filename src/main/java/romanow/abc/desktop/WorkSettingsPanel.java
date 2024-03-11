@@ -70,7 +70,7 @@ public class WorkSettingsPanel extends BasePanel{
         jLabel34 = new javax.swing.JLabel();
         LogDepthInDay = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -229,9 +229,9 @@ public class WorkSettingsPanel extends BasePanel{
         add(jLabel35);
         jLabel35.setBounds(30, 325, 90, 16);
 
-        jLabel36.setText("Хранение");
-        add(jLabel36);
-        jLabel36.setBounds(30, 360, 90, 16);
+        jLabel37.setText("Хранение");
+        add(jLabel37);
+        jLabel37.setBounds(30, 360, 90, 16);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ServerFileDirectoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ServerFileDirectoryKeyPressed
@@ -446,7 +446,7 @@ public class WorkSettingsPanel extends BasePanel{
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator3;
     // End of variables declaration//GEN-END:variables
