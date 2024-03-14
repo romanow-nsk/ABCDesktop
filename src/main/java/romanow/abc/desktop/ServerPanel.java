@@ -856,7 +856,7 @@ public class ServerPanel extends BasePanel{
             @Override
             public void onSucess(final Artifact oo) {
                 int timeZoneHour = main.workSettings().getTimeZoneHours();
-                String path = oo.createArtifactServerPath(-timeZoneHour);
+                String path = oo.createArtifactServerPath(timeZoneHour);
                 new ClientFileWriter(fname.fullName(), path, client.getServerIP(), Integer.parseInt(client.getServerPort()), Password.getText(), new AsyncTaskBack() {
                     @Override
                     public void runInGUI(Runnable run) {
@@ -1256,7 +1256,7 @@ public class ServerPanel extends BasePanel{
                 }
             Artifact art = loadList.get(loadIdx);
             int timeZoneHour = main.workSettings().getTimeZoneHours();
-            String fname = art.createArtifactServerPath(-timeZoneHour);
+            String fname = art.createArtifactServerPath(timeZoneHour);
             if (art.isFileLost()){
                 System.out.println("Файл на сервере отсутствует "+ fname);
                 cntLost++;
@@ -1344,7 +1344,7 @@ public class ServerPanel extends BasePanel{
                 }
             Artifact art = loadList.get(loadIdx);
             int timeZoneHour = main.workSettings().getTimeZoneHours();
-            String fname = art.createArtifactServerPath(-timeZoneHour);
+            String fname = art.createArtifactServerPath(timeZoneHour);
             if (!art.isFileLost()){
                 cntPresent++;
                 loadIdx++;
