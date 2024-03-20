@@ -16,7 +16,7 @@ public class DigitPanel extends ABCBaseView{
     /**
      * Creates new form DigitPanel
      */
-    private final static int maxDigits=10;
+    private final static int maxDigits=20;
     private char cc[]=new char[maxDigits];
     private int nn=0;
     private int pointIdx=-1;
@@ -39,6 +39,7 @@ public class DigitPanel extends ABCBaseView{
         calculator = calculator0;
         back = back0;
         setTitle(calculator.getTitle());
+        setValue(calculator.getStartValue());
         Min.setText(calculator.isMinFormulaValid() ? ""+calculator.getMinValue() : "");
         Max.setText(calculator.isMaxFormulaValid() ? ""+calculator.getMaxValue() : "");
         positionOn(200,200);
@@ -56,7 +57,6 @@ public class DigitPanel extends ABCBaseView{
         cc[nn++]=digit;
         showString();
         }
-
     public void setValue(int value){
         char ss[] = (""+value).toCharArray();
         nn=ss.length;
@@ -64,6 +64,13 @@ public class DigitPanel extends ABCBaseView{
             cc[i] = ss[i];
         showString();
         }
+    public void setValue(String value){
+        char ss[] = value.toCharArray();
+        nn=ss.length;
+        for(int i=0;i<nn;i++)
+            cc[i] = ss[i];
+        showString();
+    }
     public void setNoFloat(){
         Point.setVisible(false);
         }
@@ -334,12 +341,6 @@ public class DigitPanel extends ABCBaseView{
                 if (back!=null)
                     back.onEvent(Double.parseDouble(ss));
                 } catch (Exception ee){}
-            try {
-                if (calculator!=null)
-                    calculator.parseAndWrite(ss,true);
-                } catch (UniException ee){
-                    System.out.println("Калькулятор уставок: "+ee.toString());
-                    }
             }
         closeView();
     }//GEN-LAST:event_OKActionPerformed
