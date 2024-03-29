@@ -31,6 +31,7 @@ public abstract class BasePanel extends JPanel implements I_PanelEvent{
     public final static int EventRuntimeSelected=10;     // Выбран элемент в runtime
     public final static int EventRuntimeUnSelected=11;   // Отмена выбора
     public final static int EventRuntimeOnlyView=12;     // Редактирование без отображения данных
+    public final static int EventLogFilter=13;           // Фильтр лога
     protected MainBaseFrame main;
     private int popupCount=0;
     private String lastPopup="";
