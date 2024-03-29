@@ -723,14 +723,14 @@ public class ServerPanel extends BasePanel{
         add(RecordAdd);
         RecordAdd.setBounds(550, 430, 30, 30);
 
-        LogPolling.setText("Опрос");
+        LogPolling.setText("Лог сервера");
         LogPolling.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 LogPollingItemStateChanged(evt);
             }
         });
         add(LogPolling);
-        LogPolling.setBounds(150, 80, 90, 20);
+        LogPolling.setBounds(150, 80, 110, 20);
 
         CashPercent1.setText("% кэширования");
         add(CashPercent1);
