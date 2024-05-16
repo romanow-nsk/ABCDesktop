@@ -32,6 +32,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -332,7 +333,7 @@ public class ClientContext {
                     long fileSize = body.contentLength();
                     InputStream in = body.byteStream();
                     try {
-                        InputStreamReader reader = new InputStreamReader(in,"UTF8");
+                        InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8);
                         StringBuffer buffer = new StringBuffer();
                         int cc;
                         while ((cc=reader.read())!=-1){
@@ -406,7 +407,7 @@ public class ClientContext {
             ResponseBody body = bbody.body();
             long fileSize = body.contentLength();
             InputStream in = body.byteStream();
-            InputStreamReader reader = new InputStreamReader(in,"UTF8");
+            InputStreamReader reader = new InputStreamReader(in,StandardCharsets.UTF_8);
             StringBuffer buffer = new StringBuffer();
             int cc;
             while ((cc=reader.read())!=-1){

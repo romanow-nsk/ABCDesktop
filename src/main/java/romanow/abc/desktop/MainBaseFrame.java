@@ -597,7 +597,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
                     long fileSize = body.contentLength();
                     InputStream in = body.byteStream();
                     try {
-                        InputStreamReader reader = new InputStreamReader(in,"UTF8");
+                        InputStreamReader reader = new InputStreamReader(in,StandardCharsets.UTF_8);
                         StringBuffer buffer = new StringBuffer();
                         int cc;
                         while ((cc=reader.read())!=-1){
@@ -646,7 +646,7 @@ public class MainBaseFrame extends JFrame implements I_Important {
             ResponseBody body = bbody.body();
             long fileSize = body.contentLength();
             InputStream in = body.byteStream();
-            InputStreamReader reader = new InputStreamReader(in,"UTF8");
+            InputStreamReader reader = new InputStreamReader(in,StandardCharsets.UTF_8);
             StringBuffer buffer = new StringBuffer();
             int cc;
             while ((cc=reader.read())!=-1){
